@@ -1427,9 +1427,15 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-      
+        case 2:
 /* Line 1787 of yacc.c  */
-#line 1433 "xml.tab.c"
+#line 32 "xml.y"
+    {printf("on lit un fichier");}
+    break;
+
+
+/* Line 1787 of yacc.c  */
+#line 1439 "xml.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

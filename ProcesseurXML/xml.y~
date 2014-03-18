@@ -29,7 +29,7 @@ void xmlerror(const char * msg)
 %%
 
 document
- : prolog element miscs
+ : prolog element miscs {cout<< "on lit un fichier";}
  ;
 
 element
@@ -64,14 +64,13 @@ doctypedecl
 
 prolog
  : xmldecl miscs doctypedecl miscs
-// | miscs doctypedecl miscs
+// | miscs doctypedecl miscs  /** Ces lignes sont commentées parce qu'elles créent un conflit décalage/réduction avec la règle 0 : ".document" à la lecture du symbole INSPECIAL (voir xml.output)
  | xmldecl miscs
 // | miscs
  ; 
 
 xmldecl
  : INFSPECIAL NOM versioninfo attributes SUPSPECIAL
-// | /*vide*/
  ;
 
 miscs

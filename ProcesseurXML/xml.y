@@ -29,7 +29,7 @@ void xmlerror(const char * msg)
 %%
 
 document
- : prolog element miscs
+ : prolog element miscs {printf("on lit un fichier");}
  ;
 
 element
