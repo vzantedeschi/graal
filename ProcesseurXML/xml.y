@@ -11,7 +11,7 @@ using namespace std;
 
 extern char xmltext[];
 
-int xmllex(void);  
+int xmllex(void);
 
 void xmlerror(const char * msg)
 {
@@ -30,8 +30,8 @@ void xmlerror(const char * msg)
 %%
 
 document
- : prolog element miscs	{
-			$$ = new Document($1, $2, $3);}
+ : prolog element miscs {
+$$ = new Document($1, $2, $3);}
  ;
 
 element
@@ -61,23 +61,23 @@ content
 
 
 attributes
- : attributes attribute	{
-				$$ = $1;
-				$$->push_back($2);}
- | /*vide*/				{
-				$$ = new list<Attribut*>();}
+ : attributes attribute {
+			$$ = $1;
+			$$->push_back($2);}
+ | /*vide*/ {
+			$$ = new list<Attribut*>();}
  ;
 
 attribute
- : NOM EGAL VALEUR	{
-				$$ = new Attribut($1, $3);}
+ : NOM EGAL VALEUR {
+			$$ = new Attribut($1, $3);}
  ;
 
-doctypedecl 
- : DOCTYPE NOM NOM SUP	{
-				$$ = new DocTypeDecl($2, $3);}
- | DOCTYPE NOM SUP		{
-				$$ = new DocTypeDecl($2, " ");}
+doctypedecl
+ : DOCTYPE NOM NOM SUP {
+			$$ = new DocTypeDecl($2, $3);}
+ | DOCTYPE NOM SUP {
+			$$ = new DocTypeDecl($2, " ");}
 
  ;
 
@@ -88,7 +88,7 @@ prolog
  | xmldecl miscs	{
 				$$ = new Prolog($1, $2, NULL, NULL);}	
 // | miscs
- ; 
+ ;
 
 xmldecl
  : INFSPECIAL NOM attributes SUPSPECIAL	{
@@ -97,33 +97,26 @@ xmldecl
  ;
 
 miscs
- : miscs misc	{
-			$$ = $1;
-			$$->push_back($2);}
- | /*vide*/		{
-			$$ = new list<Misc*>();}
+ : miscs misc {
+$$ = $1;
+$$->push_back($2);}
+ | /*vide*/ {
+$$ = new list<Misc*>();}
  ;
 
 misc
- : COMMENT	{
-				$$ = new Comment($1);}
- | pi		{
-				$$ = $1;}
+ : COMMENT {
+$$ = new Comment($1);}
+ | pi {
+$$ = $1;}
  ;
 
 pi
  : INFSPECIAL NOM attributes SUPSPECIAL {
-				$$ = new PI($2, $3);}
+$$ = new PI($2, $3);}
  ;
 
 cdsect
- : CDATABEGIN CDATAEND	{
-				$$ = new CDSect($2);}
+ : CDATABEGIN CDATAEND {
+$$ = new CDSect($2);}
  ;
-
-
-
-
-
-
-
