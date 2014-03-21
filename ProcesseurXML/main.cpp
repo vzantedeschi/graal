@@ -3,18 +3,17 @@
 #include <cstring>
 
 using namespace std;
+extern FILE* xmlin;
 
 int xmlparse(void);
 
 int main(int argc, char *argv[])
 {
-    printf("hello!\n");
-    printf(argv[1]);
-    if (argv[1] == "-p")
+    if (strcmp(argv[1],"-p") == 0)
     {
         FILE * fid;
         const char* nomfichier = argv[2];
-        printf(nomfichier);
+        printf("%s \n",nomfichier);
 
         fid = fopen(nomfichier,"r");
 
@@ -22,11 +21,18 @@ int main(int argc, char *argv[])
         {
             printf("ERREUR : NOM FICHIER ERRONE\n");
             /*gestion d'erreur*/
+
+            return 1;
+        }
+        else
+        {
+            cout<<"Fichier Ouvert"<<endl;
         }
 
-        FILE * xmlin = fid;
+        xmlin = fid;
 
         int retour = xmlparse();
+
         if (!retour)
         {
            cout<<"Entrée standard reconnue"<<endl;
@@ -37,6 +43,21 @@ int main(int argc, char *argv[])
         }
 
         fclose(fid);
+    }
+    else
+    {
+	    cout<<"Option non reconnue"<<endl;
+
+        int retour = xmlparse();
+
+        if (!retour)
+        {
+           cout<<"Entrée standard reconnue"<<endl;
+        }
+        else
+        {
+           cout<<"Entrée standard non reconnue"<<endl;
+        }
     }
 
    return 1;

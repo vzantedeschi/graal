@@ -16,30 +16,29 @@ Grammaire
     5        | content cdsect
     6        | content pi
     7        | content COMMENT
-    8        | /* vide */
+    8        | content DONNEES
+    9        | /* vide */
 
-    9 attributes: attributes attribute
-   10           | /* vide */
+   10 attributes: attributes attribute
+   11           | /* vide */
 
-   11 attribute: NOM EGAL VALEUR
+   12 attribute: NOM EGAL VALEUR
 
-   12 doctypedecl: DOCTYPE NOM NOM SUP
-   13            | DOCTYPE NOM SUP
+   13 doctypedecl: DOCTYPE NOM NOM SUP
+   14            | DOCTYPE NOM SUP
 
-   14 prolog: xmldecl miscs doctypedecl miscs
-   15       | xmldecl miscs
+   15 prolog: xmldecl miscs doctypedecl miscs
+   16       | xmldecl miscs
 
-   16 xmldecl: INFSPECIAL NOM versioninfo attributes SUPSPECIAL
+   17 xmldecl: INFSPECIAL NOM attributes SUPSPECIAL
 
-   17 miscs: miscs misc
-   18      | /* vide */
+   18 miscs: miscs misc
+   19      | /* vide */
 
-   19 misc: COMMENT
-   20     | pi
+   20 misc: COMMENT
+   21     | pi
 
-   21 pi: INFSPECIAL NOM attributes SUPSPECIAL
-
-   22 versioninfo: DONNEES EGAL DONNEES
+   22 pi: INFSPECIAL NOM attributes SUPSPECIAL
 
    23 cdsect: CDATABEGIN DONNEES CDATAEND
 
@@ -48,19 +47,19 @@ Terminaux, suivis des règles où ils apparaissent
 
 $end (0) 0
 error (256)
-EGAL (258) 11 22
+EGAL (258) 12
 SLASH (259) 2 3
-SUP (260) 2 3 12 13
-SUPSPECIAL (261) 16 21
-DOCTYPE (262) 12 13
+SUP (260) 2 3 13 14
+SUPSPECIAL (261) 17 22
+DOCTYPE (262) 13 14
 COLON (263)
-INFSPECIAL (264) 16 21
+INFSPECIAL (264) 17 22
 INF (265) 2 3
 CDATABEGIN (266) 23
-VALEUR (267) 11
-DONNEES (268) 22 23
-COMMENT (269) 7 19
-NOM (270) 2 3 11 12 13 16 21
+VALEUR (267) 12
+DONNEES (268) 8 23
+COMMENT (269) 7 20
+NOM (270) 2 3 12 13 14 17 22
 CDATAEND (271) 23
 
 
@@ -73,26 +72,24 @@ document (18)
 element (19)
     à gauche: 2 3, à droite: 1 4
 content (20)
-    à gauche: 4 5 6 7 8, à droite: 2 4 5 6 7
+    à gauche: 4 5 6 7 8 9, à droite: 2 4 5 6 7 8
 attributes (21)
-    à gauche: 9 10, à droite: 2 3 9 16 21
+    à gauche: 10 11, à droite: 2 3 10 17 22
 attribute (22)
-    à gauche: 11, à droite: 9
+    à gauche: 12, à droite: 10
 doctypedecl (23)
-    à gauche: 12 13, à droite: 14
+    à gauche: 13 14, à droite: 15
 prolog (24)
-    à gauche: 14 15, à droite: 1
+    à gauche: 15 16, à droite: 1
 xmldecl (25)
-    à gauche: 16, à droite: 14 15
+    à gauche: 17, à droite: 15 16
 miscs (26)
-    à gauche: 17 18, à droite: 1 14 15 17
+    à gauche: 18 19, à droite: 1 15 16 18
 misc (27)
-    à gauche: 19 20, à droite: 17
+    à gauche: 20 21, à droite: 18
 pi (28)
-    à gauche: 21, à droite: 6 20
-versioninfo (29)
-    à gauche: 22, à droite: 16
-cdsect (30)
+    à gauche: 22, à droite: 6 21
+cdsect (29)
     à gauche: 23, à droite: 5
 
 
@@ -109,7 +106,7 @@ cdsect (30)
 
 état 1
 
-   16 xmldecl: INFSPECIAL . NOM versioninfo attributes SUPSPECIAL
+   17 xmldecl: INFSPECIAL . NOM attributes SUPSPECIAL
 
     NOM  décalage et aller à l'état 5
 
@@ -132,21 +129,21 @@ cdsect (30)
 
 état 4
 
-   14 prolog: xmldecl . miscs doctypedecl miscs
-   15       | xmldecl . miscs
+   15 prolog: xmldecl . miscs doctypedecl miscs
+   16       | xmldecl . miscs
 
-    $défaut  réduction par utilisation de la règle 18 (miscs)
+    $défaut  réduction par utilisation de la règle 19 (miscs)
 
     miscs  aller à l'état 9
 
 
 état 5
 
-   16 xmldecl: INFSPECIAL NOM . versioninfo attributes SUPSPECIAL
+   17 xmldecl: INFSPECIAL NOM . attributes SUPSPECIAL
 
-    DONNEES  décalage et aller à l'état 10
+    $défaut  réduction par utilisation de la règle 11 (attributes)
 
-    versioninfo  aller à l'état 11
+    attributes  aller à l'état 10
 
 
 état 6
@@ -161,379 +158,358 @@ cdsect (30)
     2 element: INF . NOM attributes SUP content INF SLASH NOM SUP
     3        | INF . NOM attributes SLASH SUP
 
-    NOM  décalage et aller à l'état 12
+    NOM  décalage et aller à l'état 11
 
 
 état 8
 
     1 document: prolog element . miscs
 
-    $défaut  réduction par utilisation de la règle 18 (miscs)
+    $défaut  réduction par utilisation de la règle 19 (miscs)
 
-    miscs  aller à l'état 13
+    miscs  aller à l'état 12
 
 
 état 9
 
-   14 prolog: xmldecl miscs . doctypedecl miscs
-   15       | xmldecl miscs .
-   17 miscs: miscs . misc
+   15 prolog: xmldecl miscs . doctypedecl miscs
+   16       | xmldecl miscs .
+   18 miscs: miscs . misc
 
-    DOCTYPE     décalage et aller à l'état 14
-    INFSPECIAL  décalage et aller à l'état 15
-    COMMENT     décalage et aller à l'état 16
+    DOCTYPE     décalage et aller à l'état 13
+    INFSPECIAL  décalage et aller à l'état 14
+    COMMENT     décalage et aller à l'état 15
 
-    $défaut  réduction par utilisation de la règle 15 (prolog)
+    $défaut  réduction par utilisation de la règle 16 (prolog)
 
-    doctypedecl  aller à l'état 17
-    misc         aller à l'état 18
-    pi           aller à l'état 19
+    doctypedecl  aller à l'état 16
+    misc         aller à l'état 17
+    pi           aller à l'état 18
 
 
 état 10
 
-   22 versioninfo: DONNEES . EGAL DONNEES
+   10 attributes: attributes . attribute
+   17 xmldecl: INFSPECIAL NOM attributes . SUPSPECIAL
 
-    EGAL  décalage et aller à l'état 20
+    SUPSPECIAL  décalage et aller à l'état 19
+    NOM         décalage et aller à l'état 20
+
+    attribute  aller à l'état 21
 
 
 état 11
 
-   16 xmldecl: INFSPECIAL NOM versioninfo . attributes SUPSPECIAL
-
-    $défaut  réduction par utilisation de la règle 10 (attributes)
-
-    attributes  aller à l'état 21
-
-
-état 12
-
     2 element: INF NOM . attributes SUP content INF SLASH NOM SUP
     3        | INF NOM . attributes SLASH SUP
 
-    $défaut  réduction par utilisation de la règle 10 (attributes)
+    $défaut  réduction par utilisation de la règle 11 (attributes)
 
     attributes  aller à l'état 22
 
 
-état 13
+état 12
 
     1 document: prolog element miscs .
-   17 miscs: miscs . misc
+   18 miscs: miscs . misc
 
-    INFSPECIAL  décalage et aller à l'état 15
-    COMMENT     décalage et aller à l'état 16
+    INFSPECIAL  décalage et aller à l'état 14
+    COMMENT     décalage et aller à l'état 15
 
     $défaut  réduction par utilisation de la règle 1 (document)
 
-    misc  aller à l'état 18
-    pi    aller à l'état 19
+    misc  aller à l'état 17
+    pi    aller à l'état 18
 
 
-état 14
+état 13
 
-   12 doctypedecl: DOCTYPE . NOM NOM SUP
-   13            | DOCTYPE . NOM SUP
+   13 doctypedecl: DOCTYPE . NOM NOM SUP
+   14            | DOCTYPE . NOM SUP
 
     NOM  décalage et aller à l'état 23
 
 
-état 15
+état 14
 
-   21 pi: INFSPECIAL . NOM attributes SUPSPECIAL
+   22 pi: INFSPECIAL . NOM attributes SUPSPECIAL
 
     NOM  décalage et aller à l'état 24
 
 
-état 16
+état 15
 
-   19 misc: COMMENT .
-
-    $défaut  réduction par utilisation de la règle 19 (misc)
-
-
-état 17
-
-   14 prolog: xmldecl miscs doctypedecl . miscs
-
-    $défaut  réduction par utilisation de la règle 18 (miscs)
-
-    miscs  aller à l'état 25
-
-
-état 18
-
-   17 miscs: miscs misc .
-
-    $défaut  réduction par utilisation de la règle 17 (miscs)
-
-
-état 19
-
-   20 misc: pi .
+   20 misc: COMMENT .
 
     $défaut  réduction par utilisation de la règle 20 (misc)
 
 
+état 16
+
+   15 prolog: xmldecl miscs doctypedecl . miscs
+
+    $défaut  réduction par utilisation de la règle 19 (miscs)
+
+    miscs  aller à l'état 25
+
+
+état 17
+
+   18 miscs: miscs misc .
+
+    $défaut  réduction par utilisation de la règle 18 (miscs)
+
+
+état 18
+
+   21 misc: pi .
+
+    $défaut  réduction par utilisation de la règle 21 (misc)
+
+
+état 19
+
+   17 xmldecl: INFSPECIAL NOM attributes SUPSPECIAL .
+
+    $défaut  réduction par utilisation de la règle 17 (xmldecl)
+
+
 état 20
 
-   22 versioninfo: DONNEES EGAL . DONNEES
+   12 attribute: NOM . EGAL VALEUR
 
-    DONNEES  décalage et aller à l'état 26
+    EGAL  décalage et aller à l'état 26
 
 
 état 21
 
-    9 attributes: attributes . attribute
-   16 xmldecl: INFSPECIAL NOM versioninfo attributes . SUPSPECIAL
+   10 attributes: attributes attribute .
 
-    SUPSPECIAL  décalage et aller à l'état 27
-    NOM         décalage et aller à l'état 28
-
-    attribute  aller à l'état 29
+    $défaut  réduction par utilisation de la règle 10 (attributes)
 
 
 état 22
 
     2 element: INF NOM attributes . SUP content INF SLASH NOM SUP
     3        | INF NOM attributes . SLASH SUP
-    9 attributes: attributes . attribute
+   10 attributes: attributes . attribute
 
-    SLASH  décalage et aller à l'état 30
-    SUP    décalage et aller à l'état 31
-    NOM    décalage et aller à l'état 28
+    SLASH  décalage et aller à l'état 27
+    SUP    décalage et aller à l'état 28
+    NOM    décalage et aller à l'état 20
 
-    attribute  aller à l'état 29
+    attribute  aller à l'état 21
 
 
 état 23
 
-   12 doctypedecl: DOCTYPE NOM . NOM SUP
-   13            | DOCTYPE NOM . SUP
+   13 doctypedecl: DOCTYPE NOM . NOM SUP
+   14            | DOCTYPE NOM . SUP
 
-    SUP  décalage et aller à l'état 32
-    NOM  décalage et aller à l'état 33
+    SUP  décalage et aller à l'état 29
+    NOM  décalage et aller à l'état 30
 
 
 état 24
 
-   21 pi: INFSPECIAL NOM . attributes SUPSPECIAL
+   22 pi: INFSPECIAL NOM . attributes SUPSPECIAL
 
-    $défaut  réduction par utilisation de la règle 10 (attributes)
+    $défaut  réduction par utilisation de la règle 11 (attributes)
 
-    attributes  aller à l'état 34
+    attributes  aller à l'état 31
 
 
 état 25
 
-   14 prolog: xmldecl miscs doctypedecl miscs .
-   17 miscs: miscs . misc
+   15 prolog: xmldecl miscs doctypedecl miscs .
+   18 miscs: miscs . misc
 
-    INFSPECIAL  décalage et aller à l'état 15
-    COMMENT     décalage et aller à l'état 16
+    INFSPECIAL  décalage et aller à l'état 14
+    COMMENT     décalage et aller à l'état 15
 
-    $défaut  réduction par utilisation de la règle 14 (prolog)
+    $défaut  réduction par utilisation de la règle 15 (prolog)
 
-    misc  aller à l'état 18
-    pi    aller à l'état 19
+    misc  aller à l'état 17
+    pi    aller à l'état 18
 
 
 état 26
 
-   22 versioninfo: DONNEES EGAL DONNEES .
+   12 attribute: NOM EGAL . VALEUR
 
-    $défaut  réduction par utilisation de la règle 22 (versioninfo)
+    VALEUR  décalage et aller à l'état 32
 
 
 état 27
 
-   16 xmldecl: INFSPECIAL NOM versioninfo attributes SUPSPECIAL .
+    3 element: INF NOM attributes SLASH . SUP
 
-    $défaut  réduction par utilisation de la règle 16 (xmldecl)
+    SUP  décalage et aller à l'état 33
 
 
 état 28
 
-   11 attribute: NOM . EGAL VALEUR
+    2 element: INF NOM attributes SUP . content INF SLASH NOM SUP
 
-    EGAL  décalage et aller à l'état 35
+    $défaut  réduction par utilisation de la règle 9 (content)
+
+    content  aller à l'état 34
 
 
 état 29
 
-    9 attributes: attributes attribute .
+   14 doctypedecl: DOCTYPE NOM SUP .
 
-    $défaut  réduction par utilisation de la règle 9 (attributes)
+    $défaut  réduction par utilisation de la règle 14 (doctypedecl)
 
 
 état 30
 
-    3 element: INF NOM attributes SLASH . SUP
+   13 doctypedecl: DOCTYPE NOM NOM . SUP
 
-    SUP  décalage et aller à l'état 36
+    SUP  décalage et aller à l'état 35
 
 
 état 31
 
-    2 element: INF NOM attributes SUP . content INF SLASH NOM SUP
+   10 attributes: attributes . attribute
+   22 pi: INFSPECIAL NOM attributes . SUPSPECIAL
 
-    $défaut  réduction par utilisation de la règle 8 (content)
+    SUPSPECIAL  décalage et aller à l'état 36
+    NOM         décalage et aller à l'état 20
 
-    content  aller à l'état 37
+    attribute  aller à l'état 21
 
 
 état 32
 
-   13 doctypedecl: DOCTYPE NOM SUP .
+   12 attribute: NOM EGAL VALEUR .
 
-    $défaut  réduction par utilisation de la règle 13 (doctypedecl)
+    $défaut  réduction par utilisation de la règle 12 (attribute)
 
 
 état 33
-
-   12 doctypedecl: DOCTYPE NOM NOM . SUP
-
-    SUP  décalage et aller à l'état 38
-
-
-état 34
-
-    9 attributes: attributes . attribute
-   21 pi: INFSPECIAL NOM attributes . SUPSPECIAL
-
-    SUPSPECIAL  décalage et aller à l'état 39
-    NOM         décalage et aller à l'état 28
-
-    attribute  aller à l'état 29
-
-
-état 35
-
-   11 attribute: NOM EGAL . VALEUR
-
-    VALEUR  décalage et aller à l'état 40
-
-
-état 36
 
     3 element: INF NOM attributes SLASH SUP .
 
     $défaut  réduction par utilisation de la règle 3 (element)
 
 
-état 37
+état 34
 
     2 element: INF NOM attributes SUP content . INF SLASH NOM SUP
     4 content: content . element
     5        | content . cdsect
     6        | content . pi
     7        | content . COMMENT
+    8        | content . DONNEES
 
-    INFSPECIAL  décalage et aller à l'état 15
-    INF         décalage et aller à l'état 41
-    CDATABEGIN  décalage et aller à l'état 42
-    COMMENT     décalage et aller à l'état 43
+    INFSPECIAL  décalage et aller à l'état 14
+    INF         décalage et aller à l'état 37
+    CDATABEGIN  décalage et aller à l'état 38
+    DONNEES     décalage et aller à l'état 39
+    COMMENT     décalage et aller à l'état 40
 
-    element  aller à l'état 44
-    pi       aller à l'état 45
-    cdsect   aller à l'état 46
-
-
-état 38
-
-   12 doctypedecl: DOCTYPE NOM NOM SUP .
-
-    $défaut  réduction par utilisation de la règle 12 (doctypedecl)
+    element  aller à l'état 41
+    pi       aller à l'état 42
+    cdsect   aller à l'état 43
 
 
-état 39
+état 35
 
-   21 pi: INFSPECIAL NOM attributes SUPSPECIAL .
+   13 doctypedecl: DOCTYPE NOM NOM SUP .
 
-    $défaut  réduction par utilisation de la règle 21 (pi)
-
-
-état 40
-
-   11 attribute: NOM EGAL VALEUR .
-
-    $défaut  réduction par utilisation de la règle 11 (attribute)
+    $défaut  réduction par utilisation de la règle 13 (doctypedecl)
 
 
-état 41
+état 36
+
+   22 pi: INFSPECIAL NOM attributes SUPSPECIAL .
+
+    $défaut  réduction par utilisation de la règle 22 (pi)
+
+
+état 37
 
     2 element: INF . NOM attributes SUP content INF SLASH NOM SUP
     2        | INF NOM attributes SUP content INF . SLASH NOM SUP
     3        | INF . NOM attributes SLASH SUP
 
-    SLASH  décalage et aller à l'état 47
-    NOM    décalage et aller à l'état 12
+    SLASH  décalage et aller à l'état 44
+    NOM    décalage et aller à l'état 11
 
 
-état 42
+état 38
 
    23 cdsect: CDATABEGIN . DONNEES CDATAEND
 
-    DONNEES  décalage et aller à l'état 48
+    DONNEES  décalage et aller à l'état 45
 
 
-état 43
+état 39
+
+    8 content: content DONNEES .
+
+    $défaut  réduction par utilisation de la règle 8 (content)
+
+
+état 40
 
     7 content: content COMMENT .
 
     $défaut  réduction par utilisation de la règle 7 (content)
 
 
-état 44
+état 41
 
     4 content: content element .
 
     $défaut  réduction par utilisation de la règle 4 (content)
 
 
-état 45
+état 42
 
     6 content: content pi .
 
     $défaut  réduction par utilisation de la règle 6 (content)
 
 
-état 46
+état 43
 
     5 content: content cdsect .
 
     $défaut  réduction par utilisation de la règle 5 (content)
 
 
-état 47
+état 44
 
     2 element: INF NOM attributes SUP content INF SLASH . NOM SUP
 
-    NOM  décalage et aller à l'état 49
+    NOM  décalage et aller à l'état 46
 
 
-état 48
+état 45
 
    23 cdsect: CDATABEGIN DONNEES . CDATAEND
 
-    CDATAEND  décalage et aller à l'état 50
+    CDATAEND  décalage et aller à l'état 47
 
 
-état 49
+état 46
 
     2 element: INF NOM attributes SUP content INF SLASH NOM . SUP
 
-    SUP  décalage et aller à l'état 51
+    SUP  décalage et aller à l'état 48
 
 
-état 50
+état 47
 
    23 cdsect: CDATABEGIN DONNEES CDATAEND .
 
     $défaut  réduction par utilisation de la règle 23 (cdsect)
 
 
-état 51
+état 48
 
     2 element: INF NOM attributes SUP content INF SLASH NOM SUP .
 

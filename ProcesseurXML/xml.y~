@@ -29,13 +29,11 @@ void xmlerror(const char * msg)
 %%
 
 document
- : prolog element miscs {cout<< "on lit un fichier";}
+ : prolog element miscs {printf("Lecture de fichier");}
  ;
 
 element
- : INF NOM attributes SUP
-   content
-   INF SLASH NOM SUP
+ : INF NOM attributes SUP content INF SLASH NOM SUP
  | INF NOM attributes SLASH SUP               
  ;
 
@@ -43,7 +41,8 @@ content
  : content element
  | content cdsect
  | content pi
- | content COMMENT          
+ | content COMMENT 
+ | content DONNEES         
  | /* vide */              
  ;
 
@@ -70,7 +69,7 @@ prolog
  ; 
 
 xmldecl
- : INFSPECIAL NOM versioninfo attributes SUPSPECIAL
+ : INFSPECIAL NOM attributes SUPSPECIAL
  ;
 
 miscs
@@ -87,9 +86,9 @@ pi
  : INFSPECIAL NOM attributes SUPSPECIAL
  ;
 
-versioninfo
- : DONNEES EGAL DONNEES
- ;
+//versioninfo
+// : DONNEES EGAL DONNEES
+// ;
 
 cdsect
  : CDATABEGIN DONNEES CDATAEND
