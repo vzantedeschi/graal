@@ -28,7 +28,7 @@ PI::PI(string nom, list<Attribut> atts) : Misc(), nom(nom), atts(atts) {}
 Attribut::Attribut(string nom,string valeur) : nom(nom), valeur(valeur) {}
 
 //class Document
-Document::Document(Prolog prolog, Element element, list<Misc> misc) : prolog(prolog), element(element), misc(misc) {]
+Document::Document(Prolog prolog, Element element, list<Misc> misc) : prolog(prolog), element(element), misc(misc) {}
 
 //class Prolog
 Prolog::Prolog(XMLDeclaration xmlDecl, DocTypeDecl docTypeDecl, list<Misc> misc1, list<Misc> misc2) : 
