@@ -12,6 +12,9 @@ EmptyElement::EmptyElement() : Element() {}
 NonEmptyElement::NonEmptyElement(string nom, list<Attribut> atts, list<ContentItem > content) : 
 									Element(), nom(nom), atts(atts), content(content) {}
 
+//class Donnees
+Donnees::Donnees(string donnees) : ContentItem(), donnees(donnees) {}
+
 //class CDSect
 CDSect::CDSect(string cdata) : ContentItem(), cdata(cdata) {}
 

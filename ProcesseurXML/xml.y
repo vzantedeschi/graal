@@ -5,6 +5,7 @@
 #include <cstring>
 #include <cstdio>
 #include <cstdlib>
+#include <iostream>
 using namespace std;
 #include "commun.h"
 
@@ -36,16 +37,26 @@ document
 element
  : INF NOM attributes SUP
    content
-   INF SLASH NOM SUP
- | INF NOM attributes SLASH SUP               
+   INF SLASH NOM SUP	{
+			if($2 != $8){
+				cout << $2 << "," << $8 <<" : le tag de debut ne correspond pas au tag de fin" << endl;}
+			$$ = new NonEmptyElement($2, $3, $5);	
+				}
+ | INF NOM attributes SLASH SUP	{
+			$$ = new EmptyElement($2, $3);}             
  ;
 
 content
- : content element	{}
- | content cdsect	{}
- | content misc		{}   
- | content DONNEES	{}
- | /* vide */     	{}         
+ : content element	{
+			$$->push_back($2);}
+ | content cdsect	{
+			$$->push_back($2);}
+ | content misc		{
+			$$->push_back($2);}   
+ | content DONNEES	{
+			$$->push_back(new Donnees($2);}
+ | /* vide */     	{
+			$$ = new list<ContentItem*>();}         
  ;
 
 
@@ -71,16 +82,18 @@ doctypedecl
  ;
 
 prolog
- : xmldecl miscs doctypedecl miscs
+ : xmldecl miscs doctypedecl miscs	{
+				$$ = new Prolog($1, $3, $2, $4);}
 // | miscs doctypedecl miscs  /** Ces lignes sont commentées parce qu'elles créent un conflit décalage/réduction avec la règle 0 : ".document" à la lecture du symbole INSPECIAL (voir xml.output)
- | xmldecl miscs
+ | xmldecl miscs	{
+				$$ = new Prolog($1, $2, NULL, NULL);}	
 // | miscs
  ; 
 
 xmldecl
  : INFSPECIAL NOM attributes SUPSPECIAL	{
 			$4->push_front($3);
-			$$ = new PI($2, $4);
+			$$ = new PI($2, $4);}
  ;
 
 miscs

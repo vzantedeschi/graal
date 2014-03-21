@@ -29,6 +29,14 @@ class EmptyElement : public Element {
 		~EmptyElement();
 };
 
+class Donnees : public ContentItem {
+	public:
+		Donnees(string donnees);
+		~Donnees();
+	protected:
+		string donnees;
+};
+
 class CDSect : public ContentItem {
 	public:
 		CDSect(string cdata);
