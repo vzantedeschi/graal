@@ -55,9 +55,10 @@ class Comment : public Misc {
 
 class PI : public Misc {
 	public:
-		PI(list<Attribut> atts);
+		PI(string nom, list<Attribut> atts);
 		~PI();
 	protected:
+		string nom;
 		list<Attribut> atts;
 };
 
@@ -83,7 +84,7 @@ class Document {
 class Prolog {
 	public:
 		Prolog(XMLDeclaration xmlDecl, DocTypeDecl docTypeDecl, list<Misc> misc1, list<Misc> misc2);
-		~Prolog()
+		~Prolog();
 	protected:
 		XMLDeclaration xmlDecl;
 		DocTypeDecl docTypeDecl;
@@ -100,6 +101,7 @@ class DocTypeDecl {
 		string idExterne;
 };
 
+/* Traité comme PI
 class XMLDeclaration {
 	public:
 		XMLDeclaration(string versionInfo, Attribut att1, Attribut att2);
@@ -107,7 +109,7 @@ class XMLDeclaration {
 	protected:
 		string versionInfo;
 		Attribut att1, att2;
-};
+};*/
 
 	
 	

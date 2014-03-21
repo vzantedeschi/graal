@@ -29,7 +29,8 @@ void xmlerror(const char * msg)
 %%
 
 document
- : prolog element miscs
+ : prolog element miscs	{
+			$$ = new Document($1, $2, $3);}
  ;
 
 element
@@ -40,26 +41,33 @@ element
  ;
 
 content
- : content element
- | content cdsect
- | content pi
- | content COMMENT          
- | /* vide */              
+ : content element	{}
+ | content cdsect	{}
+ | content misc		{}   
+ | content DONNEES	{}
+ | /* vide */     	{}         
  ;
 
 
 attributes
- : attributes attribute
- | /*vide*/
+ : attributes attribute	{
+				$$ = $1;
+				$$->push_back($2);}
+ | /*vide*/				{
+				$$ = new list<Attribut*>();}
  ;
 
 attribute
- : NOM EGAL VALEUR
+ : NOM EGAL VALEUR	{
+				$$ = new Attribut($1, $3);}
  ;
 
 doctypedecl 
- : DOCTYPE NOM NOM SUP
- | DOCTYPE NOM SUP
+ : DOCTYPE NOM NOM SUP	{
+				$$ = new DocTypeDecl($2, $3);}
+ | DOCTYPE NOM SUP		{
+				$$ = new DocTypeDecl($2, " ");}
+
  ;
 
 prolog
@@ -70,27 +78,39 @@ prolog
  ; 
 
 xmldecl
- : INFSPECIAL NOM versioninfo attributes SUPSPECIAL
+ : INFSPECIAL NOM attributes SUPSPECIAL	{
+			$4->push_front($3);
+			$$ = new PI($2, $4);
  ;
 
 miscs
- : miscs misc
- | /*vide*/
+ : miscs misc	{
+			$$ = $1;
+			$$->push_back($2);}
+ | /*vide*/		{
+			$$ = new list<Misc*>();}
  ;
 
 misc
- : COMMENT
- | pi
+ : COMMENT	{
+				$$ = new Comment($1);}
+ | pi		{
+				$$ = $1;}
  ;
 
 pi
- : INFSPECIAL NOM attributes SUPSPECIAL
- ;
-
-versioninfo
- : DONNEES EGAL DONNEES
+ : INFSPECIAL NOM attributes SUPSPECIAL {
+				$$ = new PI($2, $3);}
  ;
 
 cdsect
- : CDATABEGIN DONNEES CDATAEND
+ : CDATABEGIN CDATAEND	{
+				$$ = new CDSect($2);}
  ;
+
+
+
+
+
+
+

@@ -1,6 +1,4 @@
-/* PAS FINI !!! NI TESTE !!! EN TRAVAUX !!!
 #include "struct.h"
-
 
 //class Element
 Element::Element(string nom, list<Attribut> atts) : ContentItem(), nom(nom), atts(atts) {}
@@ -11,79 +9,34 @@ EmptyElement::EmptyElement() : Element() {}
 
 
 //class NonEmptyElement
-NonEmptyElement::NonEmptyElement(string nom, list<Attribut> atts, list<ContentItem > content) : Element(), nom(nom), atts(atts), content(content)
-		~NonEmptyElement();
-	protected:
-		list<ContentItem> content;
-};
+NonEmptyElement::NonEmptyElement(string nom, list<Attribut> atts, list<ContentItem > content) : 
+									Element(), nom(nom), atts(atts), content(content) {}
 
 //class CDSect
-CDSect::CDSect(string cdata) : ContentItem, cdata(cdata) {}
+CDSect::CDSect(string cdata) : ContentItem(), cdata(cdata) {}
 
-class Comment : public Misc {
-	public:
-		Comment(string comment);
-		~Comment();
-	protected:
-		string comment;
-};
+//class Comment
+Comment::Comment(string comment) : Misc(), comment(comment) {}
 
-class PI : public Misc {
-	public:
-		PI(list<Attribut> atts);
-		~PI();
-	protected:
-		list<Attribut> atts;
-};
+//class PI :
+PI::PI(string nom, list<Attribut> atts) : Misc(), nom(nom), atts(atts) {}
 
-class Attribut {
-	public:
-		Attribut(string nom,string valeur);
-		~Attribut();
-	protected:
-		string nom;
-		string valeur;
-};
+//class Attribut
+Attribut::Attribut(string nom,string valeur) : nom(nom), valeur(valeur) {}
 
-class Document {
-	public:
-		Document(Prolog prolog, Element element, list<Misc> misc);
-		~Document();
-	protected:
-		Prolog prolog;
-		Element element;
-		list<Misc> misc;
-};
+//class Document
+Document::Document(Prolog prolog, Element element, list<Misc> misc) : prolog(prolog), element(element), misc(misc) {]
 
-class Prolog {
-	public:
-		Prolog(XMLDeclaration xmlDecl, DocTypeDecl docTypeDecl, list<Misc> misc1, list<Misc> misc2);
-		~Prolog()
-	protected:
-		XMLDeclaration xmlDecl;
-		DocTypeDecl docTypeDecl;
-		list<Misc> misc1;
-		list<Misc> misc2;
-};
+//class Prolog
+Prolog::Prolog(XMLDeclaration xmlDecl, DocTypeDecl docTypeDecl, list<Misc> misc1, list<Misc> misc2) : 
+									xmlDecl(xmlDecl), docTypeDecl(docTypeDecl), mics1(misc1), misc2(misc2) {}
 
-class DocTypeDecl {
-	public:
-		DocTypeDecl(string nom, string idExterne);
-		~DocTypeDecl();
-	protected:
-		string nom;
-		string idExterne;
-};
+//class DocTypeDecl
+DocTypeDecl::DocTypeDecl(string nom, string idExterne) : nom(nom), idExterne(idExterne) {}
 
-class XMLDeclaration {
-	public:
-		XMLDeclaration(string versionInfo, Attribut att1, Attribut att2);
-		~XMLDeclaration();
-	protected:
-		string versionInfo;
-		Attribut att1, att2;
-};
-
-*/	
+//class XMLDeclaration
+XMLDeclaration::XMLDeclaration(string versionInfo, Attribut att1, Attribut att2) : 
+									versionInfo(versionInfo), att1(att1), att2(att2) {}
+	
 	
 	
