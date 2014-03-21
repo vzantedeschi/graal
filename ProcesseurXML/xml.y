@@ -8,6 +8,7 @@
 #include <iostream>
 using namespace std;
 #include "commun.h"
+#include "struct.h"
 
 extern char xmltext[];
 
@@ -21,12 +22,35 @@ void xmlerror(const char * msg)
 %}
 
 %union {
-   char * s;
+	char * s;
+	Document * doc;
+	Prolog * p;
+	Element * e;
+	Misc * m;
+	list<Misc> * lm;
+	Attribut * a;
+	list<Attribut> * la;
+	list<ContentItem> * lci;
+	CDSect * cds;
+	DocTypeDecl * dtd;
+	PI * pi;
 }
 
 %token EGAL SLASH SUP SUPSPECIAL DOCTYPE COLON INFSPECIAL INF CDATABEGIN
 %token <s> VALEUR DONNEES COMMENT NOM CDATAEND
+%type <doc> document
+%type <e> element
+%type <p> prolog
+%type <m> misc
+%type <lm> miscs
+%type <a> attribute
+%type <la> attributes
+%type <lci> content
+%type <cds> cdsect
+%type <dtd> doctypedecl
+%type <pi> pi xmldecl
 
+%parse-param{Document ** d}
 %%
 main 
  : document	{*d = $1;}
@@ -59,7 +83,7 @@ content
  | content DONNEES	{
 			$$->push_back(new Donnees($2);}
  | /* vide */     	{
-			$$ = new list<ContentItem*>();}         
+			$$ = new list<ContentItem>();}         
  ;
 
 
@@ -68,7 +92,7 @@ attributes
 			$$ = $1;
 			$$->push_back($2);}
  | /*vide*/ {
-			$$ = new list<Attribut*>();}
+			$$ = new list<Attribut>();}
  ;
 
 attribute
@@ -95,8 +119,8 @@ prolog
 
 xmldecl
  : INFSPECIAL NOM attributes SUPSPECIAL	{
-			$4->push_front($3);
-			$$ = new PI($2, $4);}
+			$3->push_front($2);
+			$$ = new PI($2, $3);}
  ;
 
 miscs
@@ -104,7 +128,7 @@ miscs
 $$ = $1;
 $$->push_back($2);}
  | /*vide*/ {
-$$ = new list<Misc*>();}
+$$ = new list<Misc>();}
  ;
 
 misc

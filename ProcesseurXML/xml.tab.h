@@ -68,13 +68,24 @@ extern int xmldebug;
 typedef union YYSTYPE
 {
 /* Line 2049 of yacc.c  */
-#line 22 "xml.y"
+#line 24 "xml.y"
 
-   char * s;
+	char * s;
+	Document * doc;
+	Prolog * p;
+	Element * e;
+	Misc * m;
+	list<Misc> * lm;
+	Attribut * a;
+	list<Attribut> * la;
+	list<ContentItem> * lci;
+	CDSect * cds;
+	DocTypeDecl * dtd;
+	PI * pi;
 
 
 /* Line 2049 of yacc.c  */
-#line 78 "xml.tab.h"
+#line 89 "xml.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -91,7 +102,7 @@ int xmlparse ();
 #endif
 #else /* ! YYPARSE_PARAM */
 #if defined __STDC__ || defined __cplusplus
-int xmlparse (void);
+int xmlparse (Document ** d);
 #else
 int xmlparse ();
 #endif
