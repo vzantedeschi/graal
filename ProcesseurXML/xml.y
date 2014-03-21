@@ -28,6 +28,7 @@ void xmlerror(const char * msg)
 %token <s> VALEUR DONNEES COMMENT NOM CDATAEND
 
 %%
+main : document	{*d = $1;}
 
 document
  : prolog element miscs {
