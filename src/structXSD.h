@@ -9,7 +9,7 @@ class Element {
 	public:
 		Element(string nom, list<Attribut*>* atts);
 		~Element();
-        string expr();
+        virtual string expr();
 	protected:
         string nom;
 		list<Attribut*>* atts;
@@ -24,11 +24,11 @@ class SimpleElement : public Element {
 
 class ComplexElement : public Element {
 	public:
-		ComplexElement(string nom, list<Attribut*>* atts, );
+		ComplexElement(string nom, list<Attribut*>* atts, ComplexType* complexType);
 		~ComplexElement();
         string expr();
 	protected:
-		list<Element*>* elements;
+		ComplexType* complexType;
 };
 
 class Schema {
@@ -43,24 +43,23 @@ class Schema {
 
 class ComplexType {
 	public:
-		ComplexType(string nom, list<Attribut*>* atts, list<Element*>* elements);
+		ComplexType(list<Element*>* elements);
 		~ComplexType();
+		virtual string expr();
 	protected:
-		string nom;
-		list<Attribut*>* atts;
 		list<Element*>* elements;
 };
 
-class Choice {
+class Choice : ComplexType {
 	public:
-		Choice(string nom, list<Attribut*>* atts, list<Element*>* elements);
+		Choice(list<Element*>* elements);
 		~Choice();
         string expr();
 };
 
-class Sequence{
+class Sequence : ComplexType {
 	public:
-		Sequence(string nom, list<Attribut*>* atts, list<Element*>* elements);
+		Sequence(list<Element*>* elements);
 		~Sequence();
         string expr();
 };

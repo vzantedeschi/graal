@@ -26,19 +26,19 @@ void xsderror(const char * msg)
    Document * doc;
    Prolog * p;
    Element * e;
-   list<Element*> le;
+   list<Element*> * le;
    Attribut * a;
-   list<Attribut> * la;
+   list<Attribut*> * la;
    DocTypeDecl * dtd;
    SimpleElement * se;
    ComplexElement * ce;
    Schema * sche;
    Choice * cho;
    Sequence * seq;
-   list<Comment*> lcom;
+   list<Comment*> * lcom;
 }
 
-%token EGAL SLASH SUP SUPSPECIAL COLON INFSPECIAL INF SCHEMA ELEMENT COMPLEXTYPE CHOICE SEQUENCE
+%token EGAL SLASH SUP SUPSPECIAL COLON INFSPECIAL INF SCHEMA ELEMENT COMPLEXTYPE CHOICE SEQUENCE NAME
 %token <s> VALEUR COMMENT NOM
 
 %type <doc> document
@@ -64,7 +64,7 @@ main
 
 document
  : prolog schema comments {
-$$ = new Document($1, $2, $3);}
+         $$ = new Document($1, $2, $3);}
  ;
 
 schema
@@ -73,7 +73,7 @@ schema
    INF SLASH SCHEMA SUP {
          $$ = new Schema($3, $5);}
  | INF SCHEMA attributes SLASH SUP {
-         $$ = new Schema($3, new list<Element*>());}              
+         $$ = new Schema($3, NULL);}              
  ;
 
 elements
@@ -92,15 +92,15 @@ element
  ;
 
 complexElement
- : INF ELEMENT attributes SUP
+ : INF ELEMENT nom attributes SUP
    INF COMPLEXTYPE SUP complexType INF SLASH COMPLEXTYPE SUP
    INF SLASH ELEMENT SUP {
-         $$ = new ComplexElement($3,$8);}
+         $$ = new ComplexElement($3,$4,$8);}
  ;
 
 simpleElement
- : INF ELEMENT attributes SLASH SUP {
-         $$ = new SimpleElement($3);}
+ : INF ELEMENT nom attributes SLASH SUP {
+         $$ = new SimpleElement($3,$4);}
  ;
 
 complexType
@@ -128,8 +128,14 @@ attributes
  | /*vide*/
  ;
 
+/* attribute : attribut quelconque */
 attribute
  : NOM EGAL VALEUR
+ ;
+
+/* nom : attribut de nom 'name' */
+nom
+ : NAME EGAL VALEUR
  ;
 
 
