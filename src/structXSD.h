@@ -4,8 +4,9 @@ using namespace std;
 
 class Element {
 	public:
-		Element(list<Attribut> atts);
+		Element(string nom, list<Attribut> atts);
 		~Element();
+        string expr();
 	protected:
 		string nom;
 		list<Attribut> atts;
@@ -13,16 +14,18 @@ class Element {
 
 class SimpleElement : public Element {
 	public:
-		SimpleElement(list<Attribut> atts);
+		SimpleElement(string nom, list<Attribut> atts);
 		~SimpleElement();
+        string expr();
 	protected:
 		list<Attribut> atts;
 };
 
 class ComplexElement : public Element {
 	public:
-		ComplexElement(list<Attribut> atts, list<Element> elements);
+		ComplexElement(string nom, list<Attribut> atts, list<Element> elements);
 		~ComplexElement();
+        string expr();
 	protected:
 		list<Element> elements;
 };
@@ -31,23 +34,26 @@ class Schema {
 	public:
 		Schema(list<Attribut> atts,list<Element> elements);
 		~Schema();
+        string expr();
 	protected:
 		list<Attribut> atts;
 		list<Element> elements;
 };
 
-class Choice {
+class Choice : public ComplexElement {
 	public:
-		Schema(list<Element> elements);
-		~Schema();
+		Choice(string nom, list<Attribut> atts, list<Element> elements);
+		~Choice();
+        string expr();
 	protected:
 		list<Element> elements;
 };
 
-class Sequence {
+class Sequence : public ComplexElement {
 	public:
-		Sequence(list<Element> elements);
+		Sequence(string nom, list<Attribut> atts, list<Element> elements);
 		~Sequence();
+        string expr();
 	protected:
 		list<Element> elements;
 };
@@ -56,6 +62,7 @@ class Comment {
 	public:
 		Comment(string comment);
 		~Comment();
+        string expr();
 	protected:
 		string comment;
 };
@@ -64,6 +71,7 @@ class Attribut {
 	public:
 		Attribut(string nom,string valeur);
 		~Attribut();
+        string expr();
 	protected:
 		string nom;
 		string valeur;
@@ -73,6 +81,7 @@ class Document {
 	public:
 		Document(Prolog prolog, Element element, list<Comment> comments);
 		~Document();
+        string expr();
 	protected:
 		Prolog prolog;
 		Element element;
@@ -83,6 +92,7 @@ class Prolog {
 	public:
 		Prolog(XSDDeclaration xsdDecl, list<Comment> comments);
 		~Prolog();
+        string expr();
 	protected:
 		XSDDeclaration xsdDecl;
 		list<Comment> comments;
@@ -92,6 +102,7 @@ class XSDDeclaration {
 	public:
 		XSDDeclaration(Attribut att1, Attribut att2);
 		~XSDDeclaration();
+        string expr();
 	protected:
 		Attribut att1, att2;
 };
