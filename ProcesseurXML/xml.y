@@ -70,7 +70,7 @@ element
 			$$ = new NonEmptyElement($2, $3, $5);	
 				}
  | INF NOM attributes SLASH SUP	{
-			$$ = new EmptyElement($2, $3);}             
+			$$ = new EmptyElement($2, $3);}            
  ;
 
 content
@@ -98,6 +98,7 @@ attributes
 attribute
  : NOM EGAL VALEUR {
 			$$ = new Attribut($1, $3);}
+ | NOM COLON NOM EGAL VALEUR
  ;
 
 doctypedecl
@@ -111,7 +112,7 @@ doctypedecl
 prolog
  : xmldecl miscs doctypedecl miscs	{
 				$$ = new Prolog($1, $3, $2, $4);}
-// | miscs doctypedecl miscs  /** Ces lignes sont commentées parce qu'elles créent un conflit décalage/réduction avec la règle 0 : ".document" à la lecture du symbole INSPECIAL (voir xml.output)
+// | miscs doctypedecl miscs  /** Ces lignes sont commentées parce qu'elles créent un conflit décalage/réduction avec la règle 0 : ".document" à la lecture du symbole INFSPECIAL (voir xml.output)
  | xmldecl miscs	{
 				$$ = new Prolog($1, NULL, $2, NULL);}	
 // | miscs

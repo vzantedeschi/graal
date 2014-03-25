@@ -1,3 +1,18 @@
+#include "Attribut.h"
+#include "CDSect.h"
+#include "Comment.h"
+#include "ContentItem.h"
+#include "DocTypeDecl.h"
+#include "Document.h"
+#include "Donnees.h"
+#include "Element.h"
+#include "EmptyElement.h"
+#include "Misc.h"
+#include "NonEmptyElement.h"
+#include "PI.h"
+#include "Prolog.h"
+
+/*
 #include <string>
 #include <list> 
 using namespace std;
@@ -109,17 +124,9 @@ class Document {
 		list<Misc *>* misc;
 };
 
+*/
 
-/* Traité comme PI
-class XMLDeclaration {
-	public:
-		XMLDeclaration(string versionInfo, Attribut att1, Attribut att2);
-		~XMLDeclaration();
-	protected:
-		string versionInfo;
-		Attribut att1, att2;
-};*/
 
-	
+
 	
 	
