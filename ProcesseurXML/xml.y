@@ -14,7 +14,7 @@ extern char xmltext[];
 
 int xmllex(void);
 
-void xmlerror(const char * msg)
+void xmlerror(Document ** d,const char * msg)
 {
    fprintf(stderr,"%s\n",msg);
 }
@@ -27,10 +27,10 @@ void xmlerror(const char * msg)
 	Prolog * p;
 	Element * e;
 	Misc * m;
-	list<Misc> * lm;
+	list<Misc *> * lm;
 	Attribut * a;
-	list<Attribut> * la;
-	list<ContentItem> * lci;
+	list<Attribut *> * la;
+	list<ContentItem *> * lci;
 	CDSect * cds;
 	DocTypeDecl * dtd;
 	PI * pi;
@@ -65,7 +65,7 @@ element
  : INF NOM attributes SUP
    content
    INF SLASH NOM SUP	{
-			if($2 != $8){
+			if(strcmp($2,$8)){
 				cout << $2 << "," << $8 <<" : le tag de debut ne correspond pas au tag de fin" << endl;}
 			$$ = new NonEmptyElement($2, $3, $5);	
 				}
@@ -81,9 +81,9 @@ content
  | content misc		{
 			$$->push_back($2);}   
  | content DONNEES	{
-			$$->push_back(new Donnees($2);}
+			$$->push_back(new Donnees($2));}
  | /* vide */     	{
-			$$ = new list<ContentItem>();}         
+			$$ = new list<ContentItem *>();}         
  ;
 
 
@@ -92,7 +92,7 @@ attributes
 			$$ = $1;
 			$$->push_back($2);}
  | /*vide*/ {
-			$$ = new list<Attribut>();}
+			$$ = new list<Attribut *>();}
  ;
 
 attribute
@@ -113,13 +113,12 @@ prolog
 				$$ = new Prolog($1, $3, $2, $4);}
 // | miscs doctypedecl miscs  /** Ces lignes sont commentées parce qu'elles créent un conflit décalage/réduction avec la règle 0 : ".document" à la lecture du symbole INSPECIAL (voir xml.output)
  | xmldecl miscs	{
-				$$ = new Prolog($1, $2, NULL, NULL);}	
+				$$ = new Prolog($1, NULL, $2, NULL);}	
 // | miscs
  ;
 
 xmldecl
  : INFSPECIAL NOM attributes SUPSPECIAL	{
-			$3->push_front($2);
 			$$ = new PI($2, $3);}
  ;
 
@@ -128,7 +127,7 @@ miscs
 $$ = $1;
 $$->push_back($2);}
  | /*vide*/ {
-$$ = new list<Misc>();}
+$$ = new list<Misc *>();}
  ;
 
 misc

@@ -1,14 +1,16 @@
 #include "commun.h"
+#include "struct.h"
 #include <iostream>
 #include <cstring>
 
 using namespace std;
 extern FILE* xmlin;
 
-int xmlparse(void);
+int xmlparse(Document **);
 
 int main(int argc, char *argv[])
 {
+	Document * d;
     if (strcmp(argv[1],"-p") == 0)
     {
         FILE * fid;
@@ -31,7 +33,7 @@ int main(int argc, char *argv[])
 
         xmlin = fid;
 
-        int retour = xmlparse();
+        int retour = xmlparse(&d);
 
         if (!retour)
         {
@@ -48,7 +50,7 @@ int main(int argc, char *argv[])
     {
         cout<<"Option non reconnue"<<endl;
 
-        int retour = xmlparse();
+        int retour = xmlparse(&d);
 
         if (!retour)
         {
