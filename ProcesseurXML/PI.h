@@ -3,6 +3,7 @@
 
 #include <string>
 #include <list> 
+#include <iostream>
 #include "Misc.h"
 #include "Attribut.h"
 using namespace std;
@@ -11,6 +12,8 @@ class PI : public Misc {
 	public:
 		PI(string nom, list<Attribut *>* atts);
 		~PI();
+
+		friend ostream& operator << (ostream& os, const PI& P);
 	protected:
 		string nom;
 		list<Attribut *>* atts;
