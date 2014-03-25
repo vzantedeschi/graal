@@ -26,19 +26,19 @@ void xsderror(const char * msg)
    Document * doc;
    Prolog * p;
    Element * e;
-   list<Element*> le;
+   list<Element*> * le;
    Attribut * a;
-   list<Attribut> * la;
+   list<Attribut*> * la;
    DocTypeDecl * dtd;
    SimpleElement * se;
    ComplexElement * ce;
    Schema * sche;
    Choice * cho;
    Sequence * seq;
-   list<Comment*> lcom;
+   list<Comment*> * lcom;
 }
 
-%token EGAL SLASH SUP SUPSPECIAL COLON INFSPECIAL INF SCHEMA ELEMENT COMPLEXTYPE CHOICE SEQUENCE
+%token EGAL SLASH SUP SUPSPECIAL COLON INFSPECIAL INF SCHEMA ELEMENT COMPLEXTYPE CHOICE SEQUENCE NAME
 %token <s> VALEUR COMMENT NOM
 
 %type <doc> document
@@ -64,46 +64,57 @@ main
 
 document
  : prolog schema comments {
-$$ = new Document($1, $2, $3);}
+         $$ = new Document($1, $2, $3);}
  ;
 
 schema
  : INF SCHEMA attributes SUP
    elements
-   INF SLASH SCHEMA SUP
+   INF SLASH SCHEMA SUP {
+         $$ = new Schema($3, $5);}
  | INF SCHEMA attributes SLASH SUP {
-         $$ = new Schema($3, new list<Element*>());}              
+         $$ = new Schema($3, NULL);}              
  ;
 
 elements
- : elements element
- | element              
+ : elements element {
+         $$ = $1;
+         $$->push_back($2);}
+ | element {
+         $$ = new list<Element*>(1,$1);}            
  ;
 
 element
- : complexElement
- | simpleElement               
+ : complexElement {
+         $$ = $1;}
+ | simpleElement {
+         $$ = $1;}           
  ;
 
 complexElement
- : INF ELEMENT attributes SUP
+ : INF ELEMENT nom attributes SUP
    INF COMPLEXTYPE SUP complexType INF SLASH COMPLEXTYPE SUP
-   INF SLASH ELEMENT SUP
+   INF SLASH ELEMENT SUP {
+         $$ = new ComplexElement($3,$4,$8);}
  ;
 
 simpleElement
- : INF ELEMENT attributes SLASH SUP
+ : INF ELEMENT nom attributes SLASH SUP {
+         $$ = new SimpleElement($3,$4);}
  ;
 
 complexType
- : choice
- | sequence             
+ : choice {
+         $$ = $1;}
+ | sequence {
+         $$ = $1;}             
  ;
 
 choice
  : INF CHOICE SUP
    elements
-   INF CHOICE SLASH SUP
+   INF CHOICE SLASH SUP {
+         $$ = new Choice();}
  ;
 
 sequence
@@ -117,8 +128,14 @@ attributes
  | /*vide*/
  ;
 
+/* attribute : attribut quelconque */
 attribute
  : NOM EGAL VALEUR
+ ;
+
+/* nom : attribut de nom 'name' */
+nom
+ : NAME EGAL VALEUR
  ;
 
 
