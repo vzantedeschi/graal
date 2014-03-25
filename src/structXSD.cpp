@@ -136,7 +136,7 @@ string Prolog::expr(){
 }
 
 //class XSDDeclaration
-DSXDeclaration::XSDDeclaration(Attribut* att1, Attribut* att2){}
+DSXDeclaration::XSDDeclaration(Attribut* att1, Attribut* att2): att1(att1), att2(att2){}
 string DSXDeclaration::expr(){
     //la declaration du XSD n impacte pas le XML    
     string res = "";
