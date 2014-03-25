@@ -75,10 +75,10 @@ typedef union YYSTYPE
 	Prolog * p;
 	Element * e;
 	Misc * m;
-	list<Misc> * lm;
+	list<Misc *> * lm;
 	Attribut * a;
-	list<Attribut> * la;
-	list<ContentItem> * lci;
+	list<Attribut *> * la;
+	list<ContentItem *> * lci;
 	CDSect * cds;
 	DocTypeDecl * dtd;
 	PI * pi;

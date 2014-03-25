@@ -87,7 +87,7 @@ extern char xmltext[];
 
 int xmllex(void);
 
-void xmlerror(const char * msg)
+void xmlerror(Document ** d,const char * msg)
 {
    fprintf(stderr,"%s\n",msg);
 }
@@ -159,10 +159,10 @@ typedef union YYSTYPE
 	Prolog * p;
 	Element * e;
 	Misc * m;
-	list<Misc> * lm;
+	list<Misc *> * lm;
 	Attribut * a;
-	list<Attribut> * la;
-	list<ContentItem> * lci;
+	list<Attribut *> * la;
+	list<ContentItem *> * lci;
 	CDSect * cds;
 	DocTypeDecl * dtd;
 	PI * pi;
@@ -496,8 +496,8 @@ static const yytype_int8 yyrhs[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    56,    56,    60,    65,    72,    77,    79,    81,    83,
-      85,    91,    94,    99,   104,   106,   112,   115,   121,   127,
-     130,   135,   137,   142,   147
+      85,    91,    94,    99,   104,   106,   112,   115,   121,   126,
+     129,   134,   136,   141,   146
 };
 #endif
 
@@ -1460,7 +1460,7 @@ yyreduce:
 /* Line 1787 of yacc.c  */
 #line 67 "xml.y"
     {
-			if((yyvsp[(2) - (9)].s) != (yyvsp[(8) - (9)].s)){
+			if(strcmp((yyvsp[(2) - (9)].s),(yyvsp[(8) - (9)].s))){
 				cout << (yyvsp[(2) - (9)].s) << "," << (yyvsp[(8) - (9)].s) <<" : le tag de debut ne correspond pas au tag de fin" << endl;}
 			(yyval.e) = new NonEmptyElement((yyvsp[(2) - (9)].s), (yyvsp[(3) - (9)].la), (yyvsp[(5) - (9)].lci));	
 				}
@@ -1498,14 +1498,14 @@ yyreduce:
 /* Line 1787 of yacc.c  */
 #line 83 "xml.y"
     {
-			(yyval.lci)->push_back(new Donnees((yyvsp[(2) - (2)].s));}
+			(yyval.lci)->push_back(new Donnees((yyvsp[(2) - (2)].s)));}
     break;
 
   case 10:
 /* Line 1787 of yacc.c  */
 #line 85 "xml.y"
     {
-			(yyval.lci) = new list<ContentItem>();}
+			(yyval.lci) = new list<ContentItem *>();}
     break;
 
   case 11:
@@ -1520,7 +1520,7 @@ yyreduce:
 /* Line 1787 of yacc.c  */
 #line 94 "xml.y"
     {
-			(yyval.la) = new list<Attribut>();}
+			(yyval.la) = new list<Attribut *>();}
     break;
 
   case 13:
@@ -1555,20 +1555,19 @@ yyreduce:
 /* Line 1787 of yacc.c  */
 #line 115 "xml.y"
     {
-				(yyval.p) = new Prolog((yyvsp[(1) - (2)].pi), (yyvsp[(2) - (2)].lm), NULL, NULL);}
+				(yyval.p) = new Prolog((yyvsp[(1) - (2)].pi), NULL, (yyvsp[(2) - (2)].lm), NULL);}
     break;
 
   case 18:
 /* Line 1787 of yacc.c  */
 #line 121 "xml.y"
     {
-			(yyvsp[(3) - (4)].la)->push_front((yyvsp[(2) - (4)].s));
 			(yyval.pi) = new PI((yyvsp[(2) - (4)].s), (yyvsp[(3) - (4)].la));}
     break;
 
   case 19:
 /* Line 1787 of yacc.c  */
-#line 127 "xml.y"
+#line 126 "xml.y"
     {
 (yyval.lm) = (yyvsp[(1) - (2)].lm);
 (yyval.lm)->push_back((yyvsp[(2) - (2)].m));}
@@ -1576,42 +1575,42 @@ yyreduce:
 
   case 20:
 /* Line 1787 of yacc.c  */
-#line 130 "xml.y"
+#line 129 "xml.y"
     {
-(yyval.lm) = new list<Misc>();}
+(yyval.lm) = new list<Misc *>();}
     break;
 
   case 21:
 /* Line 1787 of yacc.c  */
-#line 135 "xml.y"
+#line 134 "xml.y"
     {
 (yyval.m) = new Comment((yyvsp[(1) - (1)].s));}
     break;
 
   case 22:
 /* Line 1787 of yacc.c  */
-#line 137 "xml.y"
+#line 136 "xml.y"
     {
 (yyval.m) = (yyvsp[(1) - (1)].pi);}
     break;
 
   case 23:
 /* Line 1787 of yacc.c  */
-#line 142 "xml.y"
+#line 141 "xml.y"
     {
 (yyval.pi) = new PI((yyvsp[(2) - (4)].s), (yyvsp[(3) - (4)].la));}
     break;
 
   case 24:
 /* Line 1787 of yacc.c  */
-#line 147 "xml.y"
+#line 146 "xml.y"
     {
 (yyval.cds) = new CDSect((yyvsp[(2) - (2)].s));}
     break;
 
 
 /* Line 1787 of yacc.c  */
-#line 1615 "xml.tab.c"
+#line 1614 "xml.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
