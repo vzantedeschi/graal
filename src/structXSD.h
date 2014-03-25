@@ -7,51 +7,60 @@ using namespace std;
 
 class Element {
 	public:
-		Element(string nom, list<Attribut*> atts);
+		Element(string nom, list<Attribut*>* atts);
 		~Element();
         string expr();
 	protected:
         string nom;
-		list<Attribut*> atts;
+		list<Attribut*>* atts;
 };
 
 class SimpleElement : public Element {
 	public:
-		SimpleElement(string nom, list<Attribut*> atts);
+		SimpleElement(string nom, list<Attribut*>* atts);
 		~SimpleElement();
         string expr();
 };
 
 class ComplexElement : public Element {
 	public:
-		ComplexElement(string nom, list<Attribut*> atts, list<Element*> elements);
+		ComplexElement(string nom, list<Attribut*>* atts, );
 		~ComplexElement();
         string expr();
 	protected:
-		list<Element*> elements;
+		list<Element*>* elements;
 };
 
 class Schema {
 	public:
-		Schema(list<Attribut*> atts,list<Element*> elements);
+		Schema(list<Attribut*>* atts,list<Element*>* elements);
 		~Schema();
         string expr();
 	protected:
-		list<Attribut*> atts;
-		list<Element*> elements;
+		list<Attribut*>* atts;
+		list<Element*>* elements;
 };
 
-
-class Choice : public ComplexElement {
+class ComplexType {
 	public:
-		Choice(string nom, list<Attribut*> atts, list<Element*> elements);
+		ComplexType(string nom, list<Attribut*>* atts, list<Element*>* elements);
+		~ComplexType();
+	protected:
+		string nom;
+		list<Attribut*>* atts;
+		list<Element*>* elements;
+};
+
+class Choice {
+	public:
+		Choice(string nom, list<Attribut*>* atts, list<Element*>* elements);
 		~Choice();
         string expr();
 };
 
-class Sequence : public ComplexElement {
+class Sequence{
 	public:
-		Sequence(string nom, list<Attribut*> atts, list<Element*> elements);
+		Sequence(string nom, list<Attribut*>* atts, list<Element*>* elements);
 		~Sequence();
         string expr();
 };
@@ -77,23 +86,23 @@ class Attribut {
 
 class Document {
 	public:
-		Document(Prolog* prolog, Schema* schema, list<Comment*> comments);
+		Document(Prolog* prolog, Schema* schema, list<Comment*>* comments);
 		~Document();
         string expr();
 	protected:
 		Prolog* prolog;
 		Schema* schema;
-		list<Comment*> comments;
+		list<Comment*>* comments;
 };
 
 class Prolog {
 	public:
-		Prolog(XSDDeclaration* xsdDecl, list<Comment*> comments);
+		Prolog(XSDDeclaration* xsdDecl, list<Comment*>* comments);
 		~Prolog();
         string expr();
 	protected:
 		XSDDeclaration* xsdDecl;
-		list<Comment*> comments;
+		list<Comment*>* comments;
 };
 
 class XSDDeclaration {

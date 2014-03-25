@@ -70,40 +70,51 @@ $$ = new Document($1, $2, $3);}
 schema
  : INF SCHEMA attributes SUP
    elements
-   INF SLASH SCHEMA SUP
+   INF SLASH SCHEMA SUP {
+         $$ = new Schema($3, $5);}
  | INF SCHEMA attributes SLASH SUP {
          $$ = new Schema($3, new list<Element*>());}              
  ;
 
 elements
- : elements element
- | element              
+ : elements element {
+         $$ = $1;
+         $$->push_back($2);}
+ | element {
+         $$ = new list<Element*>(1,$1);}            
  ;
 
 element
- : complexElement
- | simpleElement               
+ : complexElement {
+         $$ = $1;}
+ | simpleElement {
+         $$ = $1;}           
  ;
 
 complexElement
  : INF ELEMENT attributes SUP
    INF COMPLEXTYPE SUP complexType INF SLASH COMPLEXTYPE SUP
-   INF SLASH ELEMENT SUP
+   INF SLASH ELEMENT SUP {
+         $$ = new ComplexElement($3,$8);}
  ;
 
 simpleElement
- : INF ELEMENT attributes SLASH SUP
+ : INF ELEMENT attributes SLASH SUP {
+         $$ = new SimpleElement($3);}
  ;
 
 complexType
- : choice
- | sequence             
+ : choice {
+         $$ = $1;}
+ | sequence {
+         $$ = $1;}             
  ;
 
 choice
  : INF CHOICE SUP
    elements
-   INF CHOICE SLASH SUP
+   INF CHOICE SLASH SUP {
+         $$ = new Choice();}
  ;
 
 sequence
