@@ -26,19 +26,19 @@ void xsderror(const char * msg)
    Document * doc;
    Prolog * p;
    Element * e;
-   list<Element*> le;
+   list<Element*> * le;
    Attribut * a;
-   list<Attribut> * la;
+   list<Attribut*> * la;
    DocTypeDecl * dtd;
    SimpleElement * se;
    ComplexElement * ce;
    Schema * sche;
    Choice * cho;
    Sequence * seq;
-   list<Comment*> lcom;
+   list<Comment*> * lcom;
 }
 
-%token EGAL SLASH SUP SUPSPECIAL COLON INFSPECIAL INF SCHEMA ELEMENT COMPLEXTYPE CHOICE SEQUENCE
+%token EGAL SLASH SUP SUPSPECIAL COLON INFSPECIAL INF SCHEMA ELEMENT COMPLEXTYPE CHOICE SEQUENCE NAME
 %token <s> VALEUR COMMENT NOM
 
 %type <doc> document
@@ -64,7 +64,7 @@ main
 
 document
  : prolog schema comments {
-$$ = new Document($1, $2, $3);}
+         $$ = new Document($1, $2, $3);}
  ;
 
 schema
@@ -73,7 +73,7 @@ schema
    INF SLASH SCHEMA SUP {
          $$ = new Schema($3, $5);}
  | INF SCHEMA attributes SLASH SUP {
-         $$ = new Schema($3, new list<Element*>());}              
+         $$ = new Schema($3, NULL);}              
  ;
 
 elements
@@ -92,15 +92,15 @@ element
  ;
 
 complexElement
- : INF ELEMENT attributes SUP
+ : INF ELEMENT nom attributes SUP
    INF COMPLEXTYPE SUP complexType INF SLASH COMPLEXTYPE SUP
    INF SLASH ELEMENT SUP {
-         $$ = new ComplexElement($3,$8);}
+         $$ = new ComplexElement($3,$4,$8);}
  ;
 
 simpleElement
- : INF ELEMENT attributes SLASH SUP {
-         $$ = new SimpleElement($3);}
+ : INF ELEMENT nom attributes SLASH SUP {
+         $$ = new SimpleElement($3,$4);}
  ;
 
 complexType
@@ -114,35 +114,52 @@ choice
  : INF CHOICE SUP
    elements
    INF CHOICE SLASH SUP {
-         $$ = new Choice();}
+         $$ = new Choice($4);}
  ;
 
 sequence
  : INF SEQUENCE SUP
    elements
-   INF SEQUENCE SLASH SUP
+   INF SEQUENCE SLASH SUP  {
+         $$ = new Sequence($4);}
  ;
 
 attributes
- : attributes attribute
- | /*vide*/
+ : attributes attribute {
+         $$ = $1;
+         $$->push_back($2);}
+ | /*vide*/ {
+         $$ = new list<Attribut *>();}
  ;
 
+/* attribute : attribut quelconque */
 attribute
- : NOM EGAL VALEUR
+ : NOM EGAL VALEUR {
+         $$ = new Attribut($1, $3);}
  ;
 
+/* nom : attribut de nom 'name' */
+nom
+ : NAME EGAL VALEUR {
+         $$ = $3;}
+ ;
 
 prolog
- : xsddecl comments
- | comments
+ : xsddecl comments {
+         $$ = new Prolog($1,$2);}
+ | comments {
+         $$ = new Prolog(NULL,$2);}
  ; 
 
 xsddecl
- : INFSPECIAL NOM attributes SUPSPECIAL
+ : INFSPECIAL NOM attribute attribute SUPSPECIAL {
+         $$ = new XSDDeclaration($3, $4);}
  ;
 
-
- : comments COMMENT
- | /*vide*/
+comments
+ : comments COMMENT {
+         $$ = $1;
+         $$->push_back(new Comment($2));}
+ | /*vide*/ {
+         $$ = new list<Comment *>();}
  ;
