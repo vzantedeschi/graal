@@ -495,9 +495,9 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    56,    56,    60,    65,    72,    87,    89,    91,    93,
-      95,   101,   104,   109,   111,   115,   117,   123,   126,   132,
-     137,   140,   145,   147,   152,   157
+       0,    56,    56,    60,    65,    72,    77,    79,    81,    83,
+      85,    91,    94,    99,   101,   105,   107,   113,   116,   122,
+     127,   130,   135,   137,   142,   147
 };
 #endif
 
@@ -1478,42 +1478,42 @@ yyreduce:
 
   case 6:
 /* Line 1787 of yacc.c  */
-#line 87 "xml.y"
+#line 77 "xml.y"
     {
 			(yyval.lci)->push_back((yyvsp[(2) - (2)].e));}
     break;
 
   case 7:
 /* Line 1787 of yacc.c  */
-#line 89 "xml.y"
+#line 79 "xml.y"
     {
 			(yyval.lci)->push_back((yyvsp[(2) - (2)].cds));}
     break;
 
   case 8:
 /* Line 1787 of yacc.c  */
-#line 91 "xml.y"
+#line 81 "xml.y"
     {
 			(yyval.lci)->push_back((yyvsp[(2) - (2)].m));}
     break;
 
   case 9:
 /* Line 1787 of yacc.c  */
-#line 93 "xml.y"
+#line 83 "xml.y"
     {
 			(yyval.lci)->push_back(new Donnees((yyvsp[(2) - (2)].s)));}
     break;
 
   case 10:
 /* Line 1787 of yacc.c  */
-#line 95 "xml.y"
+#line 85 "xml.y"
     {
 			(yyval.lci) = new list<ContentItem *>();}
     break;
 
   case 11:
 /* Line 1787 of yacc.c  */
-#line 101 "xml.y"
+#line 91 "xml.y"
     {
 			(yyval.la) = (yyvsp[(1) - (2)].la);
 			(yyval.la)->push_back((yyvsp[(2) - (2)].a));}
@@ -1521,56 +1521,56 @@ yyreduce:
 
   case 12:
 /* Line 1787 of yacc.c  */
-#line 104 "xml.y"
+#line 94 "xml.y"
     {
 			(yyval.la) = new list<Attribut *>();}
     break;
 
   case 13:
 /* Line 1787 of yacc.c  */
-#line 109 "xml.y"
+#line 99 "xml.y"
     {
 			(yyval.a) = new Attribut((yyvsp[(1) - (3)].s), (yyvsp[(3) - (3)].s));}
     break;
 
   case 15:
 /* Line 1787 of yacc.c  */
-#line 115 "xml.y"
+#line 105 "xml.y"
     {
 			(yyval.dtd) = new DocTypeDecl((yyvsp[(2) - (4)].s), (yyvsp[(3) - (4)].s));}
     break;
 
   case 16:
 /* Line 1787 of yacc.c  */
-#line 117 "xml.y"
+#line 107 "xml.y"
     {
 			(yyval.dtd) = new DocTypeDecl((yyvsp[(2) - (3)].s), " ");}
     break;
 
   case 17:
 /* Line 1787 of yacc.c  */
-#line 123 "xml.y"
+#line 113 "xml.y"
     {
 				(yyval.p) = new Prolog((yyvsp[(1) - (4)].pi), (yyvsp[(3) - (4)].dtd), (yyvsp[(2) - (4)].lm), (yyvsp[(4) - (4)].lm));}
     break;
 
   case 18:
 /* Line 1787 of yacc.c  */
-#line 126 "xml.y"
+#line 116 "xml.y"
     {
 				(yyval.p) = new Prolog((yyvsp[(1) - (2)].pi), NULL, (yyvsp[(2) - (2)].lm), NULL);}
     break;
 
   case 19:
 /* Line 1787 of yacc.c  */
-#line 132 "xml.y"
+#line 122 "xml.y"
     {
 			(yyval.pi) = new PI((yyvsp[(2) - (4)].s), (yyvsp[(3) - (4)].la));}
     break;
 
   case 20:
 /* Line 1787 of yacc.c  */
-#line 137 "xml.y"
+#line 127 "xml.y"
     {
 (yyval.lm) = (yyvsp[(1) - (2)].lm);
 (yyval.lm)->push_back((yyvsp[(2) - (2)].m));}
@@ -1578,35 +1578,35 @@ yyreduce:
 
   case 21:
 /* Line 1787 of yacc.c  */
-#line 140 "xml.y"
+#line 130 "xml.y"
     {
 (yyval.lm) = new list<Misc *>();}
     break;
 
   case 22:
 /* Line 1787 of yacc.c  */
-#line 145 "xml.y"
+#line 135 "xml.y"
     {
 (yyval.m) = new Comment((yyvsp[(1) - (1)].s));}
     break;
 
   case 23:
 /* Line 1787 of yacc.c  */
-#line 147 "xml.y"
+#line 137 "xml.y"
     {
 (yyval.m) = (yyvsp[(1) - (1)].pi);}
     break;
 
   case 24:
 /* Line 1787 of yacc.c  */
-#line 152 "xml.y"
+#line 142 "xml.y"
     {
 (yyval.pi) = new PI((yyvsp[(2) - (4)].s), (yyvsp[(3) - (4)].la));}
     break;
 
   case 25:
 /* Line 1787 of yacc.c  */
-#line 157 "xml.y"
+#line 147 "xml.y"
     {
 (yyval.cds) = new CDSect((yyvsp[(2) - (2)].s));}
     break;
