@@ -6,7 +6,9 @@
 #include <cstdio>
 #include <cstdlib>
 using namespace std;
+
 #include "commun.h"
+#include "../src/structXSD.h"
 
 extern char xsdtext[];
 
@@ -27,16 +29,21 @@ void xsderror(const char * msg)
 %token <s> VALEUR COMMENT NOM
 
 %%
+main 
+ : document {*d = $1;}
+ ;
 
 document
- : prolog schema miscs
+ : prolog schema miscs {
+$$ = new Document($1, $2, $3);}
  ;
 
 schema
  : INF SCHEMA attributes SUP
    elements
    INF SLASH SCHEMA SUP
- | INF SCHEMA attributes SLASH SUP               
+ | INF SCHEMA attributes SLASH SUP {
+         $$ = new Schema($3, new list<Element*>());}              
  ;
 
 elements
