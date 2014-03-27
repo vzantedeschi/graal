@@ -13,7 +13,8 @@ class PI : public Misc {
 		PI(string nom, list<Attribut *>* atts);
 		~PI();
 
-		friend ostream& operator << (ostream& os, const PI& P);
+		//friend ostream& operator << (ostream& os, const PI& P);
+		virtual void print(ostream& os) const;
 	protected:
 		string nom;
 		list<Attribut *>* atts;
