@@ -1,6 +1,3 @@
-#ifndef STRUCTXSD_H
-#define STRUCTXSD_H
-
 #include <string>
 #include <list> 
 using namespace std;
@@ -112,5 +109,3 @@ class XSDDeclaration {
 	protected:
 		Attribut* att1, att2;
 };
-
-#endif

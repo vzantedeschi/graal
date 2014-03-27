@@ -6,8 +6,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include "commun.h"
-#include "struct.h"
-#include "xml.tab.h"
+#include "structXSD.h"
+#include "xsd.tab.h"
 
 #ifdef FLEXDEBUG
 #define dbg printf("[%s:%d] \"%s\"\n",__FILE__,__LINE__,xmltext)
@@ -57,6 +57,12 @@ infspecial {esp}?"<?"
 supspecial "?>"{nl}?
 cdata      "<![CDATA["
 endcdata   "]]>"
+schema    "xsd:schema"
+element   "xsd:element"
+complexType   "xsd:complexType"
+choice  "xsd:choice"
+sequence "xsd:sequence"
+name "name"
 
 /*
  * Le mode CONTENU est utilisé entre les balises ouvrantes et fermantes
@@ -73,9 +79,16 @@ endcdata   "]]>"
 <INITIAL>{doctype} {dbg; return DOCTYPE;}
 <INITIAL>"/"		{dbg; return SLASH;}
 <INITIAL>"="		{dbg; return EGAL;}
+<INITIAL>"xsl"		{dbg; return XSL;}
 <INITIAL>{sup}	{dbg; BEGIN(CONTENU); return SUP;}
 <INITIAL>{supspecial}	{ dbg; return SUPSPECIAL;}
 <INITIAL>{nom}		{dbg; xmllval.s = strdup(xmltext); return NOM;}
+<INITIAL>{schema}    {dbg; return SCHEMA;}
+<INITIAL>{element}    {dbg; return ELEMENT;}
+<INITIAL>{complexType}    {dbg; return COMPLEXTYPE;}
+<INITIAL>{choice}    {dbg; return CHOICE;}
+<INITIAL>{sequence}    {dbg; return SEQUENCE;}
+<INITIAL>{name}    {dbg; return NAME;}
 <INITIAL>{colon}  {dbg; return COLON;}
 <INITIAL>{chaine}	{dbg; xmllval.s = strdup(enleveGuillemets(xmltext)); return VALEUR;}
 <CONTENU>{cdata}           {dbg; BEGIN(CDATASECTION); buffer = (char*) malloc(1); buffer[0]='\0'; return CDATABEGIN;  }
