@@ -5,7 +5,7 @@ using namespace std;
 //class Element
 Element::Element(string nom, list<Attribut*>* atts) : nom(nom), atts(atts){}
 string Element::expr(){
-    string res = "Erreur appel d'une méthode abstraite : Element";
+    string res = "Erreur appel d'une mÃ©thode abstraite : Element";
     return res;
 }
 
@@ -51,7 +51,7 @@ string Schema::expr(){
 //class ComplexType
 ComplexType::ComplexType(list<Element*>* elements): elements(elements){}
 string Choice::expr(){
-    string res = "Erreur appel d'une méthode abstraite : ComplexType";
+    string res = "Erreur appel d'une mÃ©thode abstraite : ComplexType";
     return res;
 }
 
