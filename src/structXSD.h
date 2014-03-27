@@ -76,7 +76,7 @@ class Comment {
 class Attribut {
 	public:
 		Attribut(string nom,string valeur);
-		~Attribut();
+		~Attribut();Doc
         string expr();
 	protected:
 		string nom;

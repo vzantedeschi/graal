@@ -80,6 +80,7 @@ name "name"
 <INITIAL>{doctype} {dbg; return DOCTYPE;}
 <INITIAL>"/"		{dbg; return SLASH;}
 <INITIAL>"="		{dbg; return EGAL;}
+<INITIAL>"xsl"		{dbg; return XSL;}
 <INITIAL>{sup}	{dbg; BEGIN(CONTENU); return SUP;}
 <INITIAL>{supspecial}	{ dbg; return SUPSPECIAL;}
 <INITIAL>{nom}		{dbg; xmllval.s = strdup(xmltext); return NOM;}

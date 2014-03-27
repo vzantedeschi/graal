@@ -2,6 +2,7 @@
 #define DOCUMENT_H
 
 #include <list> 
+#include <iostream>
 #include "Prolog.h"
 #include "Element.h"
 #include "Misc.h"
@@ -11,6 +12,8 @@ class Document {
 	public:
 		Document(Prolog * prolog, Element * element, list<Misc *>* misc);
 		~Document();
+
+		friend ostream& operator << (ostream& os, const Document& D);
 	protected:
 		Prolog * prolog;
 		Element * element;
