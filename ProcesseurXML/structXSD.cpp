@@ -51,7 +51,7 @@ string Schema::expr(){
 //class ComplexType
 ComplexType::ComplexType(list<XSDElement*>* XSDElements): XSDElements(XSDElements){}
 string Choice::expr(){
-    string res = "Erreur appel d'une méthode abstraite : ComplexType";
+    string res = "Erreur appel d'une mÃ©thode abstraite : ComplexType";
     return res;
 }
 

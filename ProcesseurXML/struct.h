@@ -1,19 +1,19 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
-#include "Attribut.h"
-#include "CDSect.h"
-#include "Comment.h"
-#include "ContentItem.h"
-#include "DocTypeDecl.h"
-#include "Document.h"
-#include "Donnees.h"
-#include "Element.h"
-#include "EmptyElement.h"
-#include "Misc.h"
-#include "NonEmptyElement.h"
-#include "PI.h"
-#include "Prolog.h"
+#include "xml/Attribut.h"
+#include "xml/CDSect.h"
+#include "xml/Comment.h"
+#include "xml/ContentItem.h"
+#include "xml/DocTypeDecl.h"
+#include "xml/Document.h"
+#include "xml/Donnees.h"
+#include "xml/Element.h"
+#include "xml/EmptyElement.h"
+#include "xml/Misc.h"
+#include "xml/NonEmptyElement.h"
+#include "xml/PI.h"
+#include "xml/Prolog.h"
 
 #endif
 
