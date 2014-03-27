@@ -57,12 +57,6 @@ infspecial {esp}?"<?"
 supspecial "?>"{nl}?
 cdata      "<![CDATA["
 endcdata   "]]>"
-schema    "xsd:schema"
-element   "xsd:element"
-complexType   "xsd:complexType"
-choice  "xsd:choice"
-sequence "xsd:sequence"
-name "name"
 
 /*
  * Le mode CONTENU est utilisé entre les balises ouvrantes et fermantes
@@ -83,12 +77,12 @@ name "name"
 <INITIAL>{sup}	{dbg; BEGIN(CONTENU); return SUP;}
 <INITIAL>{supspecial}	{ dbg; return SUPSPECIAL;}
 <INITIAL>{nom}		{dbg; xmllval.s = strdup(xmltext); return NOM;}
-<INITIAL>{schema}    {dbg; return SCHEMA;}
-<INITIAL>{element}    {dbg; return ELEMENT;}
-<INITIAL>{complexType}    {dbg; return COMPLEXTYPE;}
-<INITIAL>{choice}    {dbg; return CHOICE;}
-<INITIAL>{sequence}    {dbg; return SEQUENCE;}
-<INITIAL>{name}    {dbg; return NAME;}
+<INITIAL>"xsd:schema"    {dbg; return SCHEMA;}
+<INITIAL>"xsd:element"    {dbg; return ELEMENT;}
+<INITIAL>"xsd:complexType"    {dbg; return COMPLEXTYPE;}
+<INITIAL>"xsd:choice"    {dbg; return CHOICE;}
+<INITIAL>"xsd:sequence"    {dbg; return SEQUENCE;}
+<INITIAL>"name"    {dbg; return NAME;}
 <INITIAL>{colon}  {dbg; return COLON;}
 <INITIAL>{chaine}	{dbg; xmllval.s = strdup(enleveGuillemets(xmltext)); return VALEUR;}
 <CONTENU>{cdata}           {dbg; BEGIN(CDATASECTION); buffer = (char*) malloc(1); buffer[0]='\0'; return CDATABEGIN;  }

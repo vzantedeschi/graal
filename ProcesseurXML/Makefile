@@ -2,20 +2,20 @@ STRUCTXML = Attribut.cpp CDSect.cpp Comment.cpp ContentItem.cpp DocTypeDecl.cpp 
 STRUCTXSD = structXSD.cpp
 
 #pour l'instant il construit l'exe qu'à partir de commun
-all: commun
+all: cXML
 	g++ -std=c++11 -g -DFLEXDEBUG -DYYDEBUG -o xmltool main.cpp $(STRUCTXML) xml.tab.c lex.xml.c 
 
 #pour ajouter par exemple la compilation de xsd :
-# all: commun xsd
+# all: cXML cXSD
 #	g++ -std=c++11 -g -DFLEXDEBUG -DYYDEBUG -o xmltool main.cpp $(STRUCTXML) $(STRUCTXSD) xml.tab.c xsd.tab.c lex.xml.c lex.xsd.c
 
-commun: *.l xml.y $(STRUCTXML) *.h
+cXML: *.l xml.y $(STRUCTXML) *.h
 	flex -P xml xml.l
 	g++ -std=c++11 -c $(STRUCTXML)
 	bison -p xml --debug --verbose --defines=xml.tab.h xml.y
 	touch commun
 
-xsd: *.l xsd.y $(STRUCTXSD) *.h
+cXSD: *.l xsd.y $(STRUCTXSD) *.h
 	flex -P xsd xsd.l
 	g++ -std=c++11 -c $(STRUCTXSD)
 	bison -p xsd --debug --verbose --defines=xsd.tab.h xsd.y
