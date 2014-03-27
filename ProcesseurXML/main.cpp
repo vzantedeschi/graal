@@ -11,10 +11,11 @@ int xmlparse(Document **);
 int main(int argc, char *argv[])
 {
 	Document * d;
-    if (strcmp(argv[1],"-p") == 0)
-    {
+    if ((strcmp(argv[1],"-p") == 0) || (strcmp(argv[1],"-v") == 0))
+    {/* ---- si option reconnue ---*/
         FILE * fid;
         const char* nomfichier = argv[2];
+        int retour;
         printf("%s \n",nomfichier);
 
         fid = fopen(nomfichier,"r");
@@ -31,21 +32,40 @@ int main(int argc, char *argv[])
             cout<<"Fichier Ouvert"<<endl;
         }
 
-        xmlin = fid;
-
-        int retour = xmlparse(&d);
-
-        if (!retour)
+        if (strcmp(argv[1],"-p") == 0)
         {
-           cout<<"Entrée standard reconnue"<<endl;
+            xmlin = fid;
+            retour = xmlparse(&d);
+            /* ------> continuer analyse et affichage ----*/
+            if (!retour)
+            {
+               cout<<"Entrée standard reconnue"<<endl;
+               cout << "\n" << *d;
+            }
+            else
+            {
+               cout<<"Entrée standard non reconnue"<<endl;
+            }
         }
-        else
+        else if(strcmp(argv[1],"-v") == 0)
         {
-           cout<<"Entrée standard non reconnue"<<endl;
+            xsdin = fid;
+            retour = xsdparse(&d);
+            /* ------> continuer analyse et affichage ----*/
+
+            if (!retour)
+            {
+               cout<<"Entrée standard reconnue"<<endl;
+            }
+            else
+            {
+               cout<<"Entrée standard non reconnue"<<endl;
+            }
         }
+
 
         fclose(fid);
-    }
+    }/* --- fin si option reconnue ---*/
     else
     {
         cout<<"Option non reconnue"<<endl;
