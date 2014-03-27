@@ -12,6 +12,8 @@ class NonEmptyElement : public Element {
 	public:
 		NonEmptyElement(string nom, list<Attribut *>* atts, list<ContentItem *>* content);
 		~NonEmptyElement();
+
+		virtual void print(ostream& os) const;
 	protected:
 		list<ContentItem *>* content;
 };

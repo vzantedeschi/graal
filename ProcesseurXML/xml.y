@@ -37,7 +37,7 @@ void xmlerror(Document ** d,const char * msg)
 }
 
 %token EGAL SLASH SUP SUPSPECIAL DOCTYPE COLON INFSPECIAL INF CDATABEGIN
-%token <s> VALEUR DONNEES COMMENT NOM CDATAEND
+%token <s> VALEUR DONNEES COMMENT NOM CDATAEND XSL
 %type <doc> document
 %type <e> element
 %type <p> prolog

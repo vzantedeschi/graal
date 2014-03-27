@@ -38,6 +38,7 @@ int main(int argc, char *argv[])
         if (!retour)
         {
            cout<<"Entrée standard reconnue"<<endl;
+           cout << "\n" << *d;
         }
         else
         {
