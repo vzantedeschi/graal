@@ -2,16 +2,16 @@
 #include <list> 
 using namespace std;
 
-//class Element
-Element::Element(string nom, list<Attribut*>* atts) : nom(nom), atts(atts){}
-string Element::expr(){
-    string res = "Erreur appel d'une méthode abstraite : Element";
+//class XSDElement
+XSDElement::XSDElement(string nom, list<XSDAttribut*>* atts) : nom(nom), atts(atts){}
+string XSDElement::expr(){
+    string res = "Erreur appel d'une méthode abstraite : XSDElement";
     return res;
 }
 
-//class SimpleElement
-SimpleElement::SimpleElement(string nom, list<Attribut*>* atts) : Element(nom, atts) {}
-string SimpleElement::expr(){
+//class SimpleXSDElement
+SimpleXSDElement::SimpleXSDElement(string nom, list<XSDAttribut*>* atts) : XSDElement(nom, atts) {}
+string SimpleXSDElement::expr(){
     string res = "^<";
     res += nom + " ";
     for ( att in *atts){
@@ -21,9 +21,9 @@ string SimpleElement::expr(){
     return res;
 }
 
-//class ComplexElement
-ComplexElement::ComplexElement(string nom, list<Attribut*>* atts, ComplexType* complexType) : Element(nom, atts), complexType(complexType) {}
-string ComplexElement::expr(){
+//class ComplexXSDElement
+ComplexXSDElement::ComplexXSDElement(string nom, list<XSDAttribut*>* atts, ComplexType* complexType) : XSDElement(nom, atts), complexType(complexType) {}
+string ComplexXSDElement::expr(){
     string res = "^<";
     res += nom;
     for ( att in *atts){
@@ -38,29 +38,29 @@ string ComplexElement::expr(){
 }
 
 //class Schema
-Schema::Schema(list<Attribut*>* atts,list<Element*>* elements): atts(atts), elements(elements){}
+Schema::Schema(list<XSDAttribut*>* atts,list<XSDElement*>* XSDElements): atts(atts), XSDElements(XSDElements){}
 string Schema::expr(){
     string res = "";
     // on ne sait pas gerer les arguments du schema
-    for ( elem in *elements) {
+    for ( elem in *XSDElements) {
         res += elem.expr();
     }
     return res;
 }
 
 //class ComplexType
-ComplexType::ComplexType(list<Element*>* elements): elements(elements){}
+ComplexType::ComplexType(list<XSDElement*>* XSDElements): XSDElements(XSDElements){}
 string Choice::expr(){
     string res = "Erreur appel d'une méthode abstraite : ComplexType";
     return res;
 }
 
 //class Choice
-Choice::Choice(list<Element*>* elements) : ComplexType( elements) {}
+Choice::Choice(list<XSDElement*>* XSDElements) : ComplexType( XSDElements) {}
 string Choice::expr(){
     string res = "^(";
     bool debut = true;
-    for ( elem in *elements) {
+    for ( elem in *XSDElements) {
         if (debut) {
             debut = false
         }
@@ -76,10 +76,10 @@ string Choice::expr(){
 }
 
 //class Sequence
-Sequence::Sequence(list<Element*>* elements) : ComplexType(elements) {}
+Sequence::Sequence(list<XSDElement*>* XSDElements) : ComplexType(XSDElements) {}
 string Sequence::expr(){
     string res = "";
-    for ( elem in *elements) {
+    for ( elem in *XSDElements) {
         res += "^";
         res += elem.expr();
         res += "$";
@@ -87,15 +87,15 @@ string Sequence::expr(){
     return res;
 }
 
-//class Comment
-Comment::Comment(string comment): comment(comment){}
-string Comment::expr(){
-    return "Erreur appel d'un commentaire";
+//class XSDComment
+XSDComment::XSDComment(string XSDComment): XSDComment(XSDComment){}
+string XSDComment::expr(){
+    return "Erreur appel d'un XSDCommentaire";
 }
 
-//class Attribut
-Attribut::Attribut(string nom,string valeur): nom(nom), valeur(valeur){}
-string Attribut::expr(){
+//class XSDAttribut
+XSDAttribut::XSDAttribut(string nom,string valeur): nom(nom), valeur(valeur){}
+string XSDAttribut::expr(){
     string res ="";
     if (nom.compare("type") == 0 ){
         if (valeur.compare("xsd:string") == 0 ){
@@ -105,26 +105,26 @@ string Attribut::expr(){
             res += "[0-9]{4}\-[0-9]{2}\-[0-9]{2}";
         }
         else {
-            res += "Erreur " + nom + " attribut non pris en charge";
+            res += "Erreur " + nom + " XSDAttribut non pris en charge";
         }      
     }
     else{
-        res += "Erreur " + nom + " attribut non pris en charge";
+        res += "Erreur " + nom + " XSDAttribut non pris en charge";
     return res;
 }
 
-//class Document
-Document::Document(Prolog* prolog, Schema* schema, list<Comment*>* comments): prolog(prolog), schema(schema), comments(comments){}
-string Document::expr(){
+//class XSDDocument
+XSDDocument::XSDDocument(XSDProlog* XSDProlog, Schema* schema, list<XSDComment*>* XSDComments): XSDProlog(XSDProlog), schema(schema), XSDComments(XSDComments){}
+string XSDDocument::expr(){
     string res = "";
-    res += prolog.expr();
+    res += XSDProlog.expr();
     res += schema.expr();
     return res;
 }
 
-//class Prolog
-Prolog::Prolog(XSDDeclaration* xsdDecl, list<Comment*>* comments): xsdDecl(xsdDecl), comments(comments){}
-string Prolog::expr(){
+//class XSDProlog
+XSDProlog::XSDProlog(XSDDeclaration* xsdDecl, list<XSDComment*>* XSDComments): xsdDecl(xsdDecl), XSDComments(XSDComments){}
+string XSDProlog::expr(){
     //la declaration du XSD n impacte pas le XML    
     /*
     string res = "^";
@@ -136,7 +136,7 @@ string Prolog::expr(){
 }
 
 //class XSDDeclaration
-DSXDeclaration::XSDDeclaration(Attribut* att1, Attribut* att2): att1(att1), att2(att2){}
+DSXDeclaration::XSDDeclaration(XSDAttribut* att1, XSDAttribut* att2): att1(att1), att2(att2){}
 string DSXDeclaration::expr(){
     //la declaration du XSD n impacte pas le XML    
     string res = "";
