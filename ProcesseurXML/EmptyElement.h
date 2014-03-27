@@ -11,6 +11,8 @@ class EmptyElement : public Element {
 	public:
 		EmptyElement(string nom, list<Attribut *>* atts);
 		~EmptyElement();
+		//friend ostream& operator << (ostream& os, const EmptyElement& E);
+		virtual void print(ostream& os) const;
 };
 
 #endif

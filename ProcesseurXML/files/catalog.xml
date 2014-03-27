@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <catalog>
 	<cd>
-		<title>Empire Burlesque</title>
+		<title nom="coucou">Empire Burlesque</title>
 		<artist>Bob Dylan</artist>
 		<country>USA</country>
 		<company>Columbia</company>

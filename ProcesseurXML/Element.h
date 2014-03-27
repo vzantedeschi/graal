@@ -1,11 +1,10 @@
 #ifndef ELEMENT_H
 #define ELEMENT_H
 
-#include <string>
-#include <list>
-//#include <iostream>
 #include "Attribut.h"
 #include "ContentItem.h" 
+#include <string>
+#include <list>
 using namespace std;
 
 class Element : public ContentItem {
@@ -13,7 +12,7 @@ class Element : public ContentItem {
 		Element(string nom, list<Attribut *>* atts);
 		~Element();
 
-		//friend ostream& operator << (ostream& os, const Element& E);
+		virtual void print(ostream& os) const = 0;
 	protected:
 		string nom;
 		list<Attribut *>* atts;
