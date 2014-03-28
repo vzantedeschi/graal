@@ -66,7 +66,7 @@ element
    content
    INF SLASH NOM SUP	{
 			if(strcmp($2,$8)){
-				cout << $2 << "," << $8 <<" : le tag de debut ne correspond pas au tag de fin" << endl;}
+				cerr << "Non matching element names " << $2 << " and " << $8 << endl;}
 			$$ = new NonEmptyElement($2, $3, $5);	
 				}
  | INF NOM attributes SLASH SUP	{
@@ -98,11 +98,16 @@ attributes
 attribute
  : NOM EGAL VALEUR {
 			$$ = new Attribut($1, $3);}
- | NOM COLON NOM EGAL VALEUR
+ | NOM COLON NOM EGAL VALEUR {
+			strcat($1,":");
+			strcat($1, $3);
+			$$ = new Attribut($1, $5);}
  ;
 
 doctypedecl
  : DOCTYPE NOM NOM SUP {
+			$$ = new DocTypeDecl($2, $3);}
+ | DOCTYPE NOM NOM VALEUR SUP {
 			$$ = new DocTypeDecl($2, $3);}
  | DOCTYPE NOM SUP {
 			$$ = new DocTypeDecl($2, " ");}
