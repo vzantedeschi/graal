@@ -14,6 +14,8 @@ extern char xmltext[];
 
 int xmllex(void);
 
+
+
 void xmlerror(Document ** d,const char * msg)
 {
    fprintf(stderr,"%s\n",msg);
@@ -48,7 +50,7 @@ void xmlerror(Document ** d,const char * msg)
 %type <lci> content
 %type <cds> cdsect
 %type <dtd> doctypedecl
-%type <pi> pi xmldecl
+//%type <pi> pi xmldecl
 
 %parse-param{Document ** d}
 %%
@@ -110,18 +112,20 @@ doctypedecl
  ;
 
 prolog
- : xmldecl miscs doctypedecl miscs	{
-				$$ = new Prolog($1, $3, $2, $4);}
-// | miscs doctypedecl miscs  /** Ces lignes sont commentées parce qu'elles créent un conflit décalage/réduction avec la règle 0 : ".document" à la lecture du symbole INFSPECIAL (voir xml.output)
- | xmldecl miscs	{
-				$$ = new Prolog($1, NULL, $2, NULL);}	
-// | miscs
+ : //xmldecl miscs doctypedecl miscs	{
+				//$$ = new Prolog($1, $3, $2, $4);}
+ miscs doctypedecl miscs {
+ 	$$ = new Prolog($2, $1, $3);}
+/** Ces lignes sont commentées parce qu'elles créent un conflit décalage/réduction avec la règle 0 : ".document" à la lecture du symbole INFSPECIAL (voir xml.output)**/
+ //| xmldecl miscs	{
+				//$$ = new Prolog($1, NULL, $2, NULL);}	
+ | miscs 
  ;
 
-xmldecl
+/*xmldecl
  : INFSPECIAL NOM attributes SUPSPECIAL	{
 			$$ = new PI($2, $3);}
- ;
+ ;*/
 
 miscs
  : miscs misc {

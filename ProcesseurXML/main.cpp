@@ -49,8 +49,8 @@ int main(int argc, char *argv[])
         }
         else if(strcmp(argv[1],"-v") == 0)
         {
-            xsdin = fid;
-            retour = xsdparse(&d);
+            //xsdin = fid;
+            //retour = xsdparse(&d);
             /* ------> continuer analyse et affichage ----*/
 
             if (!retour)

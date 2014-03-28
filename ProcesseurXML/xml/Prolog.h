@@ -11,12 +11,12 @@ using namespace std;
 
 class Prolog {
 	public:
-		Prolog(PI * xmlDecl, DocTypeDecl * docTypeDecl, list<Misc *>* misc1, list<Misc *>* misc2);
+		Prolog(/*PI * xmlDecl, */DocTypeDecl * docTypeDecl, list<Misc *>* misc1, list<Misc *>* misc2);
 		~Prolog();
 
 		friend ostream& operator << (ostream& os, const Prolog& P);
 	protected:
-		PI * xmlDecl;
+		//PI * xmlDecl;
 		DocTypeDecl * docTypeDecl;
 		list<Misc *>* misc1;
 		list<Misc *>* misc2;

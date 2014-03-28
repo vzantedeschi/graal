@@ -3,7 +3,7 @@ xsdPath = XSD/
 
 #pour l'instant il construit l'exe qu'à partir de cXML
 all: cXML
-	g++ -std=c++11 -g -DFLEXDEBUG -DYYDEBUG -o xmltool main.cpp $(xmlPath)*.cpp xml.tab.c lex.xml.c 
+	g++ -std=c++11 -g -DFLEXDEBUG -DYYDEBUG=1 -o xmltool main.cpp $(xmlPath)*.cpp xml.tab.c lex.xml.c 
 
 #pour ajouter par exemple la compilation de xsd :
 # all: cXML cXSD
