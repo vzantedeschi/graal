@@ -6,11 +6,11 @@
 #include <string.h>
 #include <stdlib.h>
 #include "commun.h"
-#include "structXSD.h"
-#include "xsd.tab.h"
+#include "structXSL.h"
+#include "xsl.tab.h"
 
 #ifdef FLEXDEBUG
-#define dbg printf("[%s:%d] \"%s\"\n",__FILE__,__LINE__,xsdtext)
+#define dbg printf("[%s:%d] \"%s\"\n",__FILE__,__LINE__,xsltext)
 #else
 #define dbg ((void)0)
 #endif
@@ -52,6 +52,7 @@ data		([^<\n&]|\n[^<&]|\n{esc}|{esc})+
 pcdata		[^<]+
 comment		{inf}"!--"([^-]|"-"[^-])*"--"{sup}
 chaine		\"([^"&]|{esc})*\"|\'([^'&]|{esc})*\'
+doctype     {esp}?"<!DOCTYPE"{esp}
 infspecial {esp}?"<?"
 supspecial "?>"{nl}?
 cdata      "<![CDATA["
@@ -67,24 +68,24 @@ endcdata   "]]>"
 %s CDATASECTION
 
 %%
-
+<INITIAL>"xsl"		{dbg; return XSL;}
 <INITIAL>{esp}		{/* skip */}
+<INITIAL>{doctype} {dbg; return DOCTYPE;}
 <INITIAL>"/"		{dbg; return SLASH;}
 <INITIAL>"="		{dbg; return EGAL;}
 <INITIAL>{sup}	{dbg; BEGIN(CONTENU); return SUP;}
 <INITIAL>{supspecial}	{ dbg; return SUPSPECIAL;}
-<INITIAL>"xsd:schema"    {dbg; return SCHEMA;}
-<INITIAL>"xsd:element"    {dbg; return ELEMENT;}
-<INITIAL>"xsd:complexType"    {dbg; return COMPLEXTYPE;}
-<INITIAL>"xsd:choice"    {dbg; return CHOICE;}
-<INITIAL>"xsd:sequence"    {dbg; return SEQUENCE;}
-<INITIAL>"name"    {dbg; return NAME;}
-<INITIAL>{nom}    {dbg; xsdlval.s = strdup(xsdtext); return NOM;}
-<INITIAL>{chaine}	{dbg; xsdlval.s = strdup(enleveGuillemets(xsdtext)); return VALEUR;}
+<INITIAL>{nom}		{dbg; xsllval.s = strdup(xsltext); return NOM;}
+<INITIAL>{colon}  {dbg; return COLON;}
+<INITIAL>{chaine}	{dbg; xsllval.s = strdup(enleveGuillemets(xsltext)); return VALEUR;}
+<CONTENU>{cdata}           {dbg; BEGIN(CDATASECTION); buffer = (char*) malloc(1); buffer[0]='\0'; return CDATABEGIN;  }
+<CDATASECTION>{endcdata}     {dbg; BEGIN(CONTENU); xsllval.s = strdup(buffer); free(buffer); return CDATAEND; }
+<CDATASECTION>.              {dbg; char * tmp = strdup(buffer); free(buffer); buffer = (char*) malloc(strlen(tmp)+2); strcpy(buffer,tmp); strcat(buffer,xsltext); free(tmp); }
 
 <CONTENU,INITIAL>{infspecial}  {dbg; BEGIN(INITIAL); return INFSPECIAL;}
 <CONTENU,INITIAL>{inf}	       {dbg; BEGIN(INITIAL); return INF;}
-<CONTENU,INITIAL>{comment}		{dbg; xsdlval.s = strdup(xsdtext); return COMMENT;}
+<CONTENU,INITIAL>{comment}		{dbg; xsllval.s = strdup(xsltext); return COMMENT;}
 
+<CONTENU>{pcdata}		{dbg; xsllval.s = strdup(supprimeEspaces(xsltext)); return DONNEES;}
 
-.                    { fprintf(stderr,"Lexical Error (character %s)\n",xsdtext); }
+.                    { fprintf(stderr,"Lexical Error (character %s)\n",xsltext); }

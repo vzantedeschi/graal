@@ -12,7 +12,7 @@ class XSDDeclaration {
 		~XSDDeclaration();
         string expr();
 	protected:
-		XSDAttribut* att1, att2;
+		XSDAttribut* att1, *att2;
 };
 
 #endif

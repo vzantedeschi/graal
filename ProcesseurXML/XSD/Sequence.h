@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Sequence : ComplexType {
+class Sequence : public ComplexType {
 	public:
 		Sequence(list<XSDElement*>* XSDElements);
 		~Sequence();

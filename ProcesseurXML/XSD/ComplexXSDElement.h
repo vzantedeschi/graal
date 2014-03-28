@@ -1,9 +1,10 @@
-#ifndef STRUCTXSD_H
-#define STRUCTXSD_H
+#ifndef COMPLEXXSDELEMENT_H
+#define COMPLEXXSDELEMENT_H
 
 #include <string>
 #include <list> 
 #include "ComplexType.h"
+#include "XSDAttribut.h"
 
 using namespace std;
 

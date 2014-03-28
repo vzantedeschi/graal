@@ -4,6 +4,6 @@ Donnees::Donnees(string donnees) : ContentItem(), donnees(donnees) {}
 
 
 void Donnees::print(ostream& os) const {
-	os << this->donnees;
+	os << this->donnees << endl;
 	//return os;
 }

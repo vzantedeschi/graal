@@ -8,13 +8,13 @@
 #include <iostream>
 using namespace std;
 #include "commun.h"
-#include "struct.h"
+#include "structXSL.h"
 
 extern char xmltext[];
 
-int xmllex(void);
+int xsllex(void);
 
-void xmlerror(Document ** d,const char * msg)
+void xslerror(XSLDocument ** d,const char * msg)
 {
    fprintf(stderr,"%s\n",msg);
 }
@@ -23,17 +23,17 @@ void xmlerror(Document ** d,const char * msg)
 
 %union {
 	char * s;
-	Document * doc;
-	Prolog * p;
-	Element * e;
-	Misc * m;
-	list<Misc *> * lm;
-	Attribut * a;
-	list<Attribut *> * la;
-	list<ContentItem *> * lci;
-	CDSect * cds;
-	DocTypeDecl * dtd;
-	PI * pi;
+	XSLDocument * doc;
+	XSLProlog * p;
+	XSLElement * e;
+	XSLMisc * m;
+	list<XSLMisc *> * lm;
+	XSLAttribut * a;
+	list<XSLAttribut *> * la;
+	list<XSLContentItem *> * lci;
+	XSLCDSect * cds;
+	XSLDocTypeDecl * dtd;
+	XSLPI * pi;
 }
 
 %token EGAL SLASH SUP SUPSPECIAL DOCTYPE COLON INFSPECIAL INF CDATABEGIN
@@ -52,7 +52,7 @@ void xmlerror(Document ** d,const char * msg)
 
 
 
-%parse-param{Document ** d}
+%parse-param{XSLDocument ** d}
 %%
 
 
@@ -62,7 +62,7 @@ main
 
 document
  : prolog element miscs {
-$$ = new Document($1, $2, $3);}
+$$ = new XSLDocument($1, $2, $3);}
  ;
 
 element
@@ -71,18 +71,18 @@ element
    INF SLASH NOM SUP	{ cout << "Balise HTML" << endl;
 			if(strcmp($2,$8)){
 				cout << $2 << "," << $8 <<" : le tag de debut ne correspond pas au tag de fin" << endl;}
-			$$ = new NonEmptyElement($2, $3, $5);	
+			$$ = new XSLNonEmptyElement($2, $3, $5);	
 				}
  | INF XSL COLON NOM attributes SUP
    content
    INF SLASH XSL COLON NOM SUP { cout << "Balise XSL bloc" << endl;
                         // Test des "xsl:" manquant
-			if(strcmp($4,$11)){
+			if(strcmp($4,$12)){
 				cout << $4 << "," << $12 <<" : le tag de debut ne correspond pas au tag de fin" << endl;}
-			$$ = new NonEmptyElement($4, $5, $7);	
+			$$ = new XSLNonEmptyElement($4, $5, $7);	
 				}
  | INF XSL COLON NOM attributes SLASH SUP	{ cout << "Balise XSL auto-fermante" << endl;
-			$$ = new EmptyElement($4, $5);}            
+			$$ = new XSLEmptyElement($4, $5);}            
  ;
 
 content
@@ -93,9 +93,9 @@ content
  | content misc		{
 			$$->push_back($2);}   
  | content DONNEES	{
-			$$->push_back(new Donnees($2));}
+			$$->push_back(new XSLDonnees($2));}
  | /* vide */     	{
-			$$ = new list<ContentItem *>();}         
+			$$ = new list<XSLContentItem *>();}         
  ;
 
 
@@ -104,35 +104,36 @@ attributes
 			$$ = $1;
 			$$->push_back($2);}
  | /*vide*/ {
-			$$ = new list<Attribut *>();}
+			$$ = new list<XSLAttribut *>();}
  ;
 
 attribute
  : NOM EGAL VALEUR {
-			$$ = new Attribut($1, $3);}
- | NOM COLON NOM EGAL VALEUR
+			$$ = new XSLAttribut($1, $3);}
+ | NOM COLON NOM EGAL VALEUR {
+			$$ = new XSLAttribut($3, $5);}
  ;
 
 doctypedecl
  : DOCTYPE NOM NOM SUP {
-			$$ = new DocTypeDecl($2, $3);}
+			$$ = new XSLDocTypeDecl($2, $3);}
  | DOCTYPE NOM SUP {
-			$$ = new DocTypeDecl($2, " ");}
+			$$ = new XSLDocTypeDecl($2, " ");}
 
  ;
 
 prolog
  : xmldecl miscs doctypedecl miscs	{
-				$$ = new Prolog($1, $3, $2, $4);}
+				$$ = new XSLProlog($1, $3, $2, $4);}
 // | miscs doctypedecl miscs  /** Ces lignes sont commentées parce qu'elles créent un conflit décalage/réduction avec la règle 0 : ".document" à la lecture du symbole INFSPECIAL (voir xml.output)
  | xmldecl miscs	{
-				$$ = new Prolog($1, NULL, $2, NULL);}	
+				$$ = new XSLProlog($1, NULL, $2, NULL);}	
 // | miscs
  ;
 
 xmldecl
  : INFSPECIAL NOM attributes SUPSPECIAL	{
-			$$ = new PI($2, $3);}
+			$$ = new XSLPI($2, $3);}
  ;
 
 miscs
@@ -140,22 +141,22 @@ miscs
 $$ = $1;
 $$->push_back($2);}
  | /*vide*/ {
-$$ = new list<Misc *>();}
+$$ = new list<XSLMisc *>();}
  ;
 
 misc
  : COMMENT {
-$$ = new Comment($1);}
+$$ = new XSLComment($1);}
  | pi {
 $$ = $1;}
  ;
 
 pi
  : INFSPECIAL NOM attributes SUPSPECIAL {
-$$ = new PI($2, $3);}
+$$ = new XSLPI($2, $3);}
  ;
 
 cdsect
  : CDATABEGIN CDATAEND {
-$$ = new CDSect($2);}
+$$ = new XSLCDSect($2);}
  ;
