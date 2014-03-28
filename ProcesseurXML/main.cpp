@@ -1,3 +1,5 @@
+#define DEBUG
+
 #include "commun.h"
 #include "structXSL.h"
 #include "struct.h"
@@ -20,13 +22,26 @@ int main(int argc, char *argv[])
 	Document * xmlD;
 	XSDDocument * xsdD;
 	XSLDocument * xslD;
-    if ((strcmp(argv[1],"-p") == 0) || (strcmp(argv[1],"-v") == 0) || (strcmp(argv[1],"-t") == 0)&& argc > 2)
+    if(argc <= 1)
+    {/* ---- si pas d'argument ---*/
+        cerr << "No argument given" << endl;
+        cerr << "Available commands are:" << endl;
+        cerr << "../xmltool -p file.xml : parse and display the xml file" << endl;
+        cerr << "../xmltool -v file.xml file.xsd : parse both xml and xsd files and display the validation result" << endl;
+        cerr << "../xmltool -t file.xml file.xsl : parse both xml and xsl files and display de transformation result of file.xml by the stylesheet file.xsl" << endl;
+        cerr << "../xmltool -h : displays this help" << endl;
 
+        return 1;
+    }/* --- fin si pas d'argument ---*/
+    else if ((strcmp(argv[1],"-p") == 0 && argc > 2) 
+         || ((strcmp(argv[1],"-v") == 0 || strcmp(argv[1],"-t") == 0) && argc == 4))
     {/* ---- si option reconnue ---*/
         FILE * fid;
         const char* nomfichier = argv[2];
         int retour;
-        //printf("%s \n",nomfichier);
+        #ifdef DEBUG
+        printf("%s \n",nomfichier);
+        #endif
 
         fid = fopen(nomfichier,"r");
 
@@ -39,7 +54,9 @@ int main(int argc, char *argv[])
         }
         else
         {
-            //cout<<"Fichier Ouvert"<<endl;
+            #ifdef DEBUG
+            cout<<"Fichier Ouvert"<<endl;
+            #endif
         }
 
         // option -p
@@ -48,7 +65,9 @@ int main(int argc, char *argv[])
         /* ------> continuer analyse et affichage ----*/
         if (!retour)
         {
-           //cout<<"Entrée standard reconnue"<<endl;
+           #ifdef DEBUG
+           cout<<"Entrée standard reconnue"<<endl;
+           #endif
            cout << "\n" << *xmlD;
         }
         else
@@ -57,7 +76,7 @@ int main(int argc, char *argv[])
         }
         fclose(fid);
         //option -v
-        if(strcmp(argv[1],"-v") == 0 && argc == 4)
+        if(strcmp(argv[1],"-v") == 0)
         {
             //récupération fichier xsd
             const char* nomfichier = argv[2];
@@ -93,7 +112,7 @@ int main(int argc, char *argv[])
             }
             fclose(fid);
         }
-	else if(strcmp(argv[1],"-t") == 0 && argc == 4)
+	    else if(strcmp(argv[1],"-t") == 0)
         {
             //xsdin = fid;
             //retour = xsdparse(&d);
@@ -133,6 +152,18 @@ int main(int argc, char *argv[])
 
         fclose(fid);
     }/* --- fin si option reconnue ---*/
+    else if(strcmp(argv[1],"-p") == 0){
+        cerr << "You must provide an argument to the command -p" << endl;
+        return 1;
+    }
+    else if(strcmp(argv[1],"-v") == 0){
+        cerr << "You must provide two arguments to the command -v: an xml file and an xsd file" << endl;
+        return 1;
+    } 
+    else if(strcmp(argv[1],"-t") == 0){
+        cerr << "You must provide two arguments to the command -t: an xml file and an xsl file" << endl;
+        return 1;
+    }
     else
     {
         cout<<"Option non reconnue"<<endl;
