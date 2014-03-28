@@ -1,5 +1,5 @@
-#ifndef STRUCTXSD_H
-#define STRUCTXSD_H
+#ifndef XSDATTRIBUT_H
+#define XSDATTRIBUT_H
 
 #include <string>
 #include <list> 
@@ -9,7 +9,7 @@ using namespace std;
 class XSDAttribut {
 	public:
 		XSDAttribut(string nom,string valeur);
-		~XSDAttribut();Doc
+		~XSDAttribut();
         string expr();
 	protected:
 		string nom;

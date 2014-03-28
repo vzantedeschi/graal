@@ -1,4 +1,4 @@
-#ifndef STRUCTXSD_H
+#ifndef XSDDOCUMENT_H
 #define STRUCTXSD_H
 
 #include <string>
@@ -11,13 +11,13 @@ using namespace std;
 
 class XSDDocument {
 	public:
-		XSDDocument(XSDProlog* XSDProlog, Schema* schema, list<XSDComment*>* XSDComments);
+		XSDDocument(XSDProlog* prolog, Schema* schema, list<XSDComment*>* comments);
 		~XSDDocument();
         string expr();
 	protected:
-		XSDProlog* XSDProlog;
+		XSDProlog* prolog;
 		Schema* schema;
-		list<XSDComment*>* XSDComments;
+		list<XSDComment*>* comments;
 };
 
 #endif

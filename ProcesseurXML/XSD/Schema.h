@@ -1,9 +1,8 @@
-#ifndef STRUCTXSD_H
-#define STRUCTXSD_H
+#ifndef SCHEMA_H
+#define SCHEMA_H
 
 #include <string>
 #include <list> 
-#include "XSDAttribut.h"
 #include "XSDElement.h"
 
 using namespace std;

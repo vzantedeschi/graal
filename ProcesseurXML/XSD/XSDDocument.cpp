@@ -1,12 +1,10 @@
-#include <string>
-#include <list> 
-using namespace std;
+#include "XSDDocument.h"
 
 //class XSDDocument
-XSDDocument::XSDDocument(XSDProlog* XSDProlog, Schema* schema, list<XSDComment*>* XSDComments): XSDProlog(XSDProlog), schema(schema), XSDComments(XSDComments){}
+XSDDocument::XSDDocument(XSDProlog* prolog, Schema* schema, list<XSDComment*>* comments): prolog(prolog), schema(schema), comments(comments){}
 string XSDDocument::expr(){
     string res = "";
-    res += XSDProlog.expr();
-    res += schema.expr();
+    res += prolog->expr();
+    res += schema->expr();
     return res;
 }

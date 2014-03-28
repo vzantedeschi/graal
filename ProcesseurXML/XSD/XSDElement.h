@@ -1,5 +1,5 @@
-#ifndef STRUCTXSD_H
-#define STRUCTXSD_H
+#ifndef XSDELEMENT_H
+#define XSDELEMENT_H
 
 #include <string>
 #include <list> 
