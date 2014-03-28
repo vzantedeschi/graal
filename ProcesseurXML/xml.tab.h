@@ -69,7 +69,7 @@ extern int xmldebug;
 typedef union YYSTYPE
 {
 /* Line 2049 of yacc.c  */
-#line 24 "xml.y"
+#line 26 "xml.y"
 
 	char * s;
 	Document * doc;

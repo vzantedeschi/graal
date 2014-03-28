@@ -50,7 +50,7 @@ void xmlerror(Document ** d,const char * msg)
 %type <lci> content
 %type <cds> cdsect
 %type <dtd> doctypedecl
-//%type <pi> pi xmldecl
+%type <pi> pi
 
 %parse-param{Document ** d}
 %%
@@ -124,7 +124,8 @@ prolog
 /** Ces lignes sont commentées parce qu'elles créent un conflit décalage/réduction avec la règle 0 : ".document" à la lecture du symbole INFSPECIAL (voir xml.output)**/
  //| xmldecl miscs	{
 				//$$ = new Prolog($1, NULL, $2, NULL);}	
- | miscs 
+ | miscs {
+ 	$$ = new Prolog(NULL, $1, NULL);}
  ;
 
 /*xmldecl
