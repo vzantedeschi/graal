@@ -1,5 +1,5 @@
-#ifndef STRUCTXSD_H
-#define STRUCTXSD_H
+#ifndef XSDCOMMENT_H
+#define XSDCOMMENT_H
 
 #include <string>
 #include <list> 
@@ -7,11 +7,11 @@ using namespace std;
 
 class XSDComment {
 	public:
-		XSDComment(string XSDComment);
+		XSDComment(string comment);
 		~XSDComment();
         string expr();
 	protected:
-		string XSDComment;
+		string comment;
 };
 
 #endif

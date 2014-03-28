@@ -1,8 +1,9 @@
-#ifndef STRUCTXSD_H
-#define STRUCTXSD_H
+#ifndef XSDDECLARATION_H
+#define XSDDECLARATION_H
 
 #include <string>
 #include <list> 
+#include "XSDAttribut.h"
 using namespace std;
 
 class XSDDeclaration {
@@ -11,7 +12,7 @@ class XSDDeclaration {
 		~XSDDeclaration();
         string expr();
 	protected:
-		XSDAttribut* att1, att2;
+		XSDAttribut* att1, *att2;
 };
 
 #endif

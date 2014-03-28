@@ -1,25 +1,32 @@
 #include "commun.h"
 #include "../src/structXSL.h"
 #include "struct.h"
+#include "structXSD.h"
 #include <iostream>
 #include <cstring>
 
 using namespace std;
+
 extern FILE* xmlin;
+extern FILE* xsdin;
 extern FILE* xslin;
 
 int xmlparse(Document **);
 int xslparse(XSLDocument **);
+int xsdparse(XSDDocument **);
 
 int main(int argc, char *argv[])
 {
-	Document * d;
-    if ((strcmp(argv[1],"-p") == 0) || (strcmp(argv[1],"-v") == 0) || (strcmp(argv[1],"-t") == 0))
+	Document * xmlD;
+	XSDDocument * xsdD;
+	XSLDocument * xslD;
+    if ((strcmp(argv[1],"-p") == 0) || (strcmp(argv[1],"-v") == 0) || (strcmp(argv[1],"-t") == 0)&& argc > 2)
+
     {/* ---- si option reconnue ---*/
         FILE * fid;
         const char* nomfichier = argv[2];
         int retour;
-        printf("%s \n",nomfichier);
+        //printf("%s \n",nomfichier);
 
         fid = fopen(nomfichier,"r");
 
@@ -32,43 +39,66 @@ int main(int argc, char *argv[])
         }
         else
         {
-            cout<<"Fichier Ouvert"<<endl;
+            //cout<<"Fichier Ouvert"<<endl;
         }
 
-        if (strcmp(argv[1],"-p") == 0)
+        // option -p
+        xmlin = fid;
+        retour = xmlparse(&xmlD);
+        /* ------> continuer analyse et affichage ----*/
+        if (!retour)
         {
-            xmlin = fid;
-            retour = xmlparse(&d);
+           //cout<<"Entrée standard reconnue"<<endl;
+           cout << "\n" << *xmlD;
+
+		   return 0;
+        }
+        else
+        {
+           cout<<"Entrée standard non reconnue"<<endl;
+        }
+        fclose(fid);
+        //option -v
+        if(strcmp(argv[1],"-v") == 0 && argc == 4)
+        {
+            //récupération fichier xsd
+            const char* nomfichier = argv[2];
+            int retour;
+            printf("%s \n",nomfichier);
+
+            fid = fopen(nomfichier,"r");
+
+            if (!fid)
+            {
+                printf("ERREUR : NOM FICHIER XSD ERRONE\n");
+                /*gestion d'erreur*/
+
+                return 1;
+            }
+            else
+            {
+                cout<<"Fichier Xsd Ouvert"<<endl;
+            }
+
+            xsdin = fid;
+            retour = xsdparse(&xsdD);
+
             /* ------> continuer analyse et affichage ----*/
+
             if (!retour)
             {
                cout<<"Entrée standard reconnue"<<endl;
-               cout << "\n" << *d;
             }
             else
             {
                cout<<"Entrée standard non reconnue"<<endl;
             }
+            fclose(fid);
         }
-        else if(strcmp(argv[1],"-v") == 0)
-        {
-            //xsdin = fid;
-            //retour = xsdparse(&d);
-            /* ------> continuer analyse et affichage ----*/
-
-            if (!retour)
-            {
-               cout<<"Entrée standard reconnue"<<endl;
-            }
-            else
-            {
-               cout<<"Entrée standard non reconnue"<<endl;
-            }
-        }
-	else if(strcmp(argv[1],"-t") == 0)
+	else if(strcmp(argv[1],"-t") == 0 && argc == 4)
         {
             xslin = fid;
-            //retour = xslparse(&d);
+            retour = xslparse(&xslD);
             /* ------> continuer analyse et affichage ----*/
 
             if (!retour)
@@ -87,7 +117,7 @@ int main(int argc, char *argv[])
     {
         cout<<"Option non reconnue"<<endl;
 
-        int retour = xmlparse(&d);
+        int retour = xmlparse(&xmlD);
 
         if (!retour)
         {

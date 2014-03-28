@@ -1,9 +1,9 @@
-#ifndef STRUCTXSD_H
-#define STRUCTXSD_H
+#ifndef COMPLEXTYPE_H
+#define COMPLEXTYPE_H
 
 #include <string>
 #include <list> 
-#include "XSDElements.h"
+#include "XSDElement.h"
 
 using namespace std;
 

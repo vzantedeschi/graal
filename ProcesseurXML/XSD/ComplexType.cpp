@@ -1,10 +1,9 @@
-#include <string>
-#include <list> 
-using namespace std;
+#include "ComplexType.h"
 
 //class ComplexType
-ComplexType::ComplexType(list<Element*>* elements): elements(elements){}
-string Choice::expr(){
+ComplexType::ComplexType(list<XSDElement*>* XSDElements): XSDElements(XSDElements){}
+
+string ComplexType::expr(){
     string res = "Erreur appel d'une méthode abstraite : ComplexType";
     return res;
 }

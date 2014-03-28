@@ -1,5 +1,5 @@
-#ifndef STRUCTXSD_H
-#define STRUCTXSD_H
+#ifndef XSDPROLOG_H
+#define XSDPROLOG_H
 
 #include <string>
 #include <list> 

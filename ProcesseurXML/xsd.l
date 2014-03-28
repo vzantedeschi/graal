@@ -10,7 +10,7 @@
 #include "xsd.tab.h"
 
 #ifdef FLEXDEBUG
-#define dbg printf("[%s:%d] \"%s\"\n",__FILE__,__LINE__,xmltext)
+#define dbg printf("[%s:%d] \"%s\"\n",__FILE__,__LINE__,xsdtext)
 #else
 #define dbg ((void)0)
 #endif
@@ -52,7 +52,6 @@ data		([^<\n&]|\n[^<&]|\n{esc}|{esc})+
 pcdata		[^<]+
 comment		{inf}"!--"([^-]|"-"[^-])*"--"{sup}
 chaine		\"([^"&]|{esc})*\"|\'([^'&]|{esc})*\'
-doctype     {esp}?"<!DOCTYPE"{esp}
 infspecial {esp}?"<?"
 supspecial "?>"{nl}?
 cdata      "<![CDATA["
@@ -70,29 +69,22 @@ endcdata   "]]>"
 %%
 
 <INITIAL>{esp}		{/* skip */}
-<INITIAL>{doctype} {dbg; return DOCTYPE;}
 <INITIAL>"/"		{dbg; return SLASH;}
 <INITIAL>"="		{dbg; return EGAL;}
-<INITIAL>"xsl"		{dbg; return XSL;}
 <INITIAL>{sup}	{dbg; BEGIN(CONTENU); return SUP;}
 <INITIAL>{supspecial}	{ dbg; return SUPSPECIAL;}
-<INITIAL>{nom}		{dbg; xmllval.s = strdup(xmltext); return NOM;}
 <INITIAL>"xsd:schema"    {dbg; return SCHEMA;}
 <INITIAL>"xsd:element"    {dbg; return ELEMENT;}
 <INITIAL>"xsd:complexType"    {dbg; return COMPLEXTYPE;}
 <INITIAL>"xsd:choice"    {dbg; return CHOICE;}
 <INITIAL>"xsd:sequence"    {dbg; return SEQUENCE;}
 <INITIAL>"name"    {dbg; return NAME;}
-<INITIAL>{colon}  {dbg; return COLON;}
-<INITIAL>{chaine}	{dbg; xmllval.s = strdup(enleveGuillemets(xmltext)); return VALEUR;}
-<CONTENU>{cdata}           {dbg; BEGIN(CDATASECTION); buffer = (char*) malloc(1); buffer[0]='\0'; return CDATABEGIN;  }
-<CDATASECTION>{endcdata}     {dbg; BEGIN(CONTENU); xmllval.s = strdup(buffer); free(buffer); return CDATAEND; }
-<CDATASECTION>.              {dbg; char * tmp = strdup(buffer); free(buffer); buffer = (char*) malloc(strlen(tmp)+2); strcpy(buffer,tmp); strcat(buffer,xmltext); free(tmp); }
+<INITIAL>{nom}    {dbg; xsdlval.s = strdup(xsdtext); return NOM;}
+<INITIAL>{chaine}	{dbg; xsdlval.s = strdup(enleveGuillemets(xsdtext)); return VALEUR;}
 
 <CONTENU,INITIAL>{infspecial}  {dbg; BEGIN(INITIAL); return INFSPECIAL;}
 <CONTENU,INITIAL>{inf}	       {dbg; BEGIN(INITIAL); return INF;}
-<CONTENU,INITIAL>{comment}		{dbg; xmllval.s = strdup(xmltext); return COMMENT;}
+<CONTENU,INITIAL>{comment}		{dbg; xsdlval.s = strdup(xsdtext); return COMMENT;}
 
-<CONTENU>{pcdata}		{dbg; xmllval.s = strdup(supprimeEspaces(xmltext)); return DONNEES;}
 
-.                    { fprintf(stderr,"Lexical Error (character %s)\n",xmltext); }
+.                    { fprintf(stderr,"Lexical Error (character %s)\n",xsdtext); }

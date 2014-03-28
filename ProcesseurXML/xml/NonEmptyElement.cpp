@@ -6,15 +6,15 @@ NonEmptyElement::NonEmptyElement(string nom, list<Attribut *>* atts, list<Conten
 
 //ostream& operator << (ostream& os, const NonEmptyElement& NE){
 void NonEmptyElement::print(ostream& os) const {
-	os << "\n<" << this->nom;
+	os << "<" << this->nom;
 	for(list<Attribut *>::iterator it = this->atts->begin(); it != this->atts->end(); it++){
 		os << " " << **it;
 	}
-	os << ">";
+	os << ">\n";
 	for(list<ContentItem *>::iterator it = this->content->begin(); it != this->content->end(); it++){
 		os << **it;
 	}
-	os << "</" << this->nom << ">";
+	os << "</" << this->nom << ">\n";
 }
 
 

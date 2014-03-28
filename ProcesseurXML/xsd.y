@@ -8,13 +8,13 @@
 using namespace std;
 
 #include "commun.h"
-#include "../src/structXSD.h"
+#include "structXSD.h"
 
 extern char xsdtext[];
 
 int xsdlex(void);  
 
-void xsderror(const char * msg)
+void xsderror(XSDDocument ** d,const char * msg)
 {
    fprintf(stderr,"%s\n",msg);
 }
@@ -23,19 +23,20 @@ void xsderror(const char * msg)
 
 %union {
    char * s;
-   Document * doc;
-   Prolog * p;
-   Element * e;
-   list<Element*> * le;
-   Attribut * a;
-   list<Attribut*> * la;
-   DocTypeDecl * dtd;
-   SimpleElement * se;
-   ComplexElement * ce;
+   XSDDocument * doc;
+   XSDProlog * p;
+   XSDElement * e;
+   list<XSDElement*> * le;
+   XSDAttribut * a;
+   list<XSDAttribut*> * la;
+   XSDDeclaration * dtd;
+   SimpleXSDElement * se;
+   ComplexXSDElement * ce;
    Schema * sche;
    Choice * cho;
    Sequence * seq;
-   list<Comment*> * lcom;
+   list<XSDComment*> * lcom;
+   ComplexType * ctype;
 }
 
 %token EGAL SLASH SUP SUPSPECIAL INFSPECIAL INF SCHEMA ELEMENT COMPLEXTYPE CHOICE SEQUENCE NAME
@@ -54,8 +55,11 @@ void xsderror(const char * msg)
 %type <cho> choice
 %type <seq> sequence
 %type <lcom> comments
+%type <s> nom
+%type <ctype> complexType
 
-%parse-param{Document ** d}
+
+%parse-param{XSDDocument ** d}
 %%
 
 main 
@@ -64,7 +68,7 @@ main
 
 document
  : prolog schema comments {
-         $$ = new Document($1, $2, $3);}
+         $$ = new XSDDocument($1, $2, $3);}
  ;
 
 schema
@@ -81,7 +85,7 @@ elements
          $$ = $1;
          $$->push_back($2);}
  | element {
-         $$ = new list<Element*>(1,$1);}            
+         $$ = new list<XSDElement*>(1,$1);}            
  ;
 
 element
@@ -95,12 +99,12 @@ complexElement
  : INF ELEMENT nom attributes SUP
    INF COMPLEXTYPE SUP complexType INF SLASH COMPLEXTYPE SUP
    INF SLASH ELEMENT SUP {
-         $$ = new ComplexElement($3,$4,$8);}
+         $$ = new ComplexXSDElement($3,$4,$9);}
  ;
 
 simpleElement
  : INF ELEMENT nom attributes SLASH SUP {
-         $$ = new SimpleElement($3,$4);}
+         $$ = new SimpleXSDElement($3,$4);}
  ;
 
 complexType
@@ -129,13 +133,13 @@ attributes
          $$ = $1;
          $$->push_back($2);}
  | /*vide*/ {
-         $$ = new list<Attribut *>();}
+         $$ = new list<XSDAttribut *>();}
  ;
 
 /* attribute : attribut quelconque */
 attribute
  : NOM EGAL VALEUR {
-         $$ = new Attribut($1, $3);}
+         $$ = new XSDAttribut($1, $3);}
  ;
 
 /* nom : attribut de nom 'name' */
@@ -145,13 +149,13 @@ nom
  ;
 
 prolog
- : xsddecl comments {
-         $$ = new Prolog($1,$2);}
+ : doctypedecl comments {
+         $$ = new XSDProlog($1,$2);}
  | comments {
-         $$ = new Prolog(NULL,$2);}
+         $$ = new XSDProlog(NULL,$1);}
  ; 
 
-xsddecl
+doctypedecl
  : INFSPECIAL NOM attribute attribute SUPSPECIAL {
          $$ = new XSDDeclaration($3, $4);}
  ;
@@ -159,7 +163,7 @@ xsddecl
 comments
  : comments COMMENT {
          $$ = $1;
-         $$->push_back(new Comment($2));}
+         $$->push_back(new XSDComment($2));}
  | /*vide*/ {
-         $$ = new list<Comment *>();}
+         $$ = new list<XSDComment *>();}
  ;
