@@ -1,9 +1,8 @@
-#include <string>
-#include <list> 
-using namespace std;
+#include "XSDProlog.h"
 
 //class XSDProlog
 XSDProlog::XSDProlog(XSDDeclaration* xsdDecl, list<XSDComment*>* XSDComments): xsdDecl(xsdDecl), XSDComments(XSDComments){}
+
 string XSDProlog::expr(){
     //la declaration du XSD n impacte pas le XML    
     /*
@@ -11,6 +10,6 @@ string XSDProlog::expr(){
     res += *xsdDecl.expr();
     res += "$";
     */
-    String res = "";
+    string res = "";
     return res;
 }

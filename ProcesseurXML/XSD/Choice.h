@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Choice : ComplexType {
+class Choice : public ComplexType {
 	public:
 		Choice(list<XSDElement*>* XSDElements);
 		~Choice();
