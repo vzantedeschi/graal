@@ -1,14 +1,12 @@
-#include <string>
-#include <list> 
-using namespace std;
+#include "SimpleXSDElement.h"
 
 //class SimpleXSDElement
 SimpleXSDElement::SimpleXSDElement(string nom, list<XSDAttribut*>* atts) : XSDElement(nom, atts) {}
 string SimpleXSDElement::expr(){
     string res = "^<";
     res += nom + " ";
-    for ( att in *atts){
-        res += att.expr() +" ";
+    for (XSDAttribut* att : *atts){
+        res += att->expr() +" ";
     }
     res += " />$";
     return res;

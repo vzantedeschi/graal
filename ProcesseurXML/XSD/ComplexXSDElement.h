@@ -3,8 +3,6 @@
 
 #include <string>
 #include <list> 
-#include "XSDElements.h"
-#include "Attribut.h"
 #include "ComplexType.h"
 
 using namespace std;

@@ -1,22 +1,21 @@
-#include <string>
-#include <list> 
-using namespace std;
+#include "Choice.h"
 
 //class Choice
 Choice::Choice(list<XSDElement*>* XSDElements) : ComplexType( XSDElements) {}
+
 string Choice::expr(){
     string res = "^(";
     bool debut = true;
-    for ( elem in *XSDElements) {
+    for (XSDElement* elem : *XSDElements) {
         if (debut) {
-            debut = false
+            debut = false;
         }
         else {
             res += "|";
         }
-        res += "("
-        res += elem.expr();
-        res += ")"
+        res += "(";
+        res += elem->expr();
+        res += ")";
     }
     res = ")$";
     return res;

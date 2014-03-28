@@ -1,4 +1,4 @@
-#ifndef STRUCTXSD_H
+#ifndef XSDDOCUMENT_H
 #define STRUCTXSD_H
 
 #include <string>
