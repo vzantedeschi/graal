@@ -1,5 +1,5 @@
 #include "commun.h"
-#include "../src/structXSL.h"
+#include "structXSL.h"
 #include "struct.h"
 #include "structXSD.h"
 #include <iostream>

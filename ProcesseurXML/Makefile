@@ -1,6 +1,6 @@
 xmlPath = xml/
 xsdPath = XSD/
-xslPath = ../src/XSL/
+xslPath = XSL/
 
 #pour l'instant il construit l'exe qu'à partir de cXML
 #all: cXML

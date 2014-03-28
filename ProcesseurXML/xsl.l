@@ -6,7 +6,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "commun.h"
-#include "../src/structXSL.h"
+#include "structXSL.h"
 #include "xsl.tab.h"
 
 #ifdef FLEXDEBUG

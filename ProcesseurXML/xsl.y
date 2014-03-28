@@ -8,7 +8,7 @@
 #include <iostream>
 using namespace std;
 #include "commun.h"
-#include "../src/structXSL.h"
+#include "structXSL.h"
 
 extern char xmltext[];
 
