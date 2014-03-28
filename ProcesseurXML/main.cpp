@@ -50,8 +50,6 @@ int main(int argc, char *argv[])
         {
            //cout<<"Entrée standard reconnue"<<endl;
            cout << "\n" << *xmlD;
-
-		   return 0;
         }
         else
         {
@@ -97,8 +95,28 @@ int main(int argc, char *argv[])
         }
 	else if(strcmp(argv[1],"-t") == 0 && argc == 4)
         {
-            xslin = fid;
+            const char* nomfichier = argv[3];
+            int retour;
+            printf("%s \n",nomfichier);
+
+            fid = fopen(nomfichier,"r");
+
+	    if (!fid)
+            {
+                printf("ERREUR : NOM FICHIER XSL ERRONE\n");
+                /*gestion d'erreur*/
+
+                return 1;
+            }
+            else
+            {
+                cout<<"Fichier xsl Ouvert"<<endl;
+            }
+
+	    xslin = fid;
             retour = xslparse(&xslD);
+	    printf("BIG SOUCYYYY");
+
             /* ------> continuer analyse et affichage ----*/
 
             if (!retour)

@@ -110,7 +110,8 @@ attributes
 attribute
  : NOM EGAL VALEUR {
 			$$ = new XSLAttribut($1, $3);}
- | NOM COLON NOM EGAL VALEUR
+ | NOM COLON NOM EGAL VALEUR {
+			$$ = new XSLAttribut($3, $5);}
  ;
 
 doctypedecl

@@ -499,8 +499,8 @@ static const yytype_int8 yyrhs[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    60,    60,    64,    69,    76,    84,    89,    91,    93,
-      95,    97,   103,   106,   111,   113,   117,   119,   125,   128,
-     134,   139,   142,   147,   149,   154,   159
+      95,    97,   103,   106,   111,   113,   118,   120,   126,   129,
+     135,   140,   143,   148,   150,   155,   160
 };
 #endif
 
@@ -1554,44 +1554,51 @@ yyreduce:
 			(yyval.a) = new XSLAttribut((yyvsp[(1) - (3)].s), (yyvsp[(3) - (3)].s));}
     break;
 
+  case 15:
+/* Line 1787 of yacc.c  */
+#line 113 "xsl.y"
+    {
+			(yyval.a) = new XSLAttribut((yyvsp[(3) - (5)].s), (yyvsp[(5) - (5)].s));}
+    break;
+
   case 16:
 /* Line 1787 of yacc.c  */
-#line 117 "xsl.y"
+#line 118 "xsl.y"
     {
 			(yyval.dtd) = new XSLDocTypeDecl((yyvsp[(2) - (4)].s), (yyvsp[(3) - (4)].s));}
     break;
 
   case 17:
 /* Line 1787 of yacc.c  */
-#line 119 "xsl.y"
+#line 120 "xsl.y"
     {
 			(yyval.dtd) = new XSLDocTypeDecl((yyvsp[(2) - (3)].s), " ");}
     break;
 
   case 18:
 /* Line 1787 of yacc.c  */
-#line 125 "xsl.y"
+#line 126 "xsl.y"
     {
 				(yyval.p) = new XSLProlog((yyvsp[(1) - (4)].pi), (yyvsp[(3) - (4)].dtd), (yyvsp[(2) - (4)].lm), (yyvsp[(4) - (4)].lm));}
     break;
 
   case 19:
 /* Line 1787 of yacc.c  */
-#line 128 "xsl.y"
+#line 129 "xsl.y"
     {
 				(yyval.p) = new XSLProlog((yyvsp[(1) - (2)].pi), NULL, (yyvsp[(2) - (2)].lm), NULL);}
     break;
 
   case 20:
 /* Line 1787 of yacc.c  */
-#line 134 "xsl.y"
+#line 135 "xsl.y"
     {
 			(yyval.pi) = new XSLPI((yyvsp[(2) - (4)].s), (yyvsp[(3) - (4)].la));}
     break;
 
   case 21:
 /* Line 1787 of yacc.c  */
-#line 139 "xsl.y"
+#line 140 "xsl.y"
     {
 (yyval.lm) = (yyvsp[(1) - (2)].lm);
 (yyval.lm)->push_back((yyvsp[(2) - (2)].m));}
@@ -1599,42 +1606,42 @@ yyreduce:
 
   case 22:
 /* Line 1787 of yacc.c  */
-#line 142 "xsl.y"
+#line 143 "xsl.y"
     {
 (yyval.lm) = new list<XSLMisc *>();}
     break;
 
   case 23:
 /* Line 1787 of yacc.c  */
-#line 147 "xsl.y"
+#line 148 "xsl.y"
     {
 (yyval.m) = new XSLComment((yyvsp[(1) - (1)].s));}
     break;
 
   case 24:
 /* Line 1787 of yacc.c  */
-#line 149 "xsl.y"
+#line 150 "xsl.y"
     {
 (yyval.m) = (yyvsp[(1) - (1)].pi);}
     break;
 
   case 25:
 /* Line 1787 of yacc.c  */
-#line 154 "xsl.y"
+#line 155 "xsl.y"
     {
 (yyval.pi) = new XSLPI((yyvsp[(2) - (4)].s), (yyvsp[(3) - (4)].la));}
     break;
 
   case 26:
 /* Line 1787 of yacc.c  */
-#line 159 "xsl.y"
+#line 160 "xsl.y"
     {
 (yyval.cds) = new XSLCDSect((yyvsp[(2) - (2)].s));}
     break;
 
 
 /* Line 1787 of yacc.c  */
-#line 1638 "xsl.tab.c"
+#line 1645 "xsl.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
