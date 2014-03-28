@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
         FILE * fid;
         const char* nomfichier = argv[2];
         int retour;
-        printf("%s \n",nomfichier);
+        //printf("%s \n",nomfichier);
 
         fid = fopen(nomfichier,"r");
 
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            cout<<"Fichier Ouvert"<<endl;
+            //cout<<"Fichier Ouvert"<<endl;
         }
 
         // option -p
@@ -43,8 +43,10 @@ int main(int argc, char *argv[])
         /* ------> continuer analyse et affichage ----*/
         if (!retour)
         {
-           cout<<"Entrée standard reconnue"<<endl;
+           //cout<<"Entrée standard reconnue"<<endl;
            cout << "\n" << *xmlD;
+
+		   return 0;
         }
         else
         {

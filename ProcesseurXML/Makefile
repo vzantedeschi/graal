@@ -7,7 +7,7 @@ xsdPath = XSD/
 
 #pour ajouter par exemple la compilation de xsd :
 all: cXML cXSD
-	g++ -std=c++11 -g -DFLEXDEBUG -DYYDEBUG -o xmltool main.cpp $(xmlPath)*.cpp $(xsdPath)*.cpp xml.tab.c xsd.tab.c lex.xml.c lex.xsd.c
+	g++ -std=c++11 -g -DYYDEBUG -o xmltool main.cpp $(xmlPath)*.cpp $(xsdPath)*.cpp xml.tab.c xsd.tab.c lex.xml.c lex.xsd.c
 
 cXML: xml.l xml.y $(xmlPath)*
 	flex -P xml xml.l
