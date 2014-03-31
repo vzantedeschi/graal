@@ -66,13 +66,34 @@ $$ = new Document($1, $2, $3);}
 element
  : INF NOM attributes SUP
    content
-   INF SLASH NOM SUP	{
+   INF SLASH NOM SUP	
+   		{
 			if(strcmp($2,$8)){
-				cerr << "Non matching element names " << $2 << " and " << $8 << endl;}
+				cerr << "Non matching element names " << $2 << " and " << $8 << endl;
+			}
 			$$ = new NonEmptyElement($2, $3, $5);	
-				}
+		}
+ | INF NOM COLON NOM attributes SUP
+   content
+   INF SLASH NOM COLON NOM SUP 
+   		{
+			if(strcmp($2,$10)){
+				cerr << "Non matching element namespaces " << $2 << " and "<< $10 <<endl;
+			}
+			if(strcmp($4,$12)){
+				cerr << "Non matching element names " << $4 << " and "<< $12 <<endl;
+			}
+   			strcat($2,":");
+   			strcat($2, $4);
+   			$$ = new NonEmptyElement($2, $5, $7);
+   		}
+
  | INF NOM attributes SLASH SUP	{
-			$$ = new EmptyElement($2, $3);}            
+			$$ = new EmptyElement($2, $3);}   
+ | INF NOM COLON NOM attributes SLASH SUP	{
+ 			strcat($2,":");
+   			strcat($2, $4);
+			$$ = new EmptyElement($2, $5);} 
  ;
 
 content

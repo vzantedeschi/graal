@@ -29,5 +29,5 @@ cXSL: xsl.l xsl.y $(xslPath)*
 clean:
 	-rm -rf *.tab.c lex.x*.c *.tab.h *.output xmltool cXML cXSD cXSL *.o
 
-test:
+test: 
 	cd Tests; ./mktest.sh

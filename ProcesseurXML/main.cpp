@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 
         if (!fid)
         {
-            printf("ERREUR : NOM FICHIER ERRONE\n");
+            cerr << "Unable to open " << nomfichier << endl;
             /*gestion d'erreur*/
 
             return 1;

@@ -6,10 +6,10 @@ TestCLITransformOneFile;Ok;Ok;Ok;Non testé;Ok
 TestCLIValidationNoFile;Ok;Ok;Ok;Non testé;Ok
 TestCLIValidationOneFile;Ok;Ok;Ok;Non testé;Ok
 TestParsingBadMarkup1;Ok;Ok;Ok;Non testé;Ok
-TestParsingBadMarkup2;Ok;Echec;Echec;Non testé;Echec
-TestParsingBadMarkup3;Ok;Echec;Echec;Non testé;Echec
-TestParsingBadMarkup4;Ok;Echec;Echec;Non testé;Echec
-TestParsingCannotOpen;Ok;Echec;Echec;Non testé;Echec
+TestParsingBadMarkup2;Ok;Ok;Ok;Non testé;Ok
+TestParsingBadMarkup3;Ok;Ok;Ok;Non testé;Ok
+TestParsingBadMarkup4;Ok;Ok;Ok;Non testé;Ok
+TestParsingCannotOpen;Ok;Ok;Ok;Non testé;Ok
 TestParsingLexicalError;Echec;Echec;Echec;Non testé;Echec
 TestParsingMissingMarkup;Echec;Echec;Echec;Non testé;Echec
 TestParsingSimple1;Ok;Ok;Non testé;Non testé;Ok
@@ -20,10 +20,10 @@ TestParsingSimple5;Ok;Echec;Non testé;Non testé;Echec
 TestParsingSyntaxError;Echec;Echec;Echec;Non testé;Echec
 TestTransformApplyTemplates1;Ok;Echec;Non testé;Non testé;Echec
 TestTransformApplyTemplates2;Ok;Echec;Non testé;Non testé;Echec
-TestTransformCannotOpen1;Ok;Echec;Echec;Non testé;Echec
+TestTransformCannotOpen1;Ok;Ok;Echec;Non testé;Echec
 TestTransformCannotOpen2;Ok;Echec;Echec;Non testé;Echec
 TestTransformForeach;Ok;Echec;Non testé;Non testé;Echec
-TestValidationCannotOpen1;Ok;Echec;Echec;Non testé;Echec
+TestValidationCannotOpen1;Ok;Ok;Echec;Non testé;Echec
 TestValidationCannotOpen2;Echec;Echec;Echec;Non testé;Echec
 TestValidationChoiceBad;Ok;Echec;Non testé;Non testé;Echec
 TestValidationChoiceGood;Ok;Echec;Non testé;Non testé;Echec
