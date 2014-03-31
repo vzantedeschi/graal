@@ -72,7 +72,8 @@ int main(int argc, char *argv[])
         }
         else
         {
-           cout<<"Entrée standard non reconnue"<<endl;
+           cerr<<"No root markup"<<endl;
+           return 1;
         }
         fclose(fid);
         //option -v
