@@ -1,4 +1,4 @@
-#define DEBUG
+//#define DEBUG
 
 #include "commun.h"
 #include "structXSL.h"
@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
 
             fid = fopen(nomfichier,"r");
 
-	    if (!fid)
+	        if (!fid)
             {
                 printf("ERREUR : NOM FICHIER XSL ERRONE\n");
                 /*gestion d'erreur*/
@@ -134,9 +134,9 @@ int main(int argc, char *argv[])
                 cout<<"Fichier xsl Ouvert"<<endl;
             }
 
-	    xslin = fid;
+	        xslin = fid;
             retour = xslparse(&xslD);
-	    printf("BIG SOUCYYYY");
+	        printf("BIG SOUCYYYY");
 
             /* ------> continuer analyse et affichage ----*/
 
@@ -148,9 +148,9 @@ int main(int argc, char *argv[])
             {
                cout<<"Entrée standard non reconnue"<<endl;
             }
+            fclose(fid);
         }
 
-        fclose(fid);
     }/* --- fin si option reconnue ---*/
     else if(strcmp(argv[1],"-p") == 0){
         cerr << "You must provide an argument to the command -p" << endl;

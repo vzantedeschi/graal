@@ -1,22 +1,22 @@
 Test ID;Return code validation;Out result;StdErr result;File creation result;Global result
-TestCLINoArgument;Echec;Ok;Ok;Non testé;Echec
-TestCLIParseNoFile;Echec;Ok;Ok;Non testé;Echec
-TestCLITransformNoFile;Echec;Ok;Ok;Non testé;Echec
-TestCLITransformOneFile;Echec;Ok;Ok;Non testé;Echec
-TestCLIValidationNoFile;Echec;Ok;Ok;Non testé;Echec
-TestCLIValidationOneFile;Echec;Ok;Ok;Non testé;Echec
-TestParsingBadMarkup1;Echec;Echec;Ok;Non testé;Echec
-TestParsingBadMarkup2;Echec;Echec;Echec;Non testé;Echec
-TestParsingBadMarkup3;Echec;Echec;Echec;Non testé;Echec
-TestParsingBadMarkup4;Echec;Echec;Echec;Non testé;Echec
+TestCLINoArgument;Ok;Ok;Ok;Non testé;Ok
+TestCLIParseNoFile;Ok;Ok;Ok;Non testé;Ok
+TestCLITransformNoFile;Ok;Ok;Ok;Non testé;Ok
+TestCLITransformOneFile;Ok;Ok;Ok;Non testé;Ok
+TestCLIValidationNoFile;Ok;Ok;Ok;Non testé;Ok
+TestCLIValidationOneFile;Ok;Ok;Ok;Non testé;Ok
+TestParsingBadMarkup1;Ok;Ok;Ok;Non testé;Ok
+TestParsingBadMarkup2;Ok;Echec;Echec;Non testé;Echec
+TestParsingBadMarkup3;Ok;Echec;Echec;Non testé;Echec
+TestParsingBadMarkup4;Ok;Echec;Echec;Non testé;Echec
 TestParsingCannotOpen;Ok;Echec;Echec;Non testé;Echec
 TestParsingLexicalError;Echec;Echec;Echec;Non testé;Echec
 TestParsingMissingMarkup;Echec;Echec;Echec;Non testé;Echec
-TestParsingSimple1;Echec;Echec;Non testé;Non testé;Echec
-TestParsingSimple2;Echec;Echec;Non testé;Non testé;Echec
-TestParsingSimple3;Echec;Echec;Non testé;Non testé;Echec
-TestParsingSimple4;Echec;Echec;Non testé;Non testé;Echec
-TestParsingSimple5;Echec;Echec;Non testé;Non testé;Echec
+TestParsingSimple1;Ok;Ok;Non testé;Non testé;Ok
+TestParsingSimple2;Ok;Ok;Non testé;Non testé;Ok
+TestParsingSimple3;Ok;Echec;Non testé;Non testé;Echec
+TestParsingSimple4;Ok;Echec;Non testé;Non testé;Echec
+TestParsingSimple5;Ok;Echec;Non testé;Non testé;Echec
 TestParsingSyntaxError;Echec;Echec;Echec;Non testé;Echec
 TestTransformApplyTemplates1;Ok;Echec;Non testé;Non testé;Echec
 TestTransformApplyTemplates2;Ok;Echec;Non testé;Non testé;Echec
@@ -25,10 +25,10 @@ TestTransformCannotOpen2;Ok;Echec;Echec;Non testé;Echec
 TestTransformForeach;Ok;Echec;Non testé;Non testé;Echec
 TestValidationCannotOpen1;Ok;Echec;Echec;Non testé;Echec
 TestValidationCannotOpen2;Echec;Echec;Echec;Non testé;Echec
-TestValidationChoiceBad;Echec;Echec;Non testé;Non testé;Echec
-TestValidationChoiceGood;Echec;Echec;Non testé;Non testé;Echec
-TestValidationMaxOccursBad;Echec;Echec;Non testé;Non testé;Echec
-TestValidationMaxOccursGood;Echec;Echec;Non testé;Non testé;Echec
-TestValidationSequenceBadOrder;Echec;Echec;Non testé;Non testé;Echec
-TestValidationSequenceGood;Echec;Echec;Non testé;Non testé;Echec
-TestValidationSequenceMissingItem;Echec;Echec;Non testé;Non testé;Echec
+TestValidationChoiceBad;Ok;Echec;Non testé;Non testé;Echec
+TestValidationChoiceGood;Ok;Echec;Non testé;Non testé;Echec
+TestValidationMaxOccursBad;Ok;Echec;Non testé;Non testé;Echec
+TestValidationMaxOccursGood;Ok;Echec;Non testé;Non testé;Echec
+TestValidationSequenceBadOrder;Ok;Echec;Non testé;Non testé;Echec
+TestValidationSequenceGood;Ok;Echec;Non testé;Non testé;Echec
+TestValidationSequenceMissingItem;Ok;Echec;Non testé;Non testé;Echec
