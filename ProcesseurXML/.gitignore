@@ -1,3 +1,12 @@
-*#
-*.o
+*.tab.c
+*.tab.h
 *~
+*.xml.c
+*.output
+*.xsd.c
+cXML
+cXSD
+cXSL
+xmltool
+*.csv
+*.xsl.c
