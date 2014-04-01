@@ -80,6 +80,9 @@ int main(int argc, char *argv[])
                cerr<<"No root markup"<<endl;
                return 1;
             }
+            if(xmlD != NULL){ //liberer la memoire
+            	delete xmlD;
+            }
             fclose(fid);
             //option -v
             if(strcmp(argv[1],"-v") == 0)

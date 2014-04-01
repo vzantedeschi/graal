@@ -18,12 +18,9 @@ void NonEmptyElement::print(ostream& os) const {
 }
 
 NonEmptyElement::~NonEmptyElement()
-{
-    list<Attribut *>::iterator it1 = atts->begin();
-    list<Attribut *>::iterator it2 = atts->end();
-    atts->erase(it1, it2);
-    
-    list<ContentItem *>::iterator ita = content->begin();
-    list<ContentItem *>::iterator itb = content->end();
-    content->erase(ita, itb);
+{	
+	for(list<ContentItem *>::iterator it = content->begin(); it != content->end(); it++){
+			delete *it;
+	}
+	delete content;
 }

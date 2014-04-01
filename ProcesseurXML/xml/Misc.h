@@ -6,7 +6,7 @@
 class Misc : public ContentItem {
 	public:
 		Misc();
-		~Misc();
+		virtual ~Misc();
 		virtual void print(ostream& os) const = 0;
 };
 

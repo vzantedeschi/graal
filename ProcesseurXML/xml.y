@@ -71,7 +71,9 @@ element
 			if(strcmp($2,$8)){
 				cerr << "Non matching element names " << $2 << " and " << $8 << endl;
 			}
-			$$ = new NonEmptyElement($2, $3, $5);	
+			$$ = new NonEmptyElement($2, $3, $5);
+			free($2);
+			free($8);	
 		}
  | INF NOM COLON NOM attributes SUP
    content
@@ -86,14 +88,21 @@ element
    			strcat($2,":");
    			strcat($2, $4);
    			$$ = new NonEmptyElement($2, $5, $7);
+   			free($2);
+   			free($4);
+   			free($10);
+   			free($12);
    		}
 
  | INF NOM attributes SLASH SUP	{
-			$$ = new EmptyElement($2, $3);}   
+			$$ = new EmptyElement($2, $3);
+			free($2);}   
  | INF NOM COLON NOM attributes SLASH SUP	{
  			strcat($2,":");
    			strcat($2, $4);
-			$$ = new EmptyElement($2, $5);} 
+			$$ = new EmptyElement($2, $5);
+			free($2);
+			free($4);} 
  ;
 
 content
@@ -104,7 +113,8 @@ content
  | content misc		{
 			$$->push_back($2);}   
  | content DONNEES	{
-			$$->push_back(new Donnees($2));}
+			$$->push_back(new Donnees($2));
+			free($2);}
  | /* vide */     	{
 			$$ = new list<ContentItem *>();}         
  ;
@@ -120,20 +130,31 @@ attributes
 
 attribute
  : NOM EGAL VALEUR {
-			$$ = new Attribut($1, $3);}
+			$$ = new Attribut($1, $3);
+			free($3);
+			free($1);}
  | NOM COLON NOM EGAL VALEUR {
 			strcat($1,":");
 			strcat($1, $3);
-			$$ = new Attribut($1, $5);}
+			$$ = new Attribut($1, $5);
+			free($5);
+			free($1);
+			free($3);}
  ;
 
 doctypedecl
  : DOCTYPE NOM NOM SUP {
-			$$ = new DocTypeDecl($2, $3);}
+			$$ = new DocTypeDecl($2, $3);
+			free($2);
+			free($3);}
  | DOCTYPE NOM NOM VALEUR SUP {
-			$$ = new DocTypeDecl($2, $3);}
+			$$ = new DocTypeDecl($2, $3);
+			free($4);
+			free($2);
+			free($3);}
  | DOCTYPE NOM SUP {
-			$$ = new DocTypeDecl($2, " ");}
+			$$ = new DocTypeDecl($2, " ");
+			free($2);}
 
  ;
 
@@ -164,17 +185,20 @@ $$ = new list<Misc *>();}
 
 misc
  : COMMENT {
-$$ = new Comment($1);}
+	$$ = new Comment($1);
+	free($1);}
  | pi {
-$$ = $1;}
+	$$ = $1;}
  ;
 
 pi
  : INFSPECIAL NOM attributes SUPSPECIAL {
-$$ = new PI($2, $3);}
+	$$ = new PI($2, $3);
+	free($2);}
  ;
 
 cdsect
  : CDATABEGIN CDATAEND {
-$$ = new CDSect($2);}
+	$$ = new CDSect($2);
+	free($2);}
  ;

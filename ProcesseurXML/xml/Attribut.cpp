@@ -6,3 +6,6 @@ ostream& operator << (ostream& os, const Attribut& A){
 	os << A.nom << "=" << "\"" << A.valeur << "\"";
 	return os;
 }
+
+Attribut::~Attribut(){
+}

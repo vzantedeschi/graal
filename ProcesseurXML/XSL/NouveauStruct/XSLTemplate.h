@@ -1,5 +1,5 @@
-#ifndef XSLELEMENTXSL_H
-#define XSLELEMENTXSL_H
+#ifndef XSLTEMPLATE_H
+#define XSLTEMPLATE_H
 
 #include <string>
 #include <list> 
@@ -7,14 +7,11 @@
 #include "XSLAttribut.h"
 using namespace std;
 
-class XSLElementXSL : public XSLElement {
+class XSLTemplate 
+{
 	public:
-		XSLElementXSL(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus, string matching);
-		~XSLElementXSL();
-
-		virtual void print(ostream& os) const;
-	protected:
-		string matching;
+		XSLTemplate(list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
+		~XSLTemplate();
 };
 
 #endif

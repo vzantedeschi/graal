@@ -1,20 +1,17 @@
-#ifndef XSLELEMENTXSL_H
-#define XSLELEMENTXSL_H
+#ifndef XSLAPPLY_H
+#define XSLAPPLY_H
 
 #include <string>
 #include <list> 
-#include "XSLElementXSL.h"
-#include "XSLAttribut.h"
+#include "XSLElement.h"
+#include "XSLApply.h"
 using namespace std;
 
-class XSLElementXSL : public XSLElement {
+class XSLApply : public XSLElement {
 	public:
-		XSLElementXSL(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus, string matching);
+		XSLElementXSL(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
 		~XSLElementXSL();
 
-		virtual void print(ostream& os) const;
-	protected:
-		string matching;
 };
 
 #endif
