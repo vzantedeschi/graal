@@ -2,21 +2,19 @@
 #define XSLDocument_H
 
 #include <list> 
-#include <iostream>
-#include "XSLProlog.h"
-#include "XSLElement.h"
-
+#include "XSLDeclaration.h"
+#include "XSLCatalogue.h"
 using namespace std;
 
-class XSLDocument {
+class XSLDocument 
+{
 	public:
-		XSLDocument(XSLProlog * prolog, XSLElement * element);
+		XSLDocument(XSLDeclaration * xsldecl, XSLCatalogue * catalogue);
 		~XSLDocument();
 
-		friend ostream& operator << (ostream& os, const XSLDocument& D);
 	protected:
-		XSLProlog * prolog;
-		XSLElement * element;
+		XSLDeclaration * xsldecl;
+		XSLCatalogue * catalogue;
 };
 
 #endif
