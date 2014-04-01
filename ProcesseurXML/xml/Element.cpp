@@ -4,9 +4,10 @@ Element::Element(string nom, list<Attribut *>* atts) : ContentItem(), nom(nom), 
 
 Element::~Element()
 {
-    list<Attribut *>::iterator it1 = atts->begin();
-    list<Attribut *>::iterator it2 = atts->end();
-    atts->erase(it1, it2);
+	for(list<Attribut *>::iterator it = atts->begin(); it != atts->end(); it++){
+			delete *it;
+	}
+	delete atts;
 }
 
 

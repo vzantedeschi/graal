@@ -16,8 +16,5 @@ void EmptyElement::print(ostream& os) const
 
 EmptyElement::~EmptyElement()
 {
-    list<Attribut *>::iterator it1 = atts->begin();
-    list<Attribut *>::iterator it2 = atts->end();
-    atts->erase(it1, it2);
 }
 

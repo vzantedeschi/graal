@@ -7,3 +7,6 @@ void CDSect::print(ostream& os) const{
 	os << "<![CDATA[ " << this->cdata << " ]]>\n";
 	//return os;
 }
+
+CDSect::~CDSect(){
+}
