@@ -17,7 +17,8 @@ Document::~Document()
 {
     delete prolog;
     delete element;
-    list<Misc *>::iterator it1 = misc->begin();
-    list<Misc *>::iterator it2 = misc->end();
-    misc->erase(it1, it2);
+    for(list<Misc *>::iterator it = misc->begin(); it != misc->end(); it++){
+			delete *it;
+	}
+	delete misc;
 }

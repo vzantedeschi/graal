@@ -10,7 +10,7 @@ using namespace std;
 class Element : public ContentItem {
 	public:
 		Element(string nom, list<Attribut *>* atts);
-		~Element();
+		virtual ~Element();
 
 		virtual void print(ostream& os) const = 0;
 	protected:

@@ -7,7 +7,7 @@ using namespace std;
 class ContentItem {
 	public:
 		ContentItem();
-		~ContentItem();
+		virtual ~ContentItem();
 		friend ostream& operator << (ostream& os, const ContentItem& CI);
 		virtual void print(ostream& os) const = 0;
 };

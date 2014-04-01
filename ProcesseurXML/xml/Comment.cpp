@@ -7,3 +7,6 @@ void Comment::print(ostream& os) const{
 	os << this->comment << "\n";
 	//return os;
 }
+
+Comment::~Comment(){
+}

@@ -7,3 +7,6 @@ void Donnees::print(ostream& os) const {
 	os << this->donnees << endl;
 	//return os;
 }
+
+Donnees::~Donnees(){
+}
