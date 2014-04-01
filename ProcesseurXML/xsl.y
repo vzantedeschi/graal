@@ -25,7 +25,8 @@ void xslerror(XSLDocument ** d,const char * msg)
 	char * s;
 	XSLDocument * doc;
 	XSLProlog * pro;
-	XSLElementXSL * elemxsl;
+	XSLElement * elemxsl;
+	list<XSLElement *> * lelemxsl;
 
 //	XSLMisc * m;
 //	list<XSLMisc *> * lm;
@@ -35,21 +36,21 @@ void xslerror(XSLDocument ** d,const char * msg)
 
 //	list<XSLContentItem *> * lci;
 //	XSLCDSect * cds;
-
-	XSLDocTypeDecl * dtd;
-
+//	XSLDocTypeDecl * dtd;
 //	XSLPI * pi;
 
 	XSLDeclaration * xsld;
-	XSLElementHTML * elemhtml;
 	XSLCatalogue * cat;
+	XSLTemplate * t;
+	list<XSLTemplate *> * lt;
 }
 
-%token EGAL SLASH SUP SUPSPECIAL INFSPECIAL INF XSL STYLESHEET TEMPLATE VALUEOF FOREACH APPLY
+%token EGAL COLON SLASH SUP SUPSPECIAL INFSPECIAL INF XSL STYLESHEET TEMPLATE VALUEOF FOREACH APPLY
 %token <s> VALEUR COMMENT NOM DONNEES
 
 %type <doc> document
-%type <elemxsl> elementXSL
+%type <elemxsl> element
+%type <lelemxsl> elements
 
 //%type <pro> prolog
 //%type <m> misc
@@ -60,14 +61,14 @@ void xslerror(XSLDocument ** d,const char * msg)
 
 //%type <lci> content
 //%type <cds> cdsect
-
-%type <dtd> doctypedecl
-
+//%type <dtd> doctypedecl
 //%type <pi> pi xmldecl
 
 %type <xsld> xsldecl
-%type <elemhtml> elementHTML
 %type <cat> catalogue
+%type <t> template
+%type <lt> templates
+
 
 
 %parse-param{XSLDocument ** d}
@@ -133,23 +134,23 @@ element
 			$$ = new XSLElementHTML($2, $3, $5);
 				}
  | INF NOM attributes SLASH SUP		{ cout << "Balise HTML auto-fermante" << endl;
-					$$ = new XSLElementHTML($2,$3,NULL)
+					$$ = new XSLElementHTML($2,$3,NULL);
 					}
  | DONNEES         {cout << "Du texte" << endl;}
  ;
 
-content
- : content element	{
-			$$->push_back($2);}
- | content cdsect	{
-			$$->push_back($2);}
- | content misc		{
-			$$->push_back($2);}   
- | content DONNEES	{
-			$$->push_back(new XSLDonnees($2));}
- | /* vide */     	{
-			$$ = new list<XSLContentItem *>();}         
- ;
+//content
+// : content element	{
+//			$$->push_back($2);}
+// | content cdsect	{
+//			$$->push_back($2);}
+// | content misc		{
+//			$$->push_back($2);}   
+// | content DONNEES	{
+//			$$->push_back(new XSLDonnees($2));}
+// | /* vide */     	{
+//			$$ = new list<XSLContentItem *>();}         
+// ;
 
 //////////////////////////////////////
 

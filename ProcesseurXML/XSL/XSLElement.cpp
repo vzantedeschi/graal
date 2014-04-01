@@ -1,6 +1,3 @@
 #include "XSLElement.h"
 
-XSLElement::XSLElement(string nom, list<XSLAttribut *>* atts) : XSLContentItem(), nom(nom), atts(atts) {}
-
-
-
+XSLElement::XSLElement(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus) : type(type), atts(atts), elementsInclus(elementsInclus) {}

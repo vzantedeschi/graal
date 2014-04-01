@@ -9,7 +9,6 @@ class XSLAttribut {
 	public:
 		XSLAttribut(string nom,string valeur);
 		~XSLAttribut();
-		friend ostream& operator << (ostream& os, const XSLAttribut& A);
 	protected:
 		string nom;
 		string valeur;
