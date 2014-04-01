@@ -1,4 +1,4 @@
-//#define DEBUG
+#define DEBUG
 
 #include "commun.h"
 #include "structXSL.h"
@@ -12,6 +12,7 @@ using namespace std;
 extern FILE* xmlin;
 extern FILE* xsdin;
 extern FILE* xslin;
+extern int xsddebug;
 
 int xmlparse(Document **);
 int xslparse(XSLDocument **);
@@ -55,20 +56,23 @@ int main(int argc, char *argv[])
         else
         {
             #ifdef DEBUG
-            cout<<"Fichier Ouvert"<<endl;
+            cout<<"Fichier XML Ouvert"<<endl;
             #endif
         }
 
         // option -p
         xmlin = fid;
-        retour = xmlparse(&xmlD);
+        retour = 0;
+        //retour = xmlparse(&xmlD);
         /* ------> continuer analyse et affichage ----*/
         if (!retour)
         {
            #ifdef DEBUG
            cout<<"Entrée standard reconnue"<<endl;
            #endif
-           cout << "\n" << *xmlD;
+           //cout << "\n" << *xmlD;
+           #ifdef DEBUG
+           #endif
         }
         else
         {
@@ -80,7 +84,7 @@ int main(int argc, char *argv[])
         if(strcmp(argv[1],"-v") == 0)
         {
             //récupération fichier xsd
-            const char* nomfichier = argv[2];
+            const char* nomfichier = argv[3];
             int retour;
             printf("%s \n",nomfichier);
 
@@ -99,17 +103,19 @@ int main(int argc, char *argv[])
             }
 
             xsdin = fid;
+            xsddebug=1;
             retour = xsdparse(&xsdD);
 
             /* ------> continuer analyse et affichage ----*/
 
             if (!retour)
             {
-               cout<<"Entrée standard reconnue"<<endl;
+               cout<<"Entrée standard XSD reconnue"<<endl;
+               cout << xsdD->expr();
             }
             else
             {
-               cout<<"Entrée standard non reconnue"<<endl;
+               cout<<"Entrée standard XSD non reconnue"<<endl;
             }
             fclose(fid);
         }
@@ -143,11 +149,13 @@ int main(int argc, char *argv[])
 
             if (!retour)
             {
-               cout<<"Entrée standard reconnue"<<endl;
+                //cout<<"Entrée standard reconnue"<<endl;
+                cout << "\n" << xsdD->expr();
             }
             else
             {
-               cout<<"Entrée standard non reconnue"<<endl;
+               cout<<"Entrée standard XSL non reconnue"<<endl;
+               return 1;
             }
             fclose(fid);
         }

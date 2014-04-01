@@ -117,14 +117,14 @@ complexType
 choice
  : INF CHOICE SUP
    elements
-   INF CHOICE SLASH SUP {
+   INF SLASH CHOICE SUP {
          $$ = new Choice($4);}
  ;
 
 sequence
  : INF SEQUENCE SUP
    elements
-   INF SEQUENCE SLASH SUP  {
+   INF SLASH SEQUENCE SUP  {
          $$ = new Sequence($4);}
  ;
 
