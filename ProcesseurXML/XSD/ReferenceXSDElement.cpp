@@ -36,7 +36,10 @@ string ReferenceXSDElement::expr(list<XSDElement*>* elems){
     if (trouve)
     {
         /* chercher le nombre d occurences max de la reference */
+        for (XSDAttribut* att : *atts)
+        {
         
+        }
         res += leBon->expr(elems);
     }
     else
