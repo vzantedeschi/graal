@@ -26,3 +26,15 @@ ostream& operator << (ostream& os, const Prolog& P){
 	}
 	return os;
 }
+
+Prolog::~Prolog()
+{
+	delete docTypeDecl;
+    list<Misc *>::iterator it1 = misc1->begin();
+    list<Misc *>::iterator it2 = misc1->end();
+    misc1->erase(it1, it2);
+    
+    list<Misc *>::iterator ita = misc2->begin();
+    list<Misc *>::iterator itb = misc2->end();
+    misc2->erase(ita, itb);
+}

@@ -12,3 +12,10 @@ void PI::print(ostream& os) const{
 	os << "?>\n";
 	//return os;
 }
+
+PI::~PI()
+{
+    list<Attribut *>::iterator it1 = atts->begin();
+    list<Attribut *>::iterator it2 = atts->end();
+    atts->erase(it1, it2);
+}
