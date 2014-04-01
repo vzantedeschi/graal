@@ -9,9 +9,8 @@ using namespace std;
 class XSLElement {
 	public:
 		XSLElement(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
-		~XSLElement();
+		virtual ~XSLElement();
 
-		virtual void print(ostream& os) const = 0;
 	protected:
 		string type;
 		list<XSLElement *>* elementsInclus;

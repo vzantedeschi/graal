@@ -77,7 +77,7 @@ endcdata   "]]>"
 <INITIAL>"xsl"		{dbg; return XSL;} //on en a plus besoin
 
 <INITIAL>{esp}		{/* skip */}
-<INITIAL>{doctype} {dbg; return DOCTYPE;}
+
 <INITIAL>"/"		{dbg; return SLASH;}
 <INITIAL>"="		{dbg; return EGAL;}
 <INITIAL>{sup}	{dbg; BEGIN(CONTENU); return SUP;}
@@ -85,9 +85,6 @@ endcdata   "]]>"
 <INITIAL>{nom}		{dbg; xsllval.s = strdup(xsltext); return NOM;}
 <INITIAL>{colon}  {dbg; return COLON;}
 <INITIAL>{chaine}	{dbg; xsllval.s = strdup(enleveGuillemets(xsltext)); return VALEUR;}
-<CONTENU>{cdata}           {dbg; BEGIN(CDATASECTION); buffer = (char*) malloc(1); buffer[0]='\0'; return CDATABEGIN;  }
-<CDATASECTION>{endcdata}     {dbg; BEGIN(CONTENU); xsllval.s = strdup(buffer); free(buffer); return CDATAEND; }
-<CDATASECTION>.              {dbg; char * tmp = strdup(buffer); free(buffer); buffer = (char*) malloc(strlen(tmp)+2); strcpy(buffer,tmp); strcat(buffer,xsltext); free(tmp); }
 
 <CONTENU,INITIAL>{infspecial}  {dbg; BEGIN(INITIAL); return INFSPECIAL;}
 <CONTENU,INITIAL>{inf}	       {dbg; BEGIN(INITIAL); return INF;}

@@ -24,10 +24,10 @@ void xslerror(XSLDocument ** d,const char * msg)
 %union {
 	char * s;
 	XSLDocument * doc;
-	XSLProlog * pro;
 	XSLElement * elemxsl;
 	list<XSLElement *> * lelemxsl;
 
+//	XSLProlog * pro;
 //	XSLMisc * m;
 //	list<XSLMisc *> * lm;
 
@@ -87,7 +87,7 @@ $$ = new XSLDocument($1, $2);}
 catalogue
  : INF STYLESHEET attributes SUP
    templates
-   INF SLASH STYLESHEET SUP { $$ = new XSLCatalogue(/**/);} // Créer des templates
+   INF SLASH STYLESHEET SUP { $$ = new XSLCatalogue($3,$5);} // Créer des templates
  ;
 
 templates
@@ -116,15 +116,15 @@ template
 
 element
  : INF APPLY attributes SLASH SUP { cout << "Balise Apply-templates" << endl;
-			$$ = new XSLApply($3);
+			$$ = new XSLApply("apply",$3,NULL);
 				}
  | INF VALUEOF attributes SLASH SUP { cout << "Balise Value-of" << endl;
-			$$ = new XSLValue($3);
+			$$ = new XSLValue("value",$3,NULL);
 				}
  | INF FOREACH attributes SUP
    elements
    INF SLASH FOREACH SUP { cout << "Balise For-each" << endl;
-			$$ = new XSLForeach($3,$5);
+			$$ = new XSLForeach("foreach",$3,$5);
 				}
  | INF NOM attributes SUP
    elements
