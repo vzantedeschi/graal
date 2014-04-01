@@ -13,5 +13,6 @@
 #include "XSD/ComplexType.h"
 #include "XSD/ComplexXSDElement.h"
 #include "XSD/SimpleXSDElement.h"
+#include "XSD/ReferenceXSDElement.h"
 
 #endif

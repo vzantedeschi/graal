@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
                 }
                 fclose(fid);
             }
-/*    	    
+            /*
             else if(strcmp(argv[1],"-t") == 0)
             {
                 //xsdin = fid;
@@ -136,7 +136,7 @@ int main(int argc, char *argv[])
     	        if (!fid)
                 {
                     printf("ERREUR : NOM FICHIER XSL ERRONE\n");
-                    /*gestion d'erreur
+                    //gestion d'erreur
 
                     return 1;
                 }
@@ -149,7 +149,7 @@ int main(int argc, char *argv[])
                 retour = xslparse(&xslD);
     	        printf("BIG SOUCYYYY");
 
-                /* ------> continuer analyse et affichage ----
+                // ------> continuer analyse et affichage ----
 
                 if (!retour)
                 {
@@ -162,6 +162,7 @@ int main(int argc, char *argv[])
                 }
                 fclose(fid);
             }
+            */
 
         }/* --- fin si option reconnue ---*/
         else if(strcmp(argv[1],"-p") == 0){
