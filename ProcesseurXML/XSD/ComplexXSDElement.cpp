@@ -15,3 +15,8 @@ string ComplexXSDElement::expr(list<XSDElement*>* elems){
     res += ">$?";
     return res;
 }
+
+
+ComplexType* ComplexXSDElement::getComplexType(){
+    return complexType;
+}

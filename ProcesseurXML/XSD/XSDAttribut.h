@@ -11,6 +11,8 @@ class XSDAttribut {
 		XSDAttribut(string nom,string valeur);
 		~XSDAttribut();
         string expr();
+        string getNom();
+		string getValeur();
 	protected:
 		string nom;
 		string valeur;

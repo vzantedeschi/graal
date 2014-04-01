@@ -22,3 +22,11 @@ string XSDAttribut::expr(){
     }
     return res;
 }
+
+string XSDAttribut::getNom(){
+    return nom;
+}
+
+string XSDAttribut::getValeur(){
+    return valeur;
+}

@@ -31,6 +31,7 @@ void xsderror(XSDDocument ** d,const char * msg)
    list<XSDAttribut*> * la;
    XSDDeclaration * dtd;
    SimpleXSDElement * se;
+   ReferenceXSDElement * re;
    ComplexXSDElement * ce;
    Schema * sche;
    Choice * cho;
@@ -50,12 +51,14 @@ void xsderror(XSDDocument ** d,const char * msg)
 %type <la> attributes
 %type <dtd> doctypedecl
 %type <se> simpleElement
+%type <re> referenceElement
 %type <ce> complexElement
 %type <sche> schema
 %type <cho> choice
 %type <seq> sequence
 %type <lcom> comments
 %type <s> nom
+%type <s> ref
 %type <ctype> complexType
 
 
@@ -92,7 +95,9 @@ element
  : complexElement {
          $$ = $1;}
  | simpleElement {
-         $$ = $1;}           
+         $$ = $1;}  
+ | referenceElement {
+         $$ = $1;}             
  ;
 
 complexElement
@@ -105,7 +110,10 @@ complexElement
 simpleElement
  : INF ELEMENT nom attributes SLASH SUP {
          $$ = new SimpleXSDElement($3,$4);}
- | INF ELEMENT ref attributes SLASH SUP {
+ ;
+
+referenceElement
+ : INF ELEMENT ref attributes SLASH SUP {
          $$ = new ReferenceXSDElement($3,$4);}
  ;
 

@@ -1,12 +1,11 @@
 xmlPath = xml/
 xsdPath = XSD/
-xslPath = XSL/
 
 #pour l'instant il construit l'exe qu'à partir de cXML
 #supprimer l'option -DFLEXDEBUG (ligne 9) pour passer les tests
 
-all: cXML cXSD cXSL
-	g++ -std=c++11 -g -DYYDEBUG=1 -o xmltool main.cpp $(xmlPath)*.cpp $(xsdPath)*.cpp $(xslPath)*.cpp xml.tab.c xsd.tab.c xsl.tab.c lex.xml.c lex.xsd.c lex.xsl.c
+all: cXML cXSD
+	g++ -std=c++11 -g -DYYDEBUG=1 -o xmltool main.cpp $(xmlPath)*.cpp $(xsdPath)*.cpp xml.tab.c xsd.tab.c lex.xml.c lex.xsd.c
 
 cXML: xml.l xml.y $(xmlPath)*
 	flex -P xml xml.l

@@ -1,5 +1,8 @@
 #include "ReferenceXSDElement.h"
 #include "ComplexXSDElement.h"
+#include "XSDElement.h"
+#include "XSDAttribut.h"
+#include <typeinfo>
 
 //class SimpleXSDElement
 ReferenceXSDElement::ReferenceXSDElement(string nom, list<XSDAttribut*>* atts) : XSDElement(nom, atts) {}
@@ -7,9 +10,9 @@ string ReferenceXSDElement::expr(list<XSDElement*>* elems){
     string res = "";
     bool trouve = false;
     XSDElement* leBon;
-    for (XSDElement* elem :*elems)
+    for (XSDElement* elem : *elems)
     {
-        if ( strcmp(nom, elem->nom) == 0)
+        if ( nom.compare(elem->getNom()) == 0)
         {
             trouve = true;
             leBon = elem;
@@ -17,15 +20,19 @@ string ReferenceXSDElement::expr(list<XSDElement*>* elems){
         }
         if (typeid(elem) == typeid(ComplexXSDElement))
         {
-            for (XSDElement* souselem : elem->complexType->XSDElements)
+            /*  cast obligatoire pour pouvoir parcourir l interieur des types complexes */
+            list<XSDElement*>* tmp =reinterpret_cast<ComplexXSDElement*>(elem)->getComplexType()->getxSDElements();
+            /*
+            for (XSDElement* elem : tmp)
             {
-                 if ( strcmp(nom, elem->nom) == 0)
+                 if ( nom.compare(elem->getNom()) == 0)
                 {
                     trouve = true;
                     leBon = souselem;
                     break;
                 }
             }
+            */
         }
         if (trouve)
         {
@@ -39,10 +46,11 @@ string ReferenceXSDElement::expr(list<XSDElement*>* elems){
         /* chercher le nombre d occurences max de la reference */
         for (XSDAttribut* att : *atts)
         {         
-            if (strcmp(att->getNom(), "maxOccurs")==0)
+            if (att->getNom().compare("maxOccurs")==0)
             {
-                std::string value = att ->getValue();
-                maxOccurs = atoi(value);
+                std::string value = att ->getValeur();
+                /* c'esstt deeggueulaasse */
+                maxOccurs = atoi(value.c_str());
                 break;   
             }
         }

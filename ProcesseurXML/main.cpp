@@ -1,7 +1,7 @@
 #define DEBUG
 
 #include "commun.h"
-#include "structXSL.h"
+//#include "structXSL.h"
 #include "struct.h"
 #include "structXSD.h"
 #include <iostream>
@@ -11,17 +11,17 @@ using namespace std;
 
 extern FILE* xmlin;
 extern FILE* xsdin;
-extern FILE* xslin;
+//extern FILE* xslin;
 
 int xmlparse(Document **);
-int xslparse(XSLDocument **);
+//int xslparse(XSLDocument **);
 int xsdparse(XSDDocument **);
 
 int main(int argc, char *argv[])
 {
 	Document * xmlD;
 	XSDDocument * xsdD;
-	XSLDocument * xslD;
+	//XSLDocument * xslD;
     //if(argc <= 1)
     // {/* ---- si pas d'argument ---*/
     //     cerr << "No argument given" << endl;
@@ -122,7 +122,8 @@ int main(int argc, char *argv[])
                 }
                 fclose(fid);
             }
-    	    else if(strcmp(argv[1],"-t") == 0)
+/*    	    
+            else if(strcmp(argv[1],"-t") == 0)
             {
                 //xsdin = fid;
                 //retour = xsdparse(&d);
@@ -135,7 +136,7 @@ int main(int argc, char *argv[])
     	        if (!fid)
                 {
                     printf("ERREUR : NOM FICHIER XSL ERRONE\n");
-                    /*gestion d'erreur*/
+                    /*gestion d'erreur
 
                     return 1;
                 }
@@ -148,7 +149,7 @@ int main(int argc, char *argv[])
                 retour = xslparse(&xslD);
     	        printf("BIG SOUCYYYY");
 
-                /* ------> continuer analyse et affichage ----*/
+                /* ------> continuer analyse et affichage ----
 
                 if (!retour)
                 {

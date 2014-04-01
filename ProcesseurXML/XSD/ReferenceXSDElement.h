@@ -3,11 +3,11 @@
 
 #include <string>
 #include <list>
-#include "SimpleXSDElement.h"
+#include "XSDElement.h"
  
 using namespace std;
 
-class ReferenceXSDElement : public SimpleXSDElement {
+class ReferenceXSDElement : public XSDElement {
 	public:
 		ReferenceXSDElement(string nom, list<XSDAttribut*>* atts);
 		~ReferenceXSDElement();

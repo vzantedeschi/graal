@@ -4,7 +4,7 @@
 Sequence::Sequence(list<XSDElement*>* XSDElements) : ComplexType(XSDElements) {}
 string Sequence::expr(list<XSDElement*>* elems){
     string res = "";
-    for (XSDElement* elem : *XSDElements) {
+    for (XSDElement* elem : *xSDElements) {
         res += "^?";
         res += elem->expr(elems);
         res += "$?";
