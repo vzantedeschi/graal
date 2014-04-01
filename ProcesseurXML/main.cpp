@@ -1,4 +1,4 @@
-//#define DEBUG
+#define DEBUG
 
 #include "commun.h"
 #include "structXSL.h"
@@ -22,12 +22,9 @@ int main(int argc, char *argv[])
 	Document * xmlD;
 	XSDDocument * xsdD;
 	XSLDocument * xslD;
-    // if(argc <= 1 || strcmp(argc[1],"-p") || strcmp(argc[1],"-v") || strcmp(argv[1],"-t"))
-    // {/* ---- si pas d'argument, option -h argument incorrect ---*/
-    //     if(argc <=1)
-    //     {
-    //         cerr << "No argument given" << endl;
-    //     }
+    //if(argc <= 1)
+    // {/* ---- si pas d'argument ---*/
+    //     cerr << "No argument given" << endl;
     //     cerr << "Available commands are:" << endl;
     //     cerr << "../xmltool -p file.xml : parse and display the xml file" << endl;
     //     cerr << "../xmltool -v file.xml file.xsd : parse both xml and xsd files and display the validation result" << endl;
@@ -36,8 +33,7 @@ int main(int argc, char *argv[])
 
     //     return 1;
     // }/* --- fin si pas d'argument ---*/
-
-    if(argc >= 2)
+    if (argc >= 2)
     {
         if ((strcmp(argv[1],"-p") == 0 && argc > 2) 
              || ((strcmp(argv[1],"-v") == 0 || strcmp(argv[1],"-t") == 0) && argc == 4))
@@ -61,20 +57,23 @@ int main(int argc, char *argv[])
             else
             {
                 #ifdef DEBUG
-                cout<<"Fichier Ouvert"<<endl;
+                cout<<"Fichier XML Ouvert"<<endl;
                 #endif
             }
 
             // option -p
             xmlin = fid;
-            retour = xmlparse(&xmlD);
+            retour = 0;
+            //retour = xmlparse(&xmlD);
             /* ------> continuer analyse et affichage ----*/
             if (!retour)
             {
                #ifdef DEBUG
                cout<<"Entrée standard reconnue"<<endl;
                #endif
-               cout << "\n" << *xmlD;
+               //cout << "\n" << *xmlD;
+               #ifdef DEBUG
+               #endif
             }
             else
             {
@@ -89,7 +88,7 @@ int main(int argc, char *argv[])
             if(strcmp(argv[1],"-v") == 0)
             {
                 //récupération fichier xsd
-                const char* nomfichier = argv[2];
+                const char* nomfichier = argv[3];
                 int retour;
                 printf("%s \n",nomfichier);
 
@@ -114,11 +113,12 @@ int main(int argc, char *argv[])
 
                 if (!retour)
                 {
-                   cout<<"Entrée standard reconnue"<<endl;
+                   cout<<"Entrée standard XSD reconnue"<<endl;
+                   cout << xsdD->expr();
                 }
                 else
                 {
-                   cout<<"Entrée standard non reconnue"<<endl;
+                   cout<<"Entrée standard XSD non reconnue"<<endl;
                 }
                 fclose(fid);
             }
@@ -152,11 +152,12 @@ int main(int argc, char *argv[])
 
                 if (!retour)
                 {
-                   cout<<"Entrée standard reconnue"<<endl;
+                    cout<<"Entrée standard XSL reconnue"<<endl;
                 }
                 else
                 {
-                   cout<<"Entrée standard non reconnue"<<endl;
+                   cout<<"Entrée standard XSL non reconnue"<<endl;
+                   return 1;
                 }
                 fclose(fid);
             }
@@ -176,12 +177,13 @@ int main(int argc, char *argv[])
         }
     }
     if(argc <= 1 || (strcmp(argv[1],"-p") && strcmp(argv[1],"-v") && strcmp(argv[1],"-t")))
-    {/* ---- si pas d'argument, option -h argument incorrect ---*/
+    {/* ---- si pas d'argument ---*/
         if(argc <=1)
         {
             cerr << "No argument given" << endl;
         }
-        else if(strcmp(argv[1],"-h")){
+        else if(strcmp(argv[1],"-h"))
+        {
             cerr << "Wrong argument given" << endl;
         }
         cerr << "Available commands are:" << endl;
@@ -189,23 +191,24 @@ int main(int argc, char *argv[])
         cerr << "../xmltool -v file.xml file.xsd : parse both xml and xsd files and display the validation result" << endl;
         cerr << "../xmltool -t file.xml file.xsl : parse both xml and xsl files and display de transformation result of file.xml by the stylesheet file.xsl" << endl;
         cerr << "../xmltool -h : displays this help" << endl;
+
         return 1;
     }/* --- fin si pas d'argument ---*/
-    // else
-    // {
-    //     cout<<"Option non reconnue"<<endl;
+    /*else
+    {
+        cout<<"Option non reconnue"<<endl;
 
-    //     int retour = xmlparse(&xmlD);
+        int retour = xmlparse(&xmlD);
 
-    //     if (!retour)
-    //     {
-    //        cout<<"Entrée standard reconnue"<<endl;
-    //     }
-    //     else
-    //     {
-    //        cout<<"Entrée standard non reconnue"<<endl;
-    //     }
-    // }
+        if (!retour)
+        {
+           cout<<"Entrée standard reconnue"<<endl;
+        }
+        else
+        {
+           cout<<"Entrée standard non reconnue"<<endl;
+        }
+    }*/
 
    return 0;
 }

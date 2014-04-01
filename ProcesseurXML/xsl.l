@@ -68,7 +68,14 @@ endcdata   "]]>"
 %s CDATASECTION
 
 %%
-<INITIAL>"xsl"		{dbg; return XSL;}
+<INITIAL>"xsl:stylesheet"		{dbg; return STYLESHEET;}
+<INITIAL>"xsl:template"		{dbg; return TEMPLATE;}
+<INITIAL>"xsl:for-each"		{dbg; return FOREACH;}
+<INITIAL>"xsl:value-of"		{dbg; return VALUEOF;}
+<INITIAL>"xsl:apply-templates"		{dbg; return APPLY;}
+
+<INITIAL>"xsl"		{dbg; return XSL;} //on en a plus besoin
+
 <INITIAL>{esp}		{/* skip */}
 <INITIAL>{doctype} {dbg; return DOCTYPE;}
 <INITIAL>"/"		{dbg; return SLASH;}
