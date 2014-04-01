@@ -35,12 +35,22 @@ string ReferenceXSDElement::expr(list<XSDElement*>* elems){
 
     if (trouve)
     {
+        int maxOccurs = -1;
         /* chercher le nombre d occurences max de la reference */
         for (XSDAttribut* att : *atts)
-        {
-        
+        {         
+            if (strcmp(att->getNom(), "maxOccurs")==0)
+            {
+                std::string value = att ->getValue();
+                maxOccurs = atoi(value);
+                break;   
+            }
         }
-        res += leBon->expr(elems);
+        /* autant de regex que de maxoccurs */
+        for (int i =0; i < maxOccurs; i++)
+        {
+            res += "^?(" + leBon->expr(elems) + ")?$?";
+        }
     }
     else
     {
