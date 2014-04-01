@@ -12,3 +12,12 @@ ostream& operator << (ostream& os, const Document& D){
 	}
 	return os;
 }
+
+Document::~Document()
+{
+    delete prolog;
+    delete element;
+    list<Misc *>::iterator it1 = misc->begin();
+    list<Misc *>::iterator it2 = misc->end();
+    misc->erase(it1, it2);
+}

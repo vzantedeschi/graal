@@ -6,3 +6,7 @@ ostream& operator << (ostream& os, const DocTypeDecl& DTD){
 	os << "<!DOCTYPE " << DTD.nom << " " << DTD.idExterne << " \"no.dtd\">\n" ;
 	return os;
 }
+
+DocTypeDecl::~DocTypeDecl()
+{
+}
