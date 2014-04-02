@@ -12,6 +12,7 @@ class CDSect : public ContentItem {
 		~CDSect();
 		//friend ostream& operator << (ostream& os, const CDSect& CDS);
 		virtual void print(ostream& os) const;
+        string printElem();
 	protected:
 		string cdata;
 };

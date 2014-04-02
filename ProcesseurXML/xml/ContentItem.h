@@ -11,6 +11,7 @@ class ContentItem {
 		virtual ~ContentItem();
 		friend ostream& operator << (ostream& os, const ContentItem& CI);
 		virtual void print(ostream& os) const = 0;
+        virtual string printElem()=0;
 		virtual string getNom();
 		virtual list<ContentItem *>* getContent();
 };

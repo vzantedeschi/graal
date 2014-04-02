@@ -11,6 +11,7 @@ class DocTypeDecl {
 		~DocTypeDecl();
 
 	friend ostream& operator << (ostream& os, const DocTypeDecl& DTD);
+    string printElem();
 	protected:
 		string nom;
 		string idExterne;

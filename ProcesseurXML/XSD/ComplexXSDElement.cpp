@@ -7,16 +7,16 @@ ComplexXSDElement::~ComplexXSDElement() {
     delete complexType;
 }
 string ComplexXSDElement::expr(list<XSDElement*>* elems){
-    string res = "^?<";
+    string res = "<";
     res += nom;
-    res += ">$?\n";
+    res += ">";
     for (XSDAttribut* att : *atts){
         res += " " + att->expr();
     }    
     res += complexType->expr(elems);
-    res += "^?</";
+    res += "</";
     res += nom;
-    res += ">$?\n";
+    res += ">";
     return res;
 }
 

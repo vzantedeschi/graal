@@ -8,5 +8,9 @@ void CDSect::print(ostream& os) const{
 	//return os;
 }
 
+string CDSect::printElem(){
+    return "";
+}
+
 CDSect::~CDSect(){
 }

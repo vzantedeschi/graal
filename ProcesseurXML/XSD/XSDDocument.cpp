@@ -11,7 +11,8 @@ XSDDocument::~XSDDocument(){
 
 string XSDDocument::expr(){
     string res = "";
-    res += prolog->expr();
+    //res += prolog->expr();
     res += schema->expr();
+    res += "(^? ?$?)*";
     return res;
 }

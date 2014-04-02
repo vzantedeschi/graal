@@ -8,6 +8,7 @@ class Misc : public ContentItem {
 		Misc();
 		virtual ~Misc();
 		virtual void print(ostream& os) const = 0;
+        string printElem();
 };
 
 #endif

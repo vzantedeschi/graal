@@ -14,6 +14,7 @@ class Document {
 		~Document();
 
 		friend ostream& operator << (ostream& os, const Document& D);
+        string printElem();
 
 		Element* getElement();
 	protected:
