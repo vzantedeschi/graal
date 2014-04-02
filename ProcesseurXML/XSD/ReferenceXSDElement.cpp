@@ -15,6 +15,7 @@ string ReferenceXSDElement::expr(list<XSDElement*>* elems){
     XSDElement* leBon;
     for (XSDElement* elem : *elems)
     {
+        // pour le moment ne regarde que les elements au premier niveau du schema
         if ( nom.compare(elem->getNom()) == 0)
         {
             trouve = true;
@@ -23,19 +24,8 @@ string ReferenceXSDElement::expr(list<XSDElement*>* elems){
         }
         if (typeid(elem) == typeid(ComplexXSDElement))
         {
-            /*  cast obligatoire pour pouvoir parcourir l interieur des types complexes */
-            list<XSDElement*>* tmp =reinterpret_cast<ComplexXSDElement*>(elem)->getComplexType()->getxSDElements();
-            /*
-            for (XSDElement* elem : tmp)
-            {
-                 if ( nom.compare(elem->getNom()) == 0)
-                {
-                    trouve = true;
-                    leBon = souselem;
-                    break;
-                }
-            }
-            */
+            //TODO rechercher dans les sous elements de manière recursive pour trouver la reference
+            //TODO creer une methode recursive de recherche de l element
         }
         if (trouve)
         {
@@ -45,23 +35,18 @@ string ReferenceXSDElement::expr(list<XSDElement*>* elems){
 
     if (trouve)
     {
-        int maxOccurs = -1;
-        /* chercher le nombre d occurences max de la reference */
+        string maxOccurs = "0";
+        // chercher le nombre d occurences max de la reference
         for (XSDAttribut* att : *atts)
-        {         
+        {
             if (att->getNom().compare("maxOccurs")==0)
             {
-                std::string value = att ->getValeur();
-                /* c'esstt deeggueulaasse */
-                maxOccurs = atoi(value.c_str());
-                break;   
+                maxOccurs = att ->getValeur();
+                break;
             }
         }
-        /* autant de regex que de maxoccurs */
-        for (int i =0; i < maxOccurs; i++)
-        {
-            res += "^?(" + leBon->expr(elems) + ")?$?";
-        }
+        // autant de regex que de maxoccurs
+        res += "^?(" + leBon->expr(elems) + "){0," + maxOccurs + "}$?\n";
     }
     else
     {

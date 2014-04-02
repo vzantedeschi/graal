@@ -9,12 +9,11 @@ XSDProlog::~XSDProlog(){
 }
 
 string XSDProlog::expr(){
+    string res ="";
     //la declaration du XSD n impacte pas le XML    
     /*
-    string res = "^";
-    res += *xsdDecl.expr();
-    res += "$";
+    string res = xsdDecl->expr();
+    string res += "((^?$?)|(^?<!DOCTYPE [^>]$?))";
     */
-    string res = "";
     return res;
 }

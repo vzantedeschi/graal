@@ -9,14 +9,14 @@ ComplexXSDElement::~ComplexXSDElement() {
 string ComplexXSDElement::expr(list<XSDElement*>* elems){
     string res = "^?<";
     res += nom;
-    res += ">$?";
+    res += ">$?\n";
     for (XSDAttribut* att : *atts){
         res += " " + att->expr();
     }    
     res += complexType->expr(elems);
     res += "^?</";
     res += nom;
-    res += ">$?";
+    res += ">$?\n";
     return res;
 }
 
