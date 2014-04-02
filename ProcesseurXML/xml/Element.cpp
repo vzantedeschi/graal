@@ -20,3 +20,7 @@ list<ContentItem *>* Element::getContent()
 	cout << "get content element" << endl;
 	return NULL;
 }
+
+void Element::printDonnees()
+{
+}

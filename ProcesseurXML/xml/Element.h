@@ -17,6 +17,7 @@ class Element : public ContentItem {
 		
 		string getNom();
 		virtual list<ContentItem *>* getContent();
+		virtual void printDonnees();
 	protected:
 		string nom;
 		list<Attribut *>* atts;

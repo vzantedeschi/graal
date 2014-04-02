@@ -13,7 +13,9 @@ class EmptyElement : public Element {
 		~EmptyElement();
 		//friend ostream& operator << (ostream& os, const EmptyElement& E);
 		virtual void print(ostream& os) const;
+
         string printElem();
+		void printDonnees();
 };
 
 #endif

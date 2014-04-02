@@ -5,5 +5,24 @@ XSLValue::XSLValue(string type, list<XSLAttribut *>* atts, list<XSLElement *>* e
 
 void XSLValue::afficherElements(ContentItem* elementXML)
 {
+	auto l_front = (*atts).begin();
+
+	advance(l_front, 0);
 	
+	string value = (*l_front)->getValeur();
+	if (value == ".")
+	{
+		(*elementXML).printDonnees();
+		
+	}
+	else
+	{
+		for(list<ContentItem *>::iterator it = (elementXML->getContent())->begin(); it != (elementXML->getContent())->end(); it++){
+			if(value == (*it)->getNom())
+			{
+				(**it).printDonnees();
+			}
+
+		}
+	}
 }

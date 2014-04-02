@@ -11,3 +11,8 @@ string XSLAttribut::getValeur()
 {
 	return valeur;
 }
+
+string XSLAttribut::getAttribut()
+{
+	return nom+"="+"\""+valeur+"\"";
+}

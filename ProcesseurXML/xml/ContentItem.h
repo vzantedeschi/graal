@@ -14,6 +14,7 @@ class ContentItem {
         virtual string printElem()=0;
 		virtual string getNom();
 		virtual list<ContentItem *>* getContent();
+		virtual void printDonnees();
 };
 
 #endif

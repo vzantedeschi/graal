@@ -6,7 +6,13 @@ void XSLElementHTML::afficherElements(ContentItem* elementXML)
 {
 	if (elementsInclus)
 	{
-		cout << "<" << this->getType() << ">" << endl;
+		string listeAtt = "";
+
+		for(list<XSLAttribut *>::iterator it = this->atts->begin(); it != this->atts->end(); it++){
+			listeAtt += " "+(**it).getAttribut();
+		}
+
+		cout << "<" << this->getType() << listeAtt << ">" << endl;
 		for(list<XSLElement *>::iterator it = this->elementsInclus->begin(); it != this->elementsInclus->end(); it++){
 			XSLElement* elementCourant = *it;
 			elementCourant->afficherElements(elementXML);

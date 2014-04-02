@@ -9,5 +9,5 @@ string XSLElement::getType()
 
 void XSLElement::afficherElements(ContentItem * elementXML) 
 {
-	cout << "coucou" << endl;
+	cout << "coucou XSL element" << endl;
 }

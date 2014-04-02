@@ -12,7 +12,9 @@ class Donnees : public ContentItem {
 		~Donnees();
 		//friend ostream& operator << (ostream& os, const Donnees& D);
 		virtual void print(ostream& os) const;
+
         string printElem();
+		void printDonnees();
 	protected:
 		string donnees;
 };

@@ -28,3 +28,6 @@ EmptyElement::~EmptyElement()
 {
 }
 
+void EmptyElement::printDonnees(){
+}
+

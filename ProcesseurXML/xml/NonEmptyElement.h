@@ -17,6 +17,7 @@ class NonEmptyElement : public Element {
         string printElem();
 
 		list<ContentItem *>* getContent();
+		void printDonnees();
 	protected:
 		list<ContentItem *>* content;
 };

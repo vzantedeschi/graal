@@ -12,6 +12,7 @@ class XSLAttribut {
 		
 		string getNom();
 		string getValeur();
+		string getAttribut();
 	protected:
 		string nom;
 		string valeur;
