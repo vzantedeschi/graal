@@ -2,6 +2,6 @@
 
 XSLForeach::XSLForeach(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus) : XSLElement(type, atts, elementsInclus) {}
 
-void XSLForeach::afficherElements()
+void XSLForeach::afficherElements(ContentItem* elementXML)
 {
 }

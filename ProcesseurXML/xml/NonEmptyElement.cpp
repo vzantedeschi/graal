@@ -24,3 +24,8 @@ NonEmptyElement::~NonEmptyElement()
 	}
 	delete content;
 }
+
+list<ContentItem *>* NonEmptyElement::getContent()
+{
+	return content;
+}

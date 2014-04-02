@@ -19,7 +19,7 @@ string Choice::expr(list<XSDElement*>* elems){
         res += elem->expr(elems);
         res += ")";
     }
-    res = ")$?";
+    res += ")$?";
     return res;
 }
 
