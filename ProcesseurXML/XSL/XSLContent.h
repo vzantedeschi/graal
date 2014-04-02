@@ -12,7 +12,7 @@ class XSLContent : public XSLElement {
 		XSLContent(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
 		~XSLContent() {}
 
-		void afficherElements();
+		void afficherElements(Element* elementXML);
 };
 
 #endif

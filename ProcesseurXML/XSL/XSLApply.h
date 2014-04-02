@@ -5,6 +5,9 @@
 #include <list> 
 #include "XSLElement.h"
 #include "XSLApply.h"
+#include "XSLTemplate.h"
+#include "XSLCatalogue.h"
+#include "../struct.h"
 using namespace std;
 
 class XSLApply : public XSLElement {
@@ -12,7 +15,7 @@ class XSLApply : public XSLElement {
 		XSLApply(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
 		~XSLApply() {}
 
-		void afficherElements();
+		void afficherElements(ContentItem * elementXML);
 
 };
 

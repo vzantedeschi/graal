@@ -18,7 +18,6 @@ class XSLDocument
 		//void afficherHTML();
 	protected:
 		XSLDeclaration * xsldecl;
-		XSLCatalogue * catalogue;
 };
 
 #endif
