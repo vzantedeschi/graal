@@ -143,7 +143,8 @@ int main(int argc, char *argv[])
                 if (!retour)
                 {
                     cout<<"Entrée standard XSL reconnue"<<endl;
-		    cout << xslD->afficherHTML();
+		    xslD->afficherHTML(&xmlD);
+		    //xslD->afficherHTML();
                 }
                 else
                 {
@@ -159,9 +160,9 @@ int main(int argc, char *argv[])
 	    if(xslD != NULL){ //liberer la memoire
             	delete xslD;
             }
-            if(xsdD != NULL){ //liberer la memoire
-            	delete xsdD;
-            }	    
+            //if(xsdD != NULL){ //liberer la memoire
+            //	delete xsdD;
+            //}	    
 
         }/* --- fin si option reconnue ---*/
         else if(strcmp(argv[1],"-p") == 0){

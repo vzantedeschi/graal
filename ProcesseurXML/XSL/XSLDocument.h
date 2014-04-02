@@ -4,6 +4,8 @@
 #include <list> 
 #include "XSLDeclaration.h"
 #include "XSLCatalogue.h"
+#include "../struct.h"
+
 using namespace std;
 
 class XSLDocument 
@@ -12,7 +14,8 @@ class XSLDocument
 		XSLDocument(XSLDeclaration * xsldecl, XSLCatalogue * catalogue);
 		~XSLDocument();
 
-		string afficherHTML();
+		void afficherHTML(Document** docXML);
+		//void afficherHTML();
 	protected:
 		XSLDeclaration * xsldecl;
 		XSLCatalogue * catalogue;

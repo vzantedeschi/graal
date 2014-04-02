@@ -7,7 +7,13 @@ XSLDocument::~XSLDocument()
 	printf("Destructeurs XSL a faire pour éviter fuites mémoire");
 }
 
-string XSLDocument::afficherHTML(){
-	string res = "FONCTIONS AFFICHAGE HTML A FAIRE";
-	return res;
+void XSLDocument::afficherHTML(Document **docXML){
+	printf("FONCTIONS AFFICHAGE HTML A FAIRE");
+
+	catalogue->afficherHTML(docXML);
 }
+
+//string XSLDocument::afficherHTML(){
+//	string res = "FONCTIONS AFFICHAGE HTML A FAIRE";
+//	return res;
+//}
