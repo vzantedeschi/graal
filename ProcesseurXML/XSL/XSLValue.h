@@ -12,7 +12,7 @@ class XSLValue : public XSLElement {
 		XSLValue(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
 		~XSLValue() {}
 
-		void afficherElements(ContentItem* elementXML);
+        void afficherElements(ContentItem* elementXML);
 };
 
 #endif

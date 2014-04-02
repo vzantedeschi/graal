@@ -7,6 +7,10 @@ ostream& operator << (ostream& os, const DocTypeDecl& DTD){
 	return os;
 }
 
+string DocTypeDecl::printElem(){
+    return "";
+}
+
 DocTypeDecl::~DocTypeDecl()
 {
 }

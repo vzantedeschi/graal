@@ -73,9 +73,10 @@ int main(int argc, char *argv[])
 #ifdef DEBUG
                 cout<<"Entrée standard reconnue"<<endl;
 #endif
-                cout << "\n" << *xmlD;
-#ifdef DEBUG
-#endif
+                if(strcmp(argv[1],"-p") == 0)
+                {
+                    cout << "\n" << *xmlD;
+                }
             }
             else
             {
@@ -90,22 +91,23 @@ int main(int argc, char *argv[])
             if(strcmp(argv[1],"-v") == 0)
             {
                 //récupération fichier xsd
-                const char* nomfichier = argv[3];
+                const char* nomfichierXSL = argv[3];
                 int retour;
-                printf("%s \n",nomfichier);
+                //printf("%s \n",nomfichierXSL);
 
-                fid = fopen(nomfichier,"r");
+                fid = fopen(nomfichierXSL,"r");
 
                 if (!fid)
                 {
-                    printf("ERREUR : NOM FICHIER XSD ERRONE\n");
+                    cerr << "Unable to open " << nomfichier << endl;
                     /*gestion d'erreur*/
-
                     return 1;
                 }
                 else
                 {
+#ifdef DEBUG
                     cout<<"Fichier XSD Ouvert"<<endl;
+#endif
                 }
 
                 xsdin = fid;
@@ -121,25 +123,31 @@ int main(int argc, char *argv[])
 #endif
                     string exp = xsdD->expr();
 #ifdef DEBUG
+                    cout << "-------------------------------------------------------------------" <<endl;
                     cout << exp <<endl;
+                    cout << "-------------------------------------------------------------------" <<endl;
+#endif
+                    if(xmlCreated){
+                        string str =  xmlD->printElem();
+#ifdef DEBUG
+                        cout << str<<endl;
+                        cout << "-------------------------------------------------------------------" <<endl;
 #endif
 
-                    std::stringstream stream;
-                    stream << *xmlD;
-                    string str =  stream.str();
-
-                    if(RE2::FullMatch(str, exp))
-                    {
-                        cout << "xml and xsd match" << endl;
-                    }
-                    else
-                    {
-                        cout << "xml and xsd don t match" << endl;
+                        if(RE2::FullMatch(str, exp))
+                        {
+                            cout << "The file " << nomfichier<< " is valid wrt "  <<nomfichierXSL << endl;
+                        }
+                        else
+                        {
+                            cout << "The file " << nomfichier<< " is not valid wrt "  <<nomfichierXSL << endl;
+                        }
                     }
                 }
                 else
                 {
                     cout<<"Entrée standard XSD non reconnue"<<endl;
+                    return 1;
                 }
                 fclose(fid);
                 xsdlex_destroy();
@@ -156,7 +164,7 @@ int main(int argc, char *argv[])
 
                 if (!fid)
                 {
-                    printf("ERREUR : NOM FICHIER XSL ERRONE\n");
+                    cerr << "Unable to open " << nomfichier << endl;
                     /*gestion d'erreur*/
 
                     return 1;

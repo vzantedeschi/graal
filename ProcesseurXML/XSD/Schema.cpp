@@ -28,7 +28,7 @@ string Schema::expr(){
         {
             res += "|";
         }
-        res += "^?(" + elem->expr(xSDElements) + ")$?\n" ;
+        res += "(" + elem->expr(xSDElements) + ")" ;
     }
     res += ")*";
     return res;

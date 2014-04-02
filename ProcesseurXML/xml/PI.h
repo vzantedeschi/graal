@@ -15,6 +15,7 @@ class PI : public Misc {
 
 		//friend ostream& operator << (ostream& os, const PI& P);
 		virtual void print(ostream& os) const;
+        string printElem();
 	protected:
 		string nom;
 		list<Attribut *>* atts;

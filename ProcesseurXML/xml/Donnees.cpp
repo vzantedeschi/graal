@@ -11,6 +11,11 @@ void Donnees::print(ostream& os) const {
 Donnees::~Donnees(){
 }
 
+
+string Donnees::printElem(){
+    return this->donnees;
+}
+
 void Donnees::printDonnees()
 {
 	cout << donnees << endl;

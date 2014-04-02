@@ -118,6 +118,9 @@ element
  : INF APPLY attributes SLASH SUP { cout << "Balise Apply-templates" << endl;
 			$$ = new XSLApply("apply",$3,NULL);
 				}
+ | INF APPLY SLASH SUP { cout << "Balise Apply-templates vide" << endl;
+			$$ = new XSLApply("apply",NULL,NULL);
+				}
  | INF VALUEOF attributes SLASH SUP { cout << "Balise Value-of" << endl;
 			$$ = new XSLValue("value",$3,NULL);
 				}
