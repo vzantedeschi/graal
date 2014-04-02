@@ -9,7 +9,6 @@ XSLDocument::XSLDocument(XSLDeclaration * xsldecl, XSLCatalogue * cat) : xsldecl
 
 XSLDocument::~XSLDocument()
 {
-	printf("Destructeurs XSL a faire pour éviter fuites mémoire");
 }
 
 void XSLDocument::afficherHTML(Document **docXML){

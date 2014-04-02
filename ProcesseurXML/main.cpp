@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
 
                 if (!fid)
                 {
-                    printf("ERREUR : NOM FICHIER XSD ERRONE\n");
+                    cerr << "Unable to open " << nomfichier << endl;
                     /*gestion d'erreur*/
 
                     return 1;
@@ -156,7 +156,7 @@ int main(int argc, char *argv[])
 
                 if (!fid)
                 {
-                    printf("ERREUR : NOM FICHIER XSL ERRONE\n");
+                    cerr << "Unable to open " << nomfichier << endl;
                     /*gestion d'erreur*/
 
                     return 1;

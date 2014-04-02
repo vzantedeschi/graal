@@ -12,9 +12,7 @@ void XSLValue::afficherElements(ContentItem* elementXML)
 	string value = (*l_front)->getValeur();
 	if (value == ".")
 	{
-		for(list<ContentItem *>::iterator it = (elementXML->getContent())->begin(); it != (elementXML->getContent())->end(); it++){
-			cout << **it;
-		}
+		(*elementXML).printDonnees();
 		
 	}
 	else
