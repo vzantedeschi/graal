@@ -11,7 +11,6 @@ class XSLContent : public XSLElement {
 	public:
 		XSLContent(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
 		~XSLContent() {}
-
 		void afficherElements(ContentItem* elementXML);
 };
 

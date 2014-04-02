@@ -1,0 +1,50 @@
+Ouverture du fichier XML 
+    lecture du fichier XML pour vérifier qu'il est correct ? 
+    au moins pour se placer à la racine
+    
+Ouverture du fichier XSL
+
+création du catalogue
+
+création d'un fichier HTML
+
+lecture du fichier XSL 
+
+    pour chaque élément (template) rencontré,
+        on ajoute un template au catalogue
+        on récupère la valeur de l'attribut (match) 
+            si match = "/"
+                pour chaque élément appartenant au template, 
+                    on regarde c'est quel élément
+                    si html, 
+                        (?)on ajoute un élément au template du catalogue
+                        on écrit dans le fichier HTML
+                    si apply-templates,
+                        on ajoute un élément au template du catalogue
+                        on récupère la valeur de l'attribut
+                            si select
+                                s'il existe un apply-template qui match,
+                                    on traite chaque élément du template qui match
+                                s'il n'existe pas d'apply template qui match, 
+                                    on lit le fichier XML jusqu'à arriver à la balise correpondante au select
+                                    on écrit le contenu de la balise concernée dans le fichier HTML
+                            si pas d'attribut
+                                rien, élément suivant
+                    si for-each, 
+                        (?)on ajoute un élément au template du catalogue
+                        on récupère l'attribut, 
+                        pour chaque balise de type récupéré, 
+                            on traite chaque élément
+                    si value-of
+                       (?) on ajoute un élément au template du catalogue
+                        on récupère la valeur du select, 
+                        on lit le fichier XML jusqu'à arriver à la balise correpondante
+                        on écrit le contenu de la balise concernée dans le fichier HTML
+                            
+                        
+            si match = une chaine de caractère
+                on lit le fichier XML jusqu'à arriver à la balise correpondante
+                on lit le fichier XSL
+                pour chaque élément appartenant au template, 
+                    on le traite
+            

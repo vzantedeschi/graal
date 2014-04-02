@@ -1,4 +1,4 @@
-//#define DEBUG
+#define DEBUG
 
 #include "commun.h"
 #include "structXSL.h"
@@ -6,6 +6,9 @@
 #include "structXSD.h"
 #include <iostream>
 #include <cstring>
+#include <string>
+#include <sstream>
+#include "re2/re2/re2.h"
 
 using namespace std;
 
@@ -116,7 +119,23 @@ int main(int argc, char *argv[])
 #ifdef DEBUG
                     cout<<"Entrée standard XSD reconnue"<<endl;
 #endif
-                    cout << xsdD->expr();
+                    string exp = xsdD->expr();
+#ifdef DEBUG
+                    cout << exp <<endl;
+#endif
+
+                    std::stringstream stream;
+                    stream << *xmlD;
+                    string str =  stream.str();
+
+                    if(RE2::FullMatch(str, exp))
+                    {
+                        cout << "xml and xsd match" << endl;
+                    }
+                    else
+                    {
+                        cout << "xml and xsd don t match" << endl;
+                    }
                 }
                 else
                 {

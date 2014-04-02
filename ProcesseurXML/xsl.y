@@ -136,7 +136,9 @@ element
  | INF NOM attributes SLASH SUP		{ cout << "Balise HTML auto-fermante" << endl;
 					$$ = new XSLElementHTML($2,$3,NULL);
 					}
- | DONNEES         {cout << "Du texte" << endl;}
+ | DONNEES         {cout << "Du texte" << endl;
+			$$ = new XSLContent($1,NULL,NULL);
+			}
  ;
 
 //content

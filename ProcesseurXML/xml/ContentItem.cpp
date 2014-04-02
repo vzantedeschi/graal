@@ -19,6 +19,7 @@ list<ContentItem *>* ContentItem::getContent()
 	cout << "get content element" << endl;
 	return NULL;
 }
+
 void ContentItem::printDonnees()
 {
 }
