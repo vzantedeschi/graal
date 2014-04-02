@@ -1,0 +1,151 @@
+Ouverture du fichier XML 
+Parsing du fichier XML   
+Ouverture du fichier XSL
+Parsing du fichier XSL
+Création catalogue(documentXSL)
+AffichageHTML
+
+
+affichageHTML ()
+{
+	tant qu'il y a des templates dans le catalogue
+	{
+		Si valeur de l'attribut du template == "/"
+		{
+			tant qu'il y a des éléments dans le template
+			{
+				traiter éléments(élément du template)
+			}
+		}
+	}
+}
+          
+             
+             
+traiter éléments(élément)
+{
+    
+
+    Si élément == baliseHTML
+    {
+        afficher élément
+    }
+    
+
+    Sinon, si élément == valueof
+    {
+        récupérer valeur de l'attribut de valueof
+        Si valeur de l'attribut == "."
+        {
+            récupérer l'élément courant
+        }
+        Sinon
+        {
+            tant qu'il y a des éléments dans l'élément XML courant,
+            {
+                Si l'élément XML courant == valeur de l'attribut
+                {
+                     afficher le contenu de l'élément XML courant
+                }
+            }
+        }
+     }
+    
+
+    Sinon, si element == for-each
+    {
+        récupérer valeur de l'attribut de for-each
+	tant qu'il y a des éléments dans l'élément XML courant 
+	{
+		Si valeur de l'attribut == nom de l'élément 
+		{
+			tant qu'il y a des éléments dans le bloc for-each
+			{
+				traiter éléments(élément du bloc for-each)
+			}
+		}
+	}
+    }
+    
+
+    Sinon, si element == apply-templates
+    {
+        récupérer nom de l'attribut de apply-templates
+         Si nom de l'attribut == select
+         {
+            récupérer valeur de l'attribut de apply-templates
+                trouve = faux
+                tant qu'il y a des templates dans le catalogue,
+                {
+                    Si valeur de l'attribut == valeur du template du catalogue
+                    {
+                        tant qu'il y a des éléments dans le template du catalogue
+                        {
+                            traiter éléments(élément du template du catalogue)
+                        }
+                        trouve = vrai
+                    }
+                }
+                Si trouve == faux
+                {
+                    tant qu'il y a des éléments dans l'élément XML courant,
+                    {
+                        Si l'élément XML courant == valeur de l'attribut
+                        {
+                            afficher le contenu de l'élément XML courant
+                        }
+		    }
+                } 
+        }
+        Sinon
+        {
+            tant qu'il y a des éléments dans l'élément XML courant,
+            {
+                récupérer nomélément
+                tant qu'il y a des templates dans le catalogue,
+                {
+                    Si nomélément == valeur du template du catalogue
+                    {
+                        traiter éléments(élément du template du catalogue)
+                    {
+                }
+            }
+        }
+    }
+        
+}
+
+
+
+    pour chaque élément (template) rencontré,
+        on récupère la valeur de l'attribut (match) 
+            si match = "/"
+                pour chaque élément appartenant au template, 
+                    on regarde c'est quel élément
+                    si html, 
+                        on écrit dans le fichier HTML
+                    si apply-templates,
+                        on récupère la valeur de l'attribut
+                            si select
+                                s'il existe un apply-template qui match,
+                                    on traite chaque élément du template qui match
+                                s'il n'existe pas d'apply template qui match, 
+                                    on lit le fichier XML jusqu'à arriver à la balise correpondante au select
+                                    on écrit le contenu de la balise concernée dans le fichier HTML
+                            si pas d'attribut
+                                rien, élément suivant
+                    si for-each, 
+                        on récupère l'attribut, 
+                        pour chaque balise de type récupéré, 
+                            on traite chaque élément
+                    si value-of
+                        on récupère la valeur du select, 
+                        on lit le fichier XML jusqu'à arriver à la balise correpondante
+                        on écrit le contenu de la balise concernée dans le fichier HTML
+                            
+                        
+            si match = une chaine de caractère
+                on lit le fichier XML jusqu'à arriver à la balise correpondante
+                on lit le fichier XSL
+                pour chaque élément appartenant au template, 
+                    on le traite
