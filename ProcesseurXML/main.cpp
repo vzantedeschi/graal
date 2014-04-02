@@ -1,4 +1,4 @@
-//#define DEBUG
+#define DEBUG
 
 #include "commun.h"
 #include "structXSL.h"
@@ -6,6 +6,8 @@
 #include "structXSD.h"
 #include <iostream>
 #include <cstring>
+#include <string>
+#include <regex>
 
 using namespace std;
 
@@ -116,7 +118,62 @@ int main(int argc, char *argv[])
 #ifdef DEBUG
                     cout<<"Entrée standard XSD reconnue"<<endl;
 #endif
-                    cout << xsdD->expr();
+                    string exp = xsdD->expr();
+#ifdef DEBUG
+                    cout << exp <<endl;
+#endif
+
+                    try
+                    {
+                        regex e (exp);
+#ifdef DEBUG
+                        cout << "regex creee" <<endl;
+#endif
+                        std::ostringstream stream;
+                        stream << *xmlD;
+                        string str =  stream.str();
+#ifdef DEBUG
+                        cout << "stream cree" <<endl;
+#endif
+                        if (regex_match (str,e))
+                        {
+                            cout << "xml and xsd match" << endl;
+                        }
+                        else
+                        {
+                            cout << "xml and xsd don t match" << endl;
+                        }
+                    }catch(regex_error exe){
+                        if (exe.code() == std::regex_constants::error_badrepeat)
+                            cerr << "error_badrepeat : The expression contained a repeat specifier (one of *?+{) that was not preceded by a valid regular expression." << endl;
+                        if (exe.code() == std::regex_constants::error_space)
+                            cerr << "error_space : There was insufficient memory to convert the expression into a finite state machine." << endl;
+                        if (exe.code() == std::regex_constants::error_stack)
+                            cerr << "error_stack : There was insufficient memory to determine whether the regular expression could match the specified character sequence." << endl;
+                        if (exe.code() == std::regex_constants::error_complexity)
+                            cerr << "error_complexity :The complexity of an attempted match against a regular expression exceeded a pre-set level." << endl;
+                        if (exe.code() == std::regex_constants::error_range)
+                            cerr << "error_range : The expression contained an invalid character range." << endl;
+                        if (exe.code() == std::regex_constants::error_badbrace)
+                            cerr << "error_badbrace : The expression contained an invalid range between braces ({ and })." << endl;
+                        if (exe.code() == std::regex_constants::error_brace)
+                            cerr << "error_brace : The expression contained mismatched braces ({ and })." << endl;
+                        if (exe.code() == std::regex_constants::error_paren)
+                            cerr << "error_paren The expression contained mismatched parentheses (( and ))." << endl;
+                        if (exe.code() == std::regex_constants::error_brack)
+                            cerr << "error_brack : The expression contained mismatched brackets ([ and ])." << endl;
+                        if (exe.code() == std::regex_constants::error_backref)
+                            cerr << "error_backref : The expression contained an invalid back reference." << endl;
+                        if (exe.code() == std::regex_constants::error_escape)
+                            cerr << "error_escape : The expression contained an invalid escaped character, or a trailing escape." << endl;
+                        if (exe.code() == std::regex_constants::error_ctype)
+                            cerr << "error_ctype The expression contained an invalid character class name." << endl;
+                        if (exe.code() == std::regex_constants::error_collate)
+                            cerr << "error_collate : The expression contained an invalid collating element name." << endl;
+                        return 1;
+                    }
+
+
                 }
                 else
                 {
