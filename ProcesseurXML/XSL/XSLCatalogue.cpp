@@ -5,5 +5,11 @@ XSLCatalogue::XSLCatalogue(list<XSLAttribut *>* atts,list<XSLTemplate *>* templa
 
 void XSLCatalogue::afficherHTML(Document ** docXML)
 {
-	printf("Afficher Catalogue");
+	for(list<XSLTemplate *>::iterator it = this->templates->begin(); it != this->templates->end(); it++){
+		XSLTemplate templateCourant = **it;
+		if (templateCourant.getPremierAttribut() == "/")
+		{
+			templateCourant.afficherHTML(docXML);
+		}
+	}
 }

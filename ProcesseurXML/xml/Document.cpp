@@ -22,3 +22,8 @@ Document::~Document()
 	}
 	delete misc;
 }
+
+Element* Document::getElement()
+{
+	return element;
+}

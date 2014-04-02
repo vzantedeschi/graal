@@ -5,13 +5,18 @@
 #include <list> 
 #include "XSLElement.h"
 #include "XSLAttribut.h"
+#include "../struct.h"
+
 using namespace std;
 
 class XSLTemplate 
 {
 	public:
 		XSLTemplate(list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
-		~XSLTemplate();
+		~XSLTemplate() {}
+
+		void afficherHTML(Document ** docXML);
+		string getPremierAttribut();
 	protected:
 		list<XSLAttribut *>* atts;
 		list<XSLElement *>* elementsInclus;

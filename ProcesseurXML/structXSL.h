@@ -11,6 +11,7 @@
 #include "XSL/XSLForeach.h"
 #include "XSL/XSLTemplate.h"
 #include "XSL/XSLValue.h"
+#include "XSL/XSLContent.h"
 
 #endif
 
