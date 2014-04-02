@@ -6,7 +6,7 @@ xslPath = XSL/
 #supprimer l'option -DFLEXDEBUG (ligne 9) pour passer les tests
 
 all: cXML cXSD cXSL
-	g++ -std=c++11 -g -DFLEXDEBUG -DYYDEBUG=1 -o xmltool main.cpp $(xmlPath)*.cpp $(xsdPath)*.cpp $(xslPath)*.cpp xml.tab.c xsd.tab.c xsl.tab.c lex.xml.c lex.xsd.c lex.xsl.c
+	g++ -std=c++11 -g -DYYDEBUG=1 -o xmltool main.cpp $(xmlPath)*.cpp $(xsdPath)*.cpp $(xslPath)*.cpp xml.tab.c xsd.tab.c xsl.tab.c lex.xml.c lex.xsd.c lex.xsl.c
 
 cXML: xml.l xml.y $(xmlPath)*
 	flex -P xml xml.l
@@ -27,4 +27,4 @@ clean:
 	-rm -rf *.tab.c lex.x*.c *.tab.h *.output xmltool *.o
 
 test: 
-	cd Tests; ./mktest.sh
+	cd Tests; bash ./mktest.sh
