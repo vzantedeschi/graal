@@ -10,7 +10,7 @@ string Sequence::expr(list<XSDElement*>* elems){
     for (XSDElement* elem : *xSDElements) {
         res += "^?";
         res += elem->expr(elems);
-        res += "$?";
+        res += "$?\n";
     }
     return res;
 }

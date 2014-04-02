@@ -7,7 +7,7 @@ XSDAttribut::XSDAttribut(string nom,string valeur): nom(nom), valeur(valeur){}
 XSDAttribut::~XSDAttribut(){}
 
 string XSDAttribut::expr(){
-    string res ="";
+    string res ="^?";
     if (nom.compare("type") == 0 ){
         if (valeur.compare("xsd:string") == 0 ){
             res += "[^<]*";
@@ -22,6 +22,7 @@ string XSDAttribut::expr(){
     else {
         res += "Erreur " + nom + " XSDAttribut non pris en charge";
     }
+    res +="$?\n";
     return res;
 }
 

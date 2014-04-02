@@ -16,10 +16,20 @@ Schema::~Schema(){
 
 
 string Schema::expr(){
-    string res = "";
+    string res = "(";
+    bool debut = true;
     // on ne sait pas gerer les arguments du schema
-    for (XSDElement* elem : *xSDElements) {
-        res += elem->expr(xSDElements);
+    for (XSDElement* elem : *xSDElements)
+    {
+        if (debut){
+            debut = false;
+        }
+        else
+        {
+            res += "|";
+        }
+        res += "^?(" + elem->expr(xSDElements) + ")$?\n" ;
     }
+    res += ")*";
     return res;
 }
