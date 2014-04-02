@@ -10,7 +10,7 @@ using namespace std;
 class Sequence : public ComplexType {
 	public:
 		Sequence(list<XSDElement*>* XSDElements);
-		~Sequence();
+        ~Sequence();
         string expr(list<XSDElement*>* elems);
 };
 

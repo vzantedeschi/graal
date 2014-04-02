@@ -2,6 +2,10 @@
 
 //class ComplexXSDElement
 ComplexXSDElement::ComplexXSDElement(string nom, list<XSDAttribut*>* atts, ComplexType* complexType) : XSDElement(nom, atts), complexType(complexType) {}
+
+ComplexXSDElement::~ComplexXSDElement() {
+    delete complexType;
+}
 string ComplexXSDElement::expr(list<XSDElement*>* elems){
     string res = "^?<";
     res += nom;

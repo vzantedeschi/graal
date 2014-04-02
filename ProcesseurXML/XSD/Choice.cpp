@@ -3,6 +3,8 @@
 //class Choice
 Choice::Choice(list<XSDElement*>* XSDElements) : ComplexType( XSDElements) {}
 
+Choice::~Choice() {}
+
 string Choice::expr(list<XSDElement*>* elems){
     string res = "^?(";
     bool debut = true;

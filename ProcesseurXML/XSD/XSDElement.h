@@ -10,7 +10,7 @@ using namespace std;
 class XSDElement {
 	public:
 		XSDElement(string nom, list<XSDAttribut*>* atts);
-		~XSDElement();
+        virtual ~XSDElement();
         virtual string expr(list<XSDElement*>* elems);
         string getNom();
 	protected:

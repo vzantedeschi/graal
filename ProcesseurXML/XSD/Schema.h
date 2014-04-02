@@ -10,12 +10,12 @@ using namespace std;
 
 class Schema {
 	public:
-		Schema(list<XSDAttribut*>* atts,list<XSDElement*>* XSDElements);
+        Schema(list<XSDAttribut*>* atts,list<XSDElement*>* xSDElements);
 		~Schema();
         string expr();
 	protected:
 		list<XSDAttribut*>* atts;
-		list<XSDElement*>* XSDElements;
+        list<XSDElement*>* xSDElements;
 };
 
 #endif
