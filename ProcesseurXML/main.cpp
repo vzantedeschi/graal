@@ -162,13 +162,15 @@ int main(int argc, char *argv[])
                 //retour = xsdparse(&d);
                 const char* nomfichier = argv[3];
                 int retour;
+                #ifdef DEBUG
                 printf("%s \n",nomfichier);
+                #endif
 
                 fid = fopen(nomfichier,"r");
 
                 if (!fid)
                 {
-                    cerr << "Unable to open " << nomfichier << endl;
+                    cerr << "Unable to open file " << nomfichier << endl;
                     /*gestion d'erreur*/
 
                     return 1;
