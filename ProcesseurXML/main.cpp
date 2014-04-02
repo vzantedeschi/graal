@@ -1,4 +1,4 @@
-#define DEBUG
+//#define DEBUG
 
 #include "commun.h"
 #include "structXSL.h"
@@ -16,23 +16,14 @@ extern FILE* xslin;
 int xmlparse(Document **);
 int xslparse(XSLDocument **);
 int xsdparse(XSDDocument **);
+int xmllex_destroy(void);
 
 int main(int argc, char *argv[])
 {
 	Document * xmlD;
 	XSDDocument * xsdD;
 	XSLDocument * xslD;
-    //if(argc <= 1)
-    // {/* ---- si pas d'argument ---*/
-    //     cerr << "No argument given" << endl;
-    //     cerr << "Available commands are:" << endl;
-    //     cerr << "../xmltool -p file.xml : parse and display the xml file" << endl;
-    //     cerr << "../xmltool -v file.xml file.xsd : parse both xml and xsd files and display the validation result" << endl;
-    //     cerr << "../xmltool -t file.xml file.xsl : parse both xml and xsl files and display de transformation result of file.xml by the stylesheet file.xsl" << endl;
-    //     cerr << "../xmltool -h : displays this help" << endl;
 
-    //     return 1;
-    // }/* --- fin si pas d'argument ---*/
     if (argc >= 2)
     {
         if ((strcmp(argv[1],"-p") == 0 && argc > 2) 
@@ -63,15 +54,15 @@ int main(int argc, char *argv[])
 
             // option -p
             xmlin = fid;
-            retour = -1;
-            //retour = xmlparse(&xmlD);
+            //retour = -1;
+            retour = xmlparse(&xmlD);
             /* ------> continuer analyse et affichage ----*/
             if (!retour)
             {
                #ifdef DEBUG
                cout<<"Entrée standard reconnue"<<endl;
                #endif
-               //cout << "\n" << *xmlD;
+               cout << "\n" << *xmlD;
                #ifdef DEBUG
                #endif
             }
@@ -84,6 +75,8 @@ int main(int argc, char *argv[])
             	delete xmlD;
             }
             fclose(fid);
+            xmllex_destroy();
+            
             //option -v
             if(strcmp(argv[1],"-v") == 0)
             {

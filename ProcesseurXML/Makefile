@@ -27,4 +27,4 @@ clean:
 	-rm -rf *.tab.c lex.x*.c *.tab.h *.output xmltool *.o
 
 test: 
-	cd Tests; ./mktest.sh
+	cd Tests; bash ./mktest.sh
