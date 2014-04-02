@@ -10,7 +10,7 @@ using namespace std;
 class ComplexType {
 	public:
 		ComplexType(list<XSDElement*>* XSDElements);
-		~ComplexType();
+        virtual ~ComplexType();
 		virtual string expr(list<XSDElement*>* elems);
         list<XSDElement*>* getxSDElements();
 	protected:

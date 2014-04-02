@@ -4,6 +4,8 @@
 //class XSDAttribut
 XSDAttribut::XSDAttribut(string nom,string valeur): nom(nom), valeur(valeur){}
 
+XSDAttribut::~XSDAttribut(){}
+
 string XSDAttribut::expr(){
     string res ="";
     if (nom.compare("type") == 0 ){

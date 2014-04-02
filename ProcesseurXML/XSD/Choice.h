@@ -11,7 +11,7 @@ using namespace std;
 class Choice : public ComplexType {
 	public:
 		Choice(list<XSDElement*>* XSDElements);
-		~Choice();
+        ~Choice();
         string expr(list<XSDElement*>* elems);
 };
 

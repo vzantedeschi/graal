@@ -15,7 +15,7 @@ class XSDProlog {
         string expr();
 	protected:
 		XSDDeclaration* xsdDecl;
-		list<XSDComment*>* XSDComments;
+        list<XSDComment*>* xSDComments;
 };
 
 #endif

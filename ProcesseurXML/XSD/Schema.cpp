@@ -1,12 +1,25 @@
 #include "Schema.h"
 
 //class Schema
-Schema::Schema(list<XSDAttribut*>* atts,list<XSDElement*>* XSDElements): atts(atts), XSDElements(XSDElements){}
+Schema::Schema(list<XSDAttribut*>* atts,list<XSDElement*>* xSDElements): atts(atts), xSDElements(xSDElements){}
+
+Schema::~Schema(){
+    for ( XSDAttribut* att : *atts){
+        delete att;
+    }
+    delete atts;
+    for (XSDElement* elem : *xSDElements){
+        delete elem;
+    }
+    delete xSDElements;
+}
+
+
 string Schema::expr(){
     string res = "";
     // on ne sait pas gerer les arguments du schema
-    for (XSDElement* elem : *XSDElements) {
-        res += elem->expr(XSDElements);
+    for (XSDElement* elem : *xSDElements) {
+        res += elem->expr(xSDElements);
     }
     return res;
 }

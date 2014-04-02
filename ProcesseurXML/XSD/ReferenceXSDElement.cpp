@@ -6,6 +6,9 @@
 
 //class SimpleXSDElement
 ReferenceXSDElement::ReferenceXSDElement(string nom, list<XSDAttribut*>* atts) : XSDElement(nom, atts) {}
+
+ReferenceXSDElement::~ReferenceXSDElement() {}
+
 string ReferenceXSDElement::expr(list<XSDElement*>* elems){
     string res = "";
     bool trouve = false;
