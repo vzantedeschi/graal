@@ -12,6 +12,8 @@ class XSLApply : public XSLElement {
 		XSLApply(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
 		~XSLApply() {}
 
+		void afficherElements();
+
 };
 
 #endif

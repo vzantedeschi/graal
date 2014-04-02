@@ -11,6 +11,8 @@ class XSLElement {
 		XSLElement(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
 		virtual ~XSLElement() {}
 
+		string getType();
+		virtual void afficherElements();
 	protected:
 		string type;
 		list<XSLElement *>* elementsInclus;

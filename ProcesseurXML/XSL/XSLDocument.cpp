@@ -8,7 +8,7 @@ XSLDocument::~XSLDocument()
 }
 
 void XSLDocument::afficherHTML(Document **docXML){
-	printf("FONCTIONS AFFICHAGE HTML A FAIRE");
+	Element* elementsXML = (*docXML)->getElement();
 
 	catalogue->afficherHTML(docXML);
 }

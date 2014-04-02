@@ -14,6 +14,8 @@ class Document {
 		~Document();
 
 		friend ostream& operator << (ostream& os, const Document& D);
+
+		Element* getElement();
 	protected:
 		Prolog * prolog;
 		Element * element;

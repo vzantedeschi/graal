@@ -11,6 +11,7 @@ class XSLElementHTML : public XSLElement {
 		XSLElementHTML(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
 		~XSLElementHTML() {}
 		
+		void afficherElements();
 };
 
 #endif

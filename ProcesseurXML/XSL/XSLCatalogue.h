@@ -3,6 +3,7 @@
 
 #include <string>
 #include <list> 
+#include <cstring>
 #include "XSLAttribut.h"
 #include "XSLTemplate.h"
 #include "../struct.h"
