@@ -74,7 +74,7 @@ endcdata   "]]>"
 <INITIAL>"xsl:value-of"		{dbg; return VALUEOF;}
 <INITIAL>"xsl:apply-templates"		{dbg; return APPLY;}
 
-<INITIAL>"xsl"		{dbg; return XSL;} //on en a plus besoin
+
 
 <INITIAL>{esp}		{/* skip */}
 
