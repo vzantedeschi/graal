@@ -12,6 +12,7 @@ class XSLDocument
 		XSLDocument(XSLDeclaration * xsldecl, XSLCatalogue * catalogue);
 		~XSLDocument();
 
+		string afficherHTML();
 	protected:
 		XSLDeclaration * xsldecl;
 		XSLCatalogue * catalogue;

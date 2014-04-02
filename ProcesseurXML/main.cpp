@@ -63,8 +63,8 @@ int main(int argc, char *argv[])
 
             // option -p
             xmlin = fid;
-            retour = 0;
-            //retour = xmlparse(&xmlD);
+            retour = -1;
+            retour = xmlparse(&xmlD);
             /* ------> continuer analyse et affichage ----*/
             if (!retour)
             {
@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
                 }
                 else
                 {
-                    cout<<"Fichier Xsd Ouvert"<<endl;
+                    cout<<"Fichier XSD Ouvert"<<endl;
                 }
 
                 xsdin = fid;
@@ -141,18 +141,18 @@ int main(int argc, char *argv[])
                 }
                 else
                 {
-                    cout<<"Fichier xsl Ouvert"<<endl;
+                    cout<<"Fichier XSL Ouvert"<<endl;
                 }
 
     	        xslin = fid;
                 retour = xslparse(&xslD);
-    	        printf("BIG SOUCYYYY");
 
                 /* ------> continuer analyse et affichage ----*/
 
                 if (!retour)
                 {
                     cout<<"Entrée standard XSL reconnue"<<endl;
+		    cout << xslD->afficherHTML();
                 }
                 else
                 {
