@@ -85,9 +85,10 @@ element
 			if(strcmp($4,$12)){
 				cerr << "Non matching element names " << $4 << " and "<< $12 <<endl;
 			}
-   			strcat($2,":");
-   			strcat($2, $4);
-   			$$ = new NonEmptyElement($2, $5, $7);
+			string ns = string($2);
+	                string tag = string($4);
+   			ns = ns + ":" + tag;
+   			$$ = new NonEmptyElement(ns, $5, $7);
    			free($2);
    			free($4);
    			free($10);
@@ -98,9 +99,10 @@ element
 			$$ = new EmptyElement($2, $3);
 			free($2);}   
  | INF NOM COLON NOM attributes SLASH SUP	{
- 			strcat($2,":");
-   			strcat($2, $4);
-			$$ = new EmptyElement($2, $5);
+ 			string ns = string($2);
+	                string tag = string($4);
+   			ns = ns + ":" + tag;
+			$$ = new EmptyElement(ns, $5);
 			free($2);
 			free($4);} 
  ;
@@ -134,9 +136,10 @@ attribute
 			free($3);
 			free($1);}
  | NOM COLON NOM EGAL VALEUR {
-			strcat($1,":");
-			strcat($1, $3);
-			$$ = new Attribut($1, $5);
+			string ns = string($1);
+			string att = string($3);
+			ns = ns + ":" + att;
+			$$ = new Attribut(ns, $5);
 			free($5);
 			free($1);
 			free($3);}

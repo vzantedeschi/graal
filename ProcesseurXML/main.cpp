@@ -17,24 +17,30 @@ int xmlparse(Document **);
 int xslparse(XSLDocument **);
 int xsdparse(XSDDocument **);
 int xmllex_destroy(void);
+int xsdlex_destroy(void);
+int xsllex_destroy(void);
 
 int main(int argc, char *argv[])
 {
-	Document * xmlD;
-	XSDDocument * xsdD;
-	XSLDocument * xslD;
+    Document * xmlD;
+    XSDDocument * xsdD;
+    XSLDocument * xslD;
+
+    bool xmlCreated = false;
+    bool xsdCreated = false;
+    bool xslCreated = false;
 
     if (argc >= 2)
     {
-        if ((strcmp(argv[1],"-p") == 0 && argc > 2) 
-             || ((strcmp(argv[1],"-v") == 0 || strcmp(argv[1],"-t") == 0) && argc == 4))
+        if ((strcmp(argv[1],"-p") == 0 && argc > 2)
+                || ((strcmp(argv[1],"-v") == 0 || strcmp(argv[1],"-t") == 0) && argc == 4))
         {/* ---- si option reconnue ---*/
             FILE * fid;
             const char* nomfichier = argv[2];
             int retour;
-            #ifdef DEBUG
+#ifdef DEBUG
             printf("%s \n",nomfichier);
-            #endif
+#endif
 
             fid = fopen(nomfichier,"r");
 
@@ -47,34 +53,36 @@ int main(int argc, char *argv[])
             }
             else
             {
-                #ifdef DEBUG
+#ifdef DEBUG
                 cout<<"Fichier XML Ouvert"<<endl;
-                #endif
+#endif
             }
 
             // option -p
             xmlin = fid;
             //retour = -1;
             retour = xmlparse(&xmlD);
+
             /* ------> continuer analyse et affichage ----*/
             if (!retour)
             {
-               #ifdef DEBUG
-               cout<<"Entrée standard reconnue"<<endl;
-               #endif
-               cout << "\n" << *xmlD;
-               #ifdef DEBUG
-               #endif
+                xmlCreated = true;
+#ifdef DEBUG
+                cout<<"Entrée standard reconnue"<<endl;
+#endif
+                cout << "\n" << *xmlD;
+#ifdef DEBUG
+#endif
             }
             else
             {
-               cerr<<"No root markup"<<endl;
-               return 1;
+                cerr<<"No root markup"<<endl;
+                return 1;
             }
-            
+
             fclose(fid);
             xmllex_destroy();
-            
+
             //option -v
             if(strcmp(argv[1],"-v") == 0)
             {
@@ -104,16 +112,20 @@ int main(int argc, char *argv[])
 
                 if (!retour)
                 {
-                   cout<<"Entrée standard XSD reconnue"<<endl;
-                   cout << xsdD->expr();
+                    xsdCreated = true;
+#ifdef DEBUG
+                    cout<<"Entrée standard XSD reconnue"<<endl;
+#endif
+                    cout << xsdD->expr();
                 }
                 else
                 {
-                   cout<<"Entrée standard XSD non reconnue"<<endl;
+                    cout<<"Entrée standard XSD non reconnue"<<endl;
                 }
                 fclose(fid);
+                xsdlex_destroy();
             }
-    	    else if(strcmp(argv[1],"-t") == 0)
+            else if(strcmp(argv[1],"-t") == 0)
             {
                 //xsdin = fid;
                 //retour = xsdparse(&d);
@@ -123,7 +135,7 @@ int main(int argc, char *argv[])
 
                 fid = fopen(nomfichier,"r");
 
-    	        if (!fid)
+                if (!fid)
                 {
                     printf("ERREUR : NOM FICHIER XSL ERRONE\n");
                     /*gestion d'erreur*/
@@ -132,37 +144,43 @@ int main(int argc, char *argv[])
                 }
                 else
                 {
+#ifdef DEBUG
                     cout<<"Fichier XSL Ouvert"<<endl;
+#endif
                 }
 
-    	        xslin = fid;
+                xslin = fid;
                 retour = xslparse(&xslD);
 
                 /* ------> continuer analyse et affichage ----*/
 
                 if (!retour)
                 {
+                    xslCreated = true;
+#ifdef DEBUG
                     cout<<"Entrée standard XSL reconnue"<<endl;
-		    xslD->afficherHTML(&xmlD);
-		    //xslD->afficherHTML();
+#endif
+                    xslD->afficherHTML(&xmlD);
+                    //xslD->afficherHTML();
                 }
                 else
                 {
-                   cout<<"Entrée standard XSL non reconnue"<<endl;
-                   return 1;
+                    cout<<"Entrée standard XSL non reconnue"<<endl;
+                    return 1;
                 }
                 fclose(fid);
+                xsllex_destroy();
             }
 
-	    if(xmlD != NULL){ //liberer la memoire
-            	delete xmlD;
-            }	
-	    if(xslD != NULL){ //liberer la memoire
-            	delete xslD;
+            if(xmlCreated){ //liberer la memoire
+                delete xmlD;
             }
-            //if(xsdD != NULL){ //liberer la memoire
-            //	delete xsdD;
-            //}	    
+            if(xslCreated){ //liberer la memoire
+                delete xslD;
+            }
+            if(xsdCreated){ //liberer la memoire
+                delete xsdD;
+            }
 
         }/* --- fin si option reconnue ---*/
         else if(strcmp(argv[1],"-p") == 0){
@@ -172,7 +190,7 @@ int main(int argc, char *argv[])
         else if(strcmp(argv[1],"-v") == 0){
             cerr << "You must provide two arguments to the command -v: an xml file and an xsd file" << endl;
             return 1;
-        } 
+        }
         else if(strcmp(argv[1],"-t") == 0){
             cerr << "You must provide two arguments to the command -t: an xml file and an xsl file" << endl;
             return 1;
@@ -196,21 +214,6 @@ int main(int argc, char *argv[])
 
         return 1;
     }/* --- fin si pas d'argument ---*/
-    /*else
-    {
-        cout<<"Option non reconnue"<<endl;
 
-        int retour = xmlparse(&xmlD);
-
-        if (!retour)
-        {
-           cout<<"Entrée standard reconnue"<<endl;
-        }
-        else
-        {
-           cout<<"Entrée standard non reconnue"<<endl;
-        }
-    }*/
-
-   return 0;
+    return 0;
 }
