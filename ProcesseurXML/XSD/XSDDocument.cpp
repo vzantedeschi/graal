@@ -15,8 +15,3 @@ string XSDDocument::expr(){
     res += schema->expr();
     return res;
 }
-
-XSDDocument::~XSDDocument()
-{
-	printf("Bla bla bla à supprimer (Destructeur XSD)");
-}
