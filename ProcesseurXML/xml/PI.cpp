@@ -9,7 +9,7 @@ void PI::print(ostream& os) const{
 	for(list<Attribut *>::iterator it = this->atts->begin(); it != this->atts->end(); it++){
 		os << " " << **it;
 	}
-	os << "?>\n";
+	os << "?>";
 	//return os;
 }
 
