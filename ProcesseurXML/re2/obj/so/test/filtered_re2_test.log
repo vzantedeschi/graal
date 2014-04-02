@@ -1,0 +1,5 @@
+re2/prefilter_tree.cc:288: Compile() not called
+re2/testing/filtered_re2_test.cc:35: Check failed: (0) == (v.atoms.size())
+FilteredRE2Test.EmptyTest
+FilteredRE2Test.SmallOrTest
+Aborted (core dumped)
