@@ -41,9 +41,9 @@ int main(int argc, char *argv[])
             FILE * fid;
             const char* nomfichier = argv[2];
             int retour;
-#ifdef DEBUG
+            #ifdef DEBUG
             printf("%s \n",nomfichier);
-#endif
+            #endif
 
             fid = fopen(nomfichier,"r");
 
@@ -70,9 +70,9 @@ int main(int argc, char *argv[])
             if (!retour)
             {
                 xmlCreated = true;
-#ifdef DEBUG
+                #ifdef DEBUG
                 cout<<"Entrée standard reconnue"<<endl;
-#endif
+                #endif
                 if(strcmp(argv[1],"-p") == 0)
                 {
                     cout << "\n" << *xmlD;
@@ -93,6 +93,11 @@ int main(int argc, char *argv[])
                 //récupération fichier xsd
                 const char* nomfichierXSD = argv[3];
                 int retour;
+
+                #ifdef DEBUG
+                printf("%s \n",nomfichier);
+                #endif
+
 
                 fid = fopen(nomfichierXSD,"r");
 
@@ -116,15 +121,16 @@ int main(int argc, char *argv[])
                 if (!retour)
                 {
                     xsdCreated = true;
-#ifdef DEBUG
+                    #ifdef DEBUG
                     cout<<"Entrée standard XSD reconnue"<<endl;
-#endif
+                    #endif
                     string exp = xsdD->expr();
-#ifdef DEBUG
+
+                    #ifdef DEBUG
                     cout << "-------------------------------------------------------------------" <<endl;
                     cout << exp <<endl;
                     cout << "-------------------------------------------------------------------" <<endl;
-#endif
+                    #endif
                     if(xmlCreated){
                         string str =  xmlD->printElem();
 #ifdef DEBUG
