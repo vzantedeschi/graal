@@ -13,6 +13,7 @@ class Element : public ContentItem {
 		virtual ~Element();
 
 		virtual void print(ostream& os) const = 0;
+        virtual string printElem()= 0;
 		
 		string getNom();
 		virtual list<ContentItem *>* getContent();

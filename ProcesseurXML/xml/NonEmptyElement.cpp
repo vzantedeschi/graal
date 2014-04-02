@@ -2,32 +2,60 @@
 #include <iterator>
 
 NonEmptyElement::NonEmptyElement(string nom, list<Attribut *>* atts, list<ContentItem *>* content) : 
-									Element(nom, atts), content(content) {}
+    Element(nom, atts), content(content) {}
 
 //ostream& operator << (ostream& os, const NonEmptyElement& NE){
 void NonEmptyElement::print(ostream& os) const {
-	os << "<" << this->nom;
-	for(list<Attribut *>::iterator it = this->atts->begin(); it != this->atts->end(); it++){
-		os << " " << **it;
-	}
-	os << ">\n";
-	for(list<ContentItem *>::iterator it = this->content->begin(); it != this->content->end(); it++){
-		os << **it;
-	}
-	os << "</" << this->nom << ">\n";
+    os << "<" << this->nom;
+    for(list<Attribut *>::iterator it = this->atts->begin(); it != this->atts->end(); it++){
+        os << " " << **it;
+    }
+    os << ">\n";
+    for(list<ContentItem *>::iterator it = this->content->begin(); it != this->content->end(); it++){
+        os << **it;
+    }
+    os << "</" << this->nom << ">\n";
+}
+
+string NonEmptyElement::printElem() {
+    string res = "", tmp = "";
+    bool aEviter = false;
+
+    res += "<" + nom + ">";
+//    for(list<Attribut *>::iterator it = atts->begin(); it != atts->end(); it++){
+//        if (*it != NULL){ tmp += " " + (*it)->printElem();}
+//        if ((*it)->isTheOne()){
+//            aEviter = true;
+//            break;
+//        }
+    //}
+    //if(aEviter){
+        // on ne traite pas la balise qui va chercher le xsd
+//        tmp = "";
+    //}
+    //else
+    //{
+    //}
+    for(list<ContentItem *>::iterator it = content->begin(); it != content->end(); it++){
+        if (*it != NULL){ res += (*it)->printElem();}
+    }
+    if(!aEviter){
+        res += "</" + nom + ">";
+    }
+    return res;
 }
 
 NonEmptyElement::~NonEmptyElement()
 {	
-	for(list<ContentItem *>::iterator it = content->begin(); it != content->end(); it++){
-			delete *it;
-	}
-	delete content;
+    for(list<ContentItem *>::iterator it = content->begin(); it != content->end(); it++){
+        delete *it;
+    }
+    delete content;
 }
 
 list<ContentItem *>* NonEmptyElement::getContent()
 {
-	return content;
+    return content;
 }
 
 void NonEmptyElement::printDonnees()

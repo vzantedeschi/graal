@@ -10,6 +10,8 @@ class Attribut {
 		Attribut(string nom,string valeur);
 		~Attribut();
 		friend ostream& operator << (ostream& os, const Attribut& A);
+        string printElem();
+        bool isTheOne();
 	protected:
 		string nom;
 		string valeur;

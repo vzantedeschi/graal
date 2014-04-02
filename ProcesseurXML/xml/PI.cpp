@@ -13,6 +13,10 @@ void PI::print(ostream& os) const{
 	//return os;
 }
 
+string PI::printElem(){
+    return "";
+}
+
 PI::~PI()
 {
 	for(list<Attribut *>::iterator it = atts->begin(); it != atts->end(); it++){

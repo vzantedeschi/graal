@@ -1,9 +1,8 @@
 #include "EmptyElement.h"
 #include <iterator>
+#include <sstream>
 
 EmptyElement::EmptyElement(string nom, list<Attribut *>* atts) : Element(nom, atts) {}
-
-//ostream& operator << (ostream& os, const EmptyElement& E){
 
 void EmptyElement::print(ostream& os) const  
 {  
@@ -12,6 +11,17 @@ void EmptyElement::print(ostream& os) const
 		os << " " << **it;
 	}
 	os << " />\n";
+}
+
+string EmptyElement::printElem()
+{
+    string res = "";
+    res += "<" + nom;
+    for(list<Attribut *>::iterator it = atts->begin(); it != atts->end(); it++){
+        res += (*it)->printElem();
+    }
+    res += " />";
+    return res;
 }
 
 EmptyElement::~EmptyElement()

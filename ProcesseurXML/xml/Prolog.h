@@ -14,7 +14,7 @@ class Prolog {
 		Prolog(/*PI * xmlDecl, */DocTypeDecl * docTypeDecl, list<Misc *>* misc1, list<Misc *>* misc2);
 		~Prolog();
 
-		friend ostream& operator << (ostream& os, const Prolog& P);
+		friend ostream& operator << (ostream& os, const Prolog& P);        
 	protected:
 		//PI * xmlDecl;
 		DocTypeDecl * docTypeDecl;

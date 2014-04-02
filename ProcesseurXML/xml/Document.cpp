@@ -13,6 +13,10 @@ ostream& operator << (ostream& os, const Document& D){
 	return os;
 }
 
+string Document::printElem(){
+    return element->printElem();
+}
+
 Document::~Document()
 {
     delete prolog;

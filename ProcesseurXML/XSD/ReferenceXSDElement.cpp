@@ -46,11 +46,11 @@ string ReferenceXSDElement::expr(list<XSDElement*>* elems){
             }
         }
         // autant de regex que de maxoccurs
-        res += "^?(" + leBon->expr(elems) + "){0," + maxOccurs + "}$?\n";
+        res += "(" + leBon->expr(elems) + "){0," + maxOccurs + "}";
     }
     else
     {
-        res += " erreur : reference vers un element inconnu : " + nom + "\n" ;
+        res += " erreur : reference vers un element inconnu : " + nom ;
     }
 
     return res;

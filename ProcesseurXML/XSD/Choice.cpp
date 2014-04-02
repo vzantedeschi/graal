@@ -6,7 +6,7 @@ Choice::Choice(list<XSDElement*>* XSDElements) : ComplexType( XSDElements) {}
 Choice::~Choice() {}
 
 string Choice::expr(list<XSDElement*>* elems){
-    string res = "^?(";
+    string res = "(";
     bool debut = true;
     for (XSDElement* elem : *xSDElements) {
         if (debut) {
@@ -19,7 +19,7 @@ string Choice::expr(list<XSDElement*>* elems){
         res += elem->expr(elems);
         res += ")";
     }
-    res += ")$?\n";
+    res += ")";
     return res;
 }
 
