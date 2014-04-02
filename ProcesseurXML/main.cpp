@@ -82,9 +82,7 @@ int main(int argc, char *argv[])
                cerr<<"No root markup"<<endl;
                return 1;
             }
-            if(xmlD != NULL){ //liberer la memoire
-            	delete xmlD;
-            }
+            
             fclose(fid);
             //option -v
             if(strcmp(argv[1],"-v") == 0)
@@ -163,6 +161,16 @@ int main(int argc, char *argv[])
                 }
                 fclose(fid);
             }
+
+	    if(xmlD != NULL){ //liberer la memoire
+            	delete xmlD;
+            }	
+	    if(xslD != NULL){ //liberer la memoire
+            	delete xslD;
+            }
+            if(xsdD != NULL){ //liberer la memoire
+            	delete xsdD;
+            }	    
 
         }/* --- fin si option reconnue ---*/
         else if(strcmp(argv[1],"-p") == 0){
