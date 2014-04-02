@@ -6,7 +6,7 @@ string Schema::expr(){
     string res = "";
     // on ne sait pas gerer les arguments du schema
     for (XSDElement* elem : *XSDElements) {
-        res += elem->expr();
+        res += elem->expr(XSDElements);
     }
     return res;
 }

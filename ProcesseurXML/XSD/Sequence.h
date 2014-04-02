@@ -11,7 +11,7 @@ class Sequence : public ComplexType {
 	public:
 		Sequence(list<XSDElement*>* XSDElements);
 		~Sequence();
-        string expr();
+        string expr(list<XSDElement*>* elems);
 };
 
 #endif

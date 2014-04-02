@@ -79,6 +79,7 @@ endcdata   "]]>"
 <INITIAL>"xsd:choice"    {dbg; return CHOICE;}
 <INITIAL>"xsd:sequence"    {dbg; return SEQUENCE;}
 <INITIAL>"name"    {dbg; return NAME;}
+<INITIAL>"ref"    {dbg; return REF;}
 <INITIAL>{nom}    {dbg; xsdlval.s = strdup(xsdtext); return NOM;}
 <INITIAL>{chaine}	{dbg; xsdlval.s = strdup(enleveGuillemets(xsdtext)); return VALEUR;}
 

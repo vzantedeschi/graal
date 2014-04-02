@@ -2,16 +2,21 @@
 
 //class ComplexXSDElement
 ComplexXSDElement::ComplexXSDElement(string nom, list<XSDAttribut*>* atts, ComplexType* complexType) : XSDElement(nom, atts), complexType(complexType) {}
-string ComplexXSDElement::expr(){
-    string res = "^<";
+string ComplexXSDElement::expr(list<XSDElement*>* elems){
+    string res = "^?<";
     res += nom;
+    res += ">$?";
     for (XSDAttribut* att : *atts){
         res += " " + att->expr();
-    }
-    res += ">";
-    res += complexType->expr();
-    res += "</";
+    }    
+    res += complexType->expr(elems);
+    res += "^?</";
     res += nom;
-    res += ">$";
+    res += ">$?";
     return res;
+}
+
+
+ComplexType* ComplexXSDElement::getComplexType(){
+    return complexType;
 }

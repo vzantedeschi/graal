@@ -3,6 +3,7 @@
 
 #include <string>
 #include <list> 
+#include "Schema.h"
 using namespace std;
 
 class XSDComment {

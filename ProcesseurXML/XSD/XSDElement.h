@@ -11,7 +11,8 @@ class XSDElement {
 	public:
 		XSDElement(string nom, list<XSDAttribut*>* atts);
 		~XSDElement();
-        virtual string expr();
+        virtual string expr(list<XSDElement*>* elems);
+        string getNom();
 	protected:
         string nom;
 		list<XSDAttribut*>* atts;

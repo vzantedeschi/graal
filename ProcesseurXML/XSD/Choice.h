@@ -5,13 +5,14 @@
 #include <list> 
 #include "ComplexType.h"
 
+
 using namespace std;
 
 class Choice : public ComplexType {
 	public:
 		Choice(list<XSDElement*>* XSDElements);
 		~Choice();
-        string expr();
+        string expr(list<XSDElement*>* elems);
 };
 
 #endif
