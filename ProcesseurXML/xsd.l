@@ -1,0 +1,91 @@
+%option 8bit noyywrap
+
+%{
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+#include <stdlib.h>
+#include "commun.h"
+#include "structXSD.h"
+#include "xsd.tab.h"
+
+#ifdef FLEXDEBUG
+#define dbg printf("[%s:%d] \"%s\"\n",__FILE__,__LINE__,xsdtext)
+#else
+#define dbg ((void)0)
+#endif
+
+static char* buffer;
+
+// supprime les espaces en début et fin de chaine
+static char* supprimeEspaces(char *s) {
+  char *buf;
+  int i,lastnonspace;
+  for (buf=s;isspace(*buf);buf++) ;
+  for (i=0,lastnonspace=0;buf[i];i++) {
+     if (!isspace(buf[i]))
+        lastnonspace = i;
+  }
+  buf[lastnonspace+1] = '\0';
+  return buf;
+}
+
+// enlève les " au début et à la fin
+static char * enleveGuillemets(char *s) {
+   s++;
+   s[strlen(s)-1] = '\0';
+   return s;
+}
+
+%}
+
+nl		(\r\n|\r|\n)
+esp		[ \t\r\n]+
+inf		{esp}?"<"
+sup		">"{nl}?
+debutnom	[A-Za-z\200-\377_]
+caracnom	[A-Za-z\200-\377_0-9.-:]
+esc		"&#"[0-9]+";"|"&#x"[0-9a-fA-F]+";"
+nom		{debutnom}{caracnom}*
+colon		":"
+data		([^<\n&]|\n[^<&]|\n{esc}|{esc})+
+pcdata		[^<]+
+comment		{inf}"!--"([^-]|"-"[^-])*"--"{sup}
+chaine		\"([^"&]|{esc})*\"|\'([^'&]|{esc})*\'
+infspecial {esp}?"<?"
+supspecial "?>"{nl}?
+cdata      "<![CDATA["
+endcdata   "]]>"
+
+/*
+ * Le mode CONTENU est utilisé entre les balises ouvrantes et fermantes
+ * Le mode INITIAL est utilisé en dehors de la balise racine ou entre les < >
+ * Le mode CDATASECTION est utilisé dans les balises spéciales CDATA, le passage dans ce mode permet de ne rien parser
+ */
+
+%s CONTENU
+%s CDATASECTION
+
+%%
+
+<INITIAL>{esp}		{/* skip */}
+<INITIAL>"/"		{dbg; return SLASH;}
+<INITIAL>"="		{dbg; return EGAL;}
+<INITIAL>{sup}	{dbg; BEGIN(CONTENU); return SUP;}
+<INITIAL>{supspecial}	{ dbg; return SUPSPECIAL;}
+<INITIAL>"xsd:schema"    {dbg; return SCHEMA;}
+<INITIAL>"xsd:element"    {dbg; return ELEMENT;}
+<INITIAL>"xsd:complexType"    {dbg; return COMPLEXTYPE;}
+<INITIAL>"xsd:choice"    {dbg; return CHOICE;}
+<INITIAL>"xsd:sequence"    {dbg; return SEQUENCE;}
+<INITIAL>"name"    {dbg; return NAME;}
+<INITIAL>"ref"    {dbg; return REF;}
+<INITIAL>{nom}    {dbg; xsdlval.s = strdup(xsdtext); return NOM;}
+<INITIAL>{chaine}	{dbg; xsdlval.s = strdup(enleveGuillemets(xsdtext)); return VALEUR;}
+
+<CONTENU,INITIAL>{infspecial}  {dbg; BEGIN(INITIAL); return INFSPECIAL;}
+<CONTENU,INITIAL>{inf}	       {dbg; BEGIN(INITIAL); return INF;}
+<CONTENU,INITIAL>{comment}		{dbg; xsdlval.s = strdup(xsdtext); return COMMENT;}
+
+
+.                    { fprintf(stderr,"Lexical Error (character %s)\n",xsdtext); }

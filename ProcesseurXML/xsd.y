@@ -6,13 +6,15 @@
 #include <cstdio>
 #include <cstdlib>
 using namespace std;
+
 #include "commun.h"
+#include "structXSD.h"
 
 extern char xsdtext[];
 
 int xsdlex(void);  
 
-void xsderror(const char * msg)
+void xsderror(XSDDocument ** d,const char * msg)
 {
    fprintf(stderr,"%s\n",msg);
 }
@@ -21,81 +23,162 @@ void xsderror(const char * msg)
 
 %union {
    char * s;
+   XSDDocument * doc;
+   XSDProlog * p;
+   XSDElement * e;
+   list<XSDElement*> * le;
+   XSDAttribut * a;
+   list<XSDAttribut*> * la;
+   XSDDeclaration * dtd;
+   SimpleXSDElement * se;
+   ReferenceXSDElement * re;
+   ComplexXSDElement * ce;
+   Schema * sche;
+   Choice * cho;
+   Sequence * seq;
+   list<XSDComment*> * lcom;
+   ComplexType * ctype;
 }
 
-%token EGAL SLASH SUP SUPSPECIAL COLON INFSPECIAL INF SCHEMA ELEMENT COMPLEXTYPE CHOICE SEQUENCE
+%token EGAL SLASH SUP SUPSPECIAL INFSPECIAL INF SCHEMA ELEMENT COMPLEXTYPE CHOICE SEQUENCE NAME REF
 %token <s> VALEUR COMMENT NOM
 
+%type <doc> document
+%type <p> prolog
+%type <e> element
+%type <le> elements
+%type <a> attribute
+%type <la> attributes
+%type <dtd> doctypedecl
+%type <se> simpleElement
+%type <re> referenceElement
+%type <ce> complexElement
+%type <sche> schema
+%type <cho> choice
+%type <seq> sequence
+%type <lcom> comments
+%type <s> nom
+%type <s> ref
+%type <ctype> complexType
+
+
+%parse-param{XSDDocument ** d}
 %%
 
+main 
+ : document {*d = $1;}
+ ;
+
 document
- : prolog schema miscs
+ : prolog schema comments {
+         $$ = new XSDDocument($1, $2, $3);}
  ;
 
 schema
  : INF SCHEMA attributes SUP
    elements
-   INF SLASH SCHEMA SUP
- | INF SCHEMA attributes SLASH SUP               
+   INF SLASH SCHEMA SUP {
+         $$ = new Schema($3, $5);}
+ | INF SCHEMA attributes SLASH SUP {
+         $$ = new Schema($3, NULL);}              
  ;
 
 elements
- : elements element
- | element              
+ : elements element {
+         $$ = $1;
+         $$->push_back($2);}
+ | element {
+         $$ = new list<XSDElement*>(1,$1);}            
  ;
 
 element
- : complexElement
- | simpleElement               
+ : complexElement {
+         $$ = $1;}
+ | simpleElement {
+         $$ = $1;}  
+ | referenceElement {
+         $$ = $1;}             
  ;
 
 complexElement
- : INF ELEMENT attributes SUP
+ : INF ELEMENT nom attributes SUP
    INF COMPLEXTYPE SUP complexType INF SLASH COMPLEXTYPE SUP
-   INF SLASH ELEMENT SUP
+   INF SLASH ELEMENT SUP {
+         $$ = new ComplexXSDElement($3,$4,$9);}
  ;
 
 simpleElement
- : INF ELEMENT attributes SLASH SUP
+ : INF ELEMENT nom attributes SLASH SUP {
+         $$ = new SimpleXSDElement($3,$4);}
+ ;
+
+referenceElement
+ : INF ELEMENT ref attributes SLASH SUP {
+         $$ = new ReferenceXSDElement($3,$4);}
  ;
 
 complexType
- : choice
- | sequence             
+ : choice {
+         $$ = $1;}
+ | sequence {
+         $$ = $1;}             
  ;
 
 choice
  : INF CHOICE SUP
    elements
-   INF CHOICE SLASH SUP
+   INF SLASH CHOICE SUP {
+         $$ = new Choice($4);}
  ;
 
 sequence
  : INF SEQUENCE SUP
    elements
-   INF SEQUENCE SLASH SUP
+   INF SLASH SEQUENCE SUP  {
+         $$ = new Sequence($4);}
  ;
 
 attributes
- : attributes attribute
- | /*vide*/
+ : attributes attribute {
+         $$ = $1;
+         $$->push_back($2);}
+ | /*vide*/ {
+         $$ = new list<XSDAttribut *>();}
  ;
 
+/* attribute : attribut quelconque */
 attribute
- : NOM EGAL VALEUR
+ : NOM EGAL VALEUR {
+         $$ = new XSDAttribut($1, $3);}
  ;
 
+/* nom : attribut de nom 'name' */
+nom
+ : NAME EGAL VALEUR {
+         $$ = $3;}
+;
+
+ref
+ : REF EGAL VALEUR {
+         $$ = $3;}
+ ;
 
 prolog
- : xsddecl miscs
- | miscs
+ : doctypedecl comments {
+         $$ = new XSDProlog($1,$2);}
+ | comments {
+         $$ = new XSDProlog(NULL,$1);}
  ; 
 
-xsddecl
- : INFSPECIAL NOM attributes SUPSPECIAL
+doctypedecl
+ : INFSPECIAL NOM attribute attribute SUPSPECIAL {
+         $$ = new XSDDeclaration($3, $4);}
  ;
 
-miscs
- : miscs COMMENT
- | /*vide*/
+comments
+ : comments COMMENT {
+         $$ = $1;
+         $$->push_back(new XSDComment($2));}
+ | /*vide*/ {
+         $$ = new list<XSDComment *>();}
  ;
