@@ -11,9 +11,10 @@ class ComplexType {
 	public:
 		ComplexType(list<XSDElement*>* XSDElements);
 		~ComplexType();
-		virtual string expr();
+		virtual string expr(list<XSDElement*>* elems);
+        list<XSDElement*>* getxSDElements();
 	protected:
-		list<XSDElement*>* XSDElements;
+		list<XSDElement*>* xSDElements;
 };
 
 #endif

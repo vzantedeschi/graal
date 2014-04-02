@@ -12,7 +12,8 @@ class ComplexXSDElement : public XSDElement {
 	public:
 		ComplexXSDElement(string nom, list<XSDAttribut*>* atts, ComplexType* complexType);
 		~ComplexXSDElement();
-        string expr();
+        string expr(list<XSDElement*>* elems);
+        ComplexType* getComplexType();
 	protected:
 		ComplexType* complexType;
 };

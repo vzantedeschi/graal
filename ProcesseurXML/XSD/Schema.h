@@ -4,6 +4,7 @@
 #include <string>
 #include <list> 
 #include "XSDElement.h"
+#include "XSDAttribut.h"
 
 using namespace std;
 

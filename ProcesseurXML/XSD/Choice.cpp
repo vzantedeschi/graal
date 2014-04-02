@@ -3,10 +3,10 @@
 //class Choice
 Choice::Choice(list<XSDElement*>* XSDElements) : ComplexType( XSDElements) {}
 
-string Choice::expr(){
-    string res = "^(";
+string Choice::expr(list<XSDElement*>* elems){
+    string res = "^?(";
     bool debut = true;
-    for (XSDElement* elem : *XSDElements) {
+    for (XSDElement* elem : *xSDElements) {
         if (debut) {
             debut = false;
         }
@@ -14,10 +14,10 @@ string Choice::expr(){
             res += "|";
         }
         res += "(";
-        res += elem->expr();
+        res += elem->expr(elems);
         res += ")";
     }
-    res = ")$";
+    res = ")$?";
     return res;
 }
 

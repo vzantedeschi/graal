@@ -64,7 +64,9 @@ int main(int argc, char *argv[])
             // option -p
             xmlin = fid;
             retour = -1;
+
             retour = xmlparse(&xmlD);
+
             /* ------> continuer analyse et affichage ----*/
             if (!retour)
             {
