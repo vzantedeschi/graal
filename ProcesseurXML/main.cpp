@@ -7,6 +7,7 @@
 #include <iostream>
 #include <cstring>
 #include <string>
+#include <sstream>
 #include "re2/re2/re2.h"
 
 using namespace std;
@@ -123,7 +124,7 @@ int main(int argc, char *argv[])
                     cout << exp <<endl;
 #endif
 
-                    std::ostringstream stream;
+                    std::stringstream stream;
                     stream << *xmlD;
                     string str =  stream.str();
 
