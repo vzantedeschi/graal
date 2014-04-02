@@ -91,26 +91,27 @@ int main(int argc, char *argv[])
             if(strcmp(argv[1],"-v") == 0)
             {
                 //récupération fichier xsd
-                const char* nomfichierXSL = argv[3];
+                const char* nomfichierXSD = argv[3];
                 int retour;
+
                 #ifdef DEBUG
                 printf("%s \n",nomfichier);
                 #endif
 
-                fid = fopen(nomfichierXSL,"r");
+
+                fid = fopen(nomfichierXSD,"r");
 
                 if (!fid)
                 {
-                    cerr << "Unable to open " << nomfichier << endl;
+                    cerr << "Unable to open " << nomfichierXSD << endl;
                     /*gestion d'erreur*/
                     return 1;
                 }
-                else
-                {
+
 #ifdef DEBUG
                     cout<<"Fichier XSD Ouvert"<<endl;
 #endif
-                }
+
 
                 xsdin = fid;
                 retour = xsdparse(&xsdD);
@@ -139,11 +140,11 @@ int main(int argc, char *argv[])
 
                         if(RE2::FullMatch(str, exp))
                         {
-                            cout << "The file " << nomfichier<< " is valid wrt "  <<nomfichierXSL << endl;
+                            cout << "The file " << nomfichier<< " is valid wrt "  <<nomfichierXSD << endl;
                         }
                         else
                         {
-                            cout << "The file " << nomfichier<< " is not valid wrt "  <<nomfichierXSL << endl;
+                            cout << "The file " << nomfichier<< " is not valid wrt "  <<nomfichierXSD << endl;
                         }
                     }
                 }
