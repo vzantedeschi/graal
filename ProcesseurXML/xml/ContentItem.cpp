@@ -9,3 +9,16 @@ ostream& operator << (ostream& os, const ContentItem& CI){
 
 ContentItem::~ContentItem(){
 }
+
+string ContentItem::getNom(){
+	return "";
+}
+
+list<ContentItem *>* ContentItem::getContent()
+{
+	cout << "get content element" << endl;
+	return NULL;
+}
+void ContentItem::printDonnees()
+{
+}

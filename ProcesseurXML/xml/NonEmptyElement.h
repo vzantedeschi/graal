@@ -14,6 +14,9 @@ class NonEmptyElement : public Element {
 		~NonEmptyElement();
 
 		virtual void print(ostream& os) const;
+
+		list<ContentItem *>* getContent();
+		void printDonnees();
 	protected:
 		list<ContentItem *>* content;
 };

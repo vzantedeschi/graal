@@ -1,6 +1,11 @@
 #include "XSLDocument.h"
 
-XSLDocument::XSLDocument(XSLDeclaration * xsldecl, XSLCatalogue * catalogue) : xsldecl(xsldecl), catalogue(catalogue) {}
+XSLCatalogue* catalogue;
+
+XSLDocument::XSLDocument(XSLDeclaration * xsldecl, XSLCatalogue * cat) : xsldecl(xsldecl)
+{
+	catalogue = cat;
+}
 
 XSLDocument::~XSLDocument()
 {
@@ -8,9 +13,9 @@ XSLDocument::~XSLDocument()
 }
 
 void XSLDocument::afficherHTML(Document **docXML){
-	printf("FONCTIONS AFFICHAGE HTML A FAIRE");
+	Element* elementXML = (*docXML)->getElement();
 
-	catalogue->afficherHTML(docXML);
+	catalogue->afficherHTML(elementXML);
 }
 
 //string XSLDocument::afficherHTML(){

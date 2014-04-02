@@ -4,6 +4,7 @@
 #include <string>
 #include <list> 
 #include "XSLElement.h"
+
 using namespace std;
 
 class XSLElementHTML : public XSLElement {
@@ -11,6 +12,7 @@ class XSLElementHTML : public XSLElement {
 		XSLElementHTML(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
 		~XSLElementHTML() {}
 		
+		void afficherElements(ContentItem* elementXML);
 };
 
 #endif

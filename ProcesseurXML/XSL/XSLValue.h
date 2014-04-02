@@ -11,6 +11,8 @@ class XSLValue : public XSLElement {
 	public:
 		XSLValue(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
 		~XSLValue() {}
+
+		void afficherElements(ContentItem* elementXML);
 };
 
 #endif

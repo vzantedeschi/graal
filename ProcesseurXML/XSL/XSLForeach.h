@@ -11,6 +11,8 @@ class XSLForeach : public XSLElement {
 	public:
 		XSLForeach(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
 		~XSLForeach() {}
+		
+		void afficherElements(ContentItem* elementXML);
 };
 
 #endif

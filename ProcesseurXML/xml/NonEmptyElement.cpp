@@ -24,3 +24,15 @@ NonEmptyElement::~NonEmptyElement()
 	}
 	delete content;
 }
+
+list<ContentItem *>* NonEmptyElement::getContent()
+{
+	return content;
+}
+
+void NonEmptyElement::printDonnees()
+{
+	for(list<ContentItem *>::iterator it = this->content->begin(); it != this->content->end(); it++){
+		(*it)->printDonnees();
+	}
+}

@@ -9,6 +9,10 @@ class XSLAttribut {
 	public:
 		XSLAttribut(string nom,string valeur);
 		~XSLAttribut();
+		
+		string getNom();
+		string getValeur();
+		string getAttribut();
 	protected:
 		string nom;
 		string valeur;

@@ -10,5 +10,17 @@ Element::~Element()
 	delete atts;
 }
 
+string Element::getNom()
+{
+	return nom;
+}
 
+list<ContentItem *>* Element::getContent()
+{
+	cout << "get content element" << endl;
+	return NULL;
+}
 
+void Element::printDonnees()
+{
+}
