@@ -12,7 +12,7 @@ class XSLForeach : public XSLElement {
 		XSLForeach(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
 		~XSLForeach() {}
 		
-		void afficherElements();
+		void afficherElements(ContentItem* elementXML);
 };
 
 #endif

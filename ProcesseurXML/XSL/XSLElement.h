@@ -2,6 +2,7 @@
 #define XSLELEMENT_H
 
 #include "XSLAttribut.h"
+#include "../struct.h"
 #include <string>
 #include <list>
 using namespace std;
@@ -12,7 +13,7 @@ class XSLElement {
 		virtual ~XSLElement() {}
 
 		string getType();
-		virtual void afficherElements();
+		virtual void afficherElements(ContentItem* elementXML);
 	protected:
 		string type;
 		list<XSLElement *>* elementsInclus;

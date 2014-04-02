@@ -7,7 +7,7 @@ string XSLElement::getType()
 	return type;
 }
 
-void XSLElement::afficherElements() 
+void XSLElement::afficherElements(ContentItem * elementXML) 
 {
 	cout << "coucou" << endl;
 }

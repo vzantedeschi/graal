@@ -15,7 +15,7 @@ class XSLTemplate
 		XSLTemplate(list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
 		~XSLTemplate() {}
 
-		void afficherHTML(Document ** docXML);
+		void afficherHTML(ContentItem* elementXML);
 		string getPremierAttribut();
 	protected:
 		list<XSLAttribut *>* atts;

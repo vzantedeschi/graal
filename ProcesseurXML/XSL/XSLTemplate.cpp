@@ -2,11 +2,11 @@
 
 XSLTemplate::XSLTemplate(list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus) : atts(atts), elementsInclus(elementsInclus) {}
 
-void XSLTemplate::afficherHTML(Document **)
+void XSLTemplate::afficherHTML(ContentItem* elementXML)
 {
 	for(list<XSLElement *>::iterator it = this->elementsInclus->begin(); it != this->elementsInclus->end(); it++){
 		XSLElement* elementCourant = *it;
-		elementCourant->afficherElements();
+		elementCourant->afficherElements(elementXML);
 	}
 }
 
