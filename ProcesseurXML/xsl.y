@@ -109,37 +109,37 @@ elements
 template
  : INF TEMPLATE attributes SUP
    elements
-   INF SLASH TEMPLATE SUP	{ cout << "Balise Template" << endl;
+   INF SLASH TEMPLATE SUP	{ 
 			$$ = new XSLTemplate($3, $5);	
 				}           
  ;
 
 element
- : INF APPLY attributes SLASH SUP { cout << "Balise Apply-templates" << endl;
+ : INF APPLY attributes SLASH SUP { 
 			$$ = new XSLApply("apply",$3,NULL);
 				}
- | INF APPLY SLASH SUP { cout << "Balise Apply-templates vide" << endl;
+ | INF APPLY SLASH SUP { 
 			$$ = new XSLApply("apply",NULL,NULL);
 				}
- | INF VALUEOF attributes SLASH SUP { cout << "Balise Value-of" << endl;
+ | INF VALUEOF attributes SLASH SUP { 
 			$$ = new XSLValue("value",$3,NULL);
 				}
  | INF FOREACH attributes SUP
    elements
-   INF SLASH FOREACH SUP { cout << "Balise For-each" << endl;
+   INF SLASH FOREACH SUP { 
 			$$ = new XSLForeach("foreach",$3,$5);
 				}
  | INF NOM attributes SUP
    elements
-   INF SLASH NOM SUP	{ cout << "Balise HTML" << endl;
+   INF SLASH NOM SUP	{ 
 			if(strcmp($2,$8)){
 				cout << $2 << "," << $8 <<" : le tag de debut ne correspond pas au tag de fin" << endl;}
 			$$ = new XSLElementHTML($2, $3, $5);
 				}
- | INF NOM attributes SLASH SUP		{ cout << "Balise HTML auto-fermante" << endl;
+ | INF NOM attributes SLASH SUP		{ 
 					$$ = new XSLElementHTML($2,$3,NULL);
 					}
- | DONNEES         {cout << "Du texte" << endl;
+ | DONNEES         {
 			$$ = new XSLContent($1,NULL,NULL);
 			}
  ;
