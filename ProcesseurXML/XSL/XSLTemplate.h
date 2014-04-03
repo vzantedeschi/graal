@@ -13,7 +13,7 @@ class XSLTemplate
 {
 	public:
 		XSLTemplate(list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
-		~XSLTemplate() {}
+		~XSLTemplate();
 
 		void afficherHTML(ContentItem* elementXML);
 		string getPremierAttribut();

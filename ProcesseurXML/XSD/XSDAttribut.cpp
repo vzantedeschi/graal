@@ -4,7 +4,9 @@
 //class XSDAttribut
 XSDAttribut::XSDAttribut(string nom,string valeur): nom(nom), valeur(valeur){}
 
-XSDAttribut::~XSDAttribut(){}
+XSDAttribut::~XSDAttribut(){
+    
+}
 
 string XSDAttribut::expr(){
     string res ="";

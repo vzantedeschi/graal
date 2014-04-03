@@ -10,7 +10,7 @@ using namespace std;
 class XSLForeach : public XSLElement {
 	public:
 		XSLForeach(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
-		~XSLForeach() {}
+		~XSLForeach();
 		
 		void afficherElements(ContentItem* elementXML);
 };

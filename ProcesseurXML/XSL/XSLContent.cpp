@@ -1,7 +1,11 @@
 #include "XSLContent.h"
 
 
-XSLContent::XSLContent(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus) : XSLElement(type, atts, elementsInclus) {}
+XSLContent::XSLContent(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus) : XSLElement(type, NULL, NULL) {}
+
+XSLContent::~XSLContent()
+{
+}
 
 void XSLContent::afficherElements(ContentItem* elementXML)
 {

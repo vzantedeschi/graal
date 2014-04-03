@@ -13,7 +13,7 @@ using namespace std;
 class XSLApply : public XSLElement {
 	public:
 		XSLApply(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
-		~XSLApply() {}
+		~XSLApply();
 
 		void afficherElements(ContentItem * elementXML);
 

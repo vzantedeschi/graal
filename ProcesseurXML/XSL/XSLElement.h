@@ -10,7 +10,7 @@ using namespace std;
 class XSLElement {
 	public:
 		XSLElement(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus);
-		virtual ~XSLElement() {}
+		virtual ~XSLElement();
 
 		string getType();
 		virtual void afficherElements(ContentItem* elementXML);

@@ -2,6 +2,20 @@
 
 XSLTemplate::XSLTemplate(list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus) : atts(atts), elementsInclus(elementsInclus) {}
 
+XSLTemplate::~XSLTemplate()
+{
+	for(XSLAttribut * att: *atts)
+	{
+		delete att;
+	}
+	delete atts;
+	for(XSLElement * elem: *elementsInclus)
+	{
+		delete elem;
+	}
+	delete elementsInclus;
+}
+
 void XSLTemplate::afficherHTML(ContentItem* elementXML)
 {
 	for(list<XSLElement *>::iterator it = this->elementsInclus->begin(); it != this->elementsInclus->end(); it++){
