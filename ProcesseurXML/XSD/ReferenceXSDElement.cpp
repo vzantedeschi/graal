@@ -36,17 +36,38 @@ string ReferenceXSDElement::expr(list<XSDElement*>* elems){
     if (trouve)
     {
         string maxOccurs = "0";
+        string minOccurs = "0";
+        bool maxTrouve = false;
+        bool minTrouve = false;
         // chercher le nombre d occurences max de la reference
         for (XSDAttribut* att : *atts)
         {
             if (att->getNom().compare("maxOccurs")==0)
             {
                 maxOccurs = att ->getValeur();
+                maxTrouve = true;
+            }
+
+            if (att->getNom().compare("minOccurs")==0)
+            {
+                minOccurs = att ->getValeur();
+                minTrouve = true;
+            }
+
+            if(maxTrouve && minTrouve)
+            {
                 break;
             }
         }
-        // autant de regex que de maxoccurs
-        res += "(" + leBon->expr(elems) + "){0," + maxOccurs + "}";
+
+        if (minOccurs.compare("unbounded") == 0)
+        {
+            res += "(" + leBon->expr(elems) + ")*";
+        }
+        else
+        {
+            res += "(" + leBon->expr(elems) + "){" + minOccurs + "," + maxOccurs + "}";
+        }
     }
     else
     {
