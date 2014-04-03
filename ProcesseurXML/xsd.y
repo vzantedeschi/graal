@@ -104,17 +104,20 @@ complexElement
  : INF ELEMENT nom attributes SUP
    INF COMPLEXTYPE SUP complexType INF SLASH COMPLEXTYPE SUP
    INF SLASH ELEMENT SUP {
-         $$ = new ComplexXSDElement($3,$4,$9);}
+         $$ = new ComplexXSDElement($3,$4,$9);
+         free($3);}
  ;
 
 simpleElement
  : INF ELEMENT nom attributes SLASH SUP {
-         $$ = new SimpleXSDElement($3,$4);}
+         $$ = new SimpleXSDElement($3,$4);
+         free($3);}
  ;
 
 referenceElement
  : INF ELEMENT ref attributes SLASH SUP {
-         $$ = new ReferenceXSDElement($3,$4);}
+         $$ = new ReferenceXSDElement($3,$4);
+         free($3);}
  ;
 
 complexType
@@ -149,7 +152,9 @@ attributes
 /* attribute : attribut quelconque */
 attribute
  : NOM EGAL VALEUR {
-         $$ = new XSDAttribut($1, $3);}
+         $$ = new XSDAttribut($1, $3);
+         free($1);
+         free($3);}
  ;
 
 /* nom : attribut de nom 'name' */
@@ -172,13 +177,15 @@ prolog
 
 doctypedecl
  : INFSPECIAL NOM attribute attribute SUPSPECIAL {
-         $$ = new XSDDeclaration($3, $4);}
+         $$ = new XSDDeclaration($3, $4);
+         free($2);}
  ;
 
 comments
  : comments COMMENT {
          $$ = $1;
-         $$->push_back(new XSDComment($2));}
+         $$->push_back(new XSDComment($2));
+         free($2);}
  | /*vide*/ {
          $$ = new list<XSDComment *>();}
  ;
