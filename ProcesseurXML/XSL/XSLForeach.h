@@ -13,6 +13,7 @@ class XSLForeach : public XSLElement {
 		~XSLForeach();
 		
 		void afficherElements(ContentItem* elementXML);
+        void afficherElements(Document ** xmlD);
 };
 
 #endif

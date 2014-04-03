@@ -13,10 +13,9 @@ XSLDocument::~XSLDocument()
 	delete catalogue;
 }
 
-void XSLDocument::afficherHTML(Document **docXML){
-	Element* elementXML = (*docXML)->getElement();
-
-	catalogue->afficherHTML(elementXML);
+void XSLDocument::afficherHTML(Document **docXML)
+{
+	catalogue->afficherHTML(docXML);
 }
 
 //string XSLDocument::afficherHTML(){

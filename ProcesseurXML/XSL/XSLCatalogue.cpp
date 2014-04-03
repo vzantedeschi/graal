@@ -14,12 +14,12 @@ XSLCatalogue::~XSLCatalogue(){
 	delete templates;
 }
 
-void XSLCatalogue::afficherHTML(Element* elementXML)
+void XSLCatalogue::afficherHTML(Document **docXML)
 {
 	for(list<XSLTemplate *>::iterator it = this->templates->begin(); it != this->templates->end(); it++){
 		if ((**it).getPremierAttribut() == "/")
 		{
-			(**it).afficherHTML(elementXML);
+			(**it).afficherHTML(docXML);
 		}
 	}
 }

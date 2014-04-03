@@ -14,6 +14,7 @@ class XSLElement {
 
 		string getType();
 		virtual void afficherElements(ContentItem* elementXML);
+        virtual void afficherElements(Document **docXML); 
 	protected:
 		string type;
 		list<XSLElement *>* elementsInclus;

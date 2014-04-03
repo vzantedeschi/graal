@@ -16,6 +16,7 @@ class XSLTemplate
 		~XSLTemplate();
 
 		void afficherHTML(ContentItem* elementXML);
+        void afficherHTML(Document **docXML);
 		string getPremierAttribut();
 	protected:
 		list<XSLAttribut *>* atts;

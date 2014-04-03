@@ -31,3 +31,8 @@ string XSLElement::getType()
 void XSLElement::afficherElements(ContentItem * elementXML) 
 {
 }
+
+void XSLElement::afficherElements(Document **docXML) 
+{
+}
+

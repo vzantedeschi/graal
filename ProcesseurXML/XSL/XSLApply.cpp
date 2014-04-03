@@ -9,6 +9,25 @@ XSLApply::~XSLApply()
 {
 }
 
+void XSLApply::afficherElements(Document **docXML) 
+{
+	Element* elementXML = (*docXML)->getElement();
+	list<ContentItem *>* contentList = elementXML->getContent();
+	for(list<ContentItem *>::iterator it1 = contentList->begin(); it1 != contentList->end(); it1++){
+		if (typeid(**it1) == typeid(NonEmptyElement) || typeid(**it1) == typeid(EmptyElement)) 
+		{
+			//cout << (*it1)->getNom() << endl;
+			for(list<XSLTemplate *>::iterator it2 = (catalogue->getTemplates())->begin(); it2 != (catalogue->getTemplates())->end(); it2++){
+				if((**it2).getPremierAttribut() == (*it1)->getNom())
+				{
+					(**it2).afficherHTML(*it1);
+					//cout << (*it1)->getNom() << endl;
+				}
+			}
+		}
+	}
+}
+
 void XSLApply::afficherElements(ContentItem * elementXML)
 {
 	if(atts)

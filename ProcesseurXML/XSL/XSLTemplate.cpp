@@ -24,6 +24,14 @@ void XSLTemplate::afficherHTML(ContentItem* elementXML)
 	}
 }
 
+void XSLTemplate::afficherHTML(Document **docXML)
+{
+    for(list<XSLElement *>::iterator it = this->elementsInclus->begin(); it != this->elementsInclus->end(); it++){
+		XSLElement* elementCourant = *it;
+		elementCourant->afficherElements(docXML);
+	}
+}
+
 string XSLTemplate::getPremierAttribut()
 {
 	auto l_front = (*atts).begin();

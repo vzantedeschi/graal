@@ -11,3 +11,8 @@ void XSLContent::afficherElements(ContentItem* elementXML)
 {
 	cout << this->getType() << endl;
 }
+
+void XSLContent::afficherElements(Document ** xmlD)
+{
+	cout << this->getType() << endl;
+}

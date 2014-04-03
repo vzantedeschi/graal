@@ -15,7 +15,7 @@ class XSLCatalogue {
 		XSLCatalogue(list<XSLAttribut *>* atts,list<XSLTemplate *>* templates);
 		~XSLCatalogue();
 
-		void afficherHTML(Element* elementXML);
+		void afficherHTML(Document **docXML);
 		list<XSLTemplate *>* getTemplates();
 	protected:
 		list<XSLAttribut*>* atts;

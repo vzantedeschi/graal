@@ -16,6 +16,7 @@ class XSLApply : public XSLElement {
 		~XSLApply();
 
 		void afficherElements(ContentItem * elementXML);
+        void afficherElements(Document **docXML); 
 
 };
 

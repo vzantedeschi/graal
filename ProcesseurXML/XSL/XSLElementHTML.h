@@ -13,6 +13,7 @@ class XSLElementHTML : public XSLElement {
 		~XSLElementHTML();
 		
 		void afficherElements(ContentItem* elementXML);
+        void afficherElements(Document ** xmlD);
 };
 
 #endif
