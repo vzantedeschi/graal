@@ -12,3 +12,13 @@ string Sequence::expr(list<XSDElement*>* elems){
     }
     return res;
 }
+
+XSDElement* Sequence::reference(string n){
+    for (XSDElement* elem : *xSDElements) {
+        XSDElement* e = elem->reference(n);
+        if(e !=nullptr){
+            return e;
+        }
+    }
+    return nullptr;
+}

@@ -23,3 +23,13 @@ string Choice::expr(list<XSDElement*>* elems){
     return res;
 }
 
+XSDElement* Choice::reference(string n){
+    for (XSDElement* elem : *xSDElements) {
+        XSDElement* e = elem->reference(n);
+        if(e != nullptr){
+            return e;
+        }
+    }
+    return nullptr;
+}
+

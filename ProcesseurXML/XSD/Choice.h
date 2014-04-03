@@ -13,6 +13,7 @@ class Choice : public ComplexType {
 		Choice(list<XSDElement*>* XSDElements);
         ~Choice();
         string expr(list<XSDElement*>* elems);
+        XSDElement* reference(string nom);
 };
 
 #endif

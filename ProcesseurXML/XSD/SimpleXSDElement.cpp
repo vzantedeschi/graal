@@ -19,3 +19,12 @@ string SimpleXSDElement::expr(list<XSDElement*>* elems){
     res += "/>))";
     return res;
 }
+
+
+XSDElement* SimpleXSDElement::reference(string n){
+
+    if (this->nom.compare(n) ==0){
+        return this;
+    }
+    return nullptr;
+}

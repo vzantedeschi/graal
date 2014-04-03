@@ -13,6 +13,7 @@ class ComplexType {
         virtual ~ComplexType();
 		virtual string expr(list<XSDElement*>* elems);
         list<XSDElement*>* getxSDElements();
+        virtual XSDElement* reference(string nom) =0;
 	protected:
 		list<XSDElement*>* xSDElements;
 };

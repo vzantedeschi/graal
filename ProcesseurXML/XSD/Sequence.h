@@ -12,6 +12,7 @@ class Sequence : public ComplexType {
 		Sequence(list<XSDElement*>* XSDElements);
         ~Sequence();
         string expr(list<XSDElement*>* elems);
+        XSDElement* reference(string nom);
 };
 
 #endif

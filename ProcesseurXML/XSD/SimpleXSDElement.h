@@ -12,6 +12,7 @@ class SimpleXSDElement : public XSDElement {
 		SimpleXSDElement(string nom, list<XSDAttribut*>* atts);
 		~SimpleXSDElement();
         string expr(list<XSDElement*>* elems);
+        XSDElement* reference(string nom);
 };
 
 #endif

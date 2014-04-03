@@ -13,6 +13,7 @@ class XSDElement {
         virtual ~XSDElement();
         virtual string expr(list<XSDElement*>* elems);
         string getNom();
+        virtual XSDElement* reference(string nom) =0;
 	protected:
         string nom;
 		list<XSDAttribut*>* atts;

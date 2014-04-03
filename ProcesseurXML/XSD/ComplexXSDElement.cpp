@@ -24,3 +24,11 @@ string ComplexXSDElement::expr(list<XSDElement*>* elems){
 ComplexType* ComplexXSDElement::getComplexType(){
     return complexType;
 }
+
+XSDElement* ComplexXSDElement::reference(string n){
+
+    if (this->nom.compare(n) == 0){
+        return this;
+    }
+    return complexType->reference(n);
+}

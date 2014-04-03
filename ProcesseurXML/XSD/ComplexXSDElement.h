@@ -14,6 +14,7 @@ class ComplexXSDElement : public XSDElement {
 		~ComplexXSDElement();
         string expr(list<XSDElement*>* elems);
         ComplexType* getComplexType();
+        XSDElement* reference(string nom);
 	protected:
 		ComplexType* complexType;
 };

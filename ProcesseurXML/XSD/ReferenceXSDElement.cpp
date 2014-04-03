@@ -76,3 +76,7 @@ string ReferenceXSDElement::expr(list<XSDElement*>* elems){
 
     return res;
 }
+
+XSDElement* ReferenceXSDElement::reference(string n){
+    return nullptr;
+}

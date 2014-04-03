@@ -12,6 +12,7 @@ class ReferenceXSDElement : public XSDElement {
 		ReferenceXSDElement(string nom, list<XSDAttribut*>* atts);
 		~ReferenceXSDElement();
         string expr(list<XSDElement*>* elems);
+        XSDElement* reference(string nom);
 };
 
 #endif
