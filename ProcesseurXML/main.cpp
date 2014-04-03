@@ -1,4 +1,5 @@
 //#define DEBUG
+//#define XSDDEBUG
 
 #include "commun.h"
 #include "structXSL.h"
@@ -41,9 +42,9 @@ int main(int argc, char *argv[])
             FILE * fid;
             const char* nomfichier = argv[2];
             int retour;
-            #ifdef DEBUG
+#ifdef DEBUG
             printf("%s \n",nomfichier);
-            #endif
+#endif
 
             fid = fopen(nomfichier,"r");
 
@@ -70,9 +71,9 @@ int main(int argc, char *argv[])
             if (!retour)
             {
                 xmlCreated = true;
-                #ifdef DEBUG
+#ifdef DEBUG
                 cout<<"Entrée standard reconnue"<<endl;
-                #endif
+#endif
                 if(strcmp(argv[1],"-p") == 0)
                 {
                     cout << "\n" << *xmlD;
@@ -94,9 +95,9 @@ int main(int argc, char *argv[])
                 const char* nomfichierXSD = argv[3];
                 int retour;
 
-                #ifdef DEBUG
+#ifdef DEBUG
                 printf("%s \n",nomfichier);
-                #endif
+#endif
 
 
                 fid = fopen(nomfichierXSD,"r");
@@ -109,7 +110,7 @@ int main(int argc, char *argv[])
                 }
 
 #ifdef DEBUG
-                    cout<<"Fichier XSD Ouvert"<<endl;
+                cout<<"Fichier XSD Ouvert"<<endl;
 #endif
 
 
@@ -121,19 +122,19 @@ int main(int argc, char *argv[])
                 if (!retour)
                 {
                     xsdCreated = true;
-                    #ifdef DEBUG
+#ifdef DEBUG
                     cout<<"Entrée standard XSD reconnue"<<endl;
-                    #endif
+#endif
                     string exp = xsdD->expr();
 
-                    #ifdef DEBUG
+#ifdef XSDDEBUG
                     cout << "-------------------------------------------------------------------" <<endl;
                     cout << exp <<endl;
                     cout << "-------------------------------------------------------------------" <<endl;
-                    #endif
+#endif
                     if(xmlCreated){
                         string str =  xmlD->printElem();
-#ifdef DEBUG
+#ifdef XSDDEBUG
                         cout << str<<endl;
                         cout << "-------------------------------------------------------------------" <<endl;
 #endif
@@ -162,9 +163,9 @@ int main(int argc, char *argv[])
                 //retour = xsdparse(&d);
                 const char* nomfichier = argv[3];
                 int retour;
-                #ifdef DEBUG
+#ifdef DEBUG
                 printf("%s \n",nomfichier);
-                #endif
+#endif
 
                 fid = fopen(nomfichier,"r");
 
