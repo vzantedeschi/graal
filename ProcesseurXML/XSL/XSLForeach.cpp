@@ -3,6 +3,10 @@
 
 XSLForeach::XSLForeach(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus) : XSLElement(type, atts, elementsInclus) {}
 
+XSLForeach::~XSLForeach()
+{
+}
+
 void XSLForeach::afficherElements(ContentItem * elementXML)
 {
 	if (typeid(*elementXML) == typeid(NonEmptyElement))
@@ -25,6 +29,5 @@ void XSLForeach::afficherElements(ContentItem * elementXML)
 	}
 	else
 	{
-		cout <<"EmptyElement"<< endl;
 	}
 }

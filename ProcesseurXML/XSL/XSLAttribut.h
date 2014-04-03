@@ -8,7 +8,7 @@ using namespace std;
 class XSLAttribut {
 	public:
 		XSLAttribut(string nom,string valeur);
-		~XSLAttribut();
+		~XSLAttribut() {}
 		
 		string getNom();
 		string getValeur();

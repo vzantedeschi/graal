@@ -9,6 +9,8 @@ XSLDocument::XSLDocument(XSLDeclaration * xsldecl, XSLCatalogue * cat) : xsldecl
 
 XSLDocument::~XSLDocument()
 {
+	delete xsldecl;
+	delete catalogue;
 }
 
 void XSLDocument::afficherHTML(Document **docXML){

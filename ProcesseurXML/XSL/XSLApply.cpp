@@ -5,6 +5,10 @@ extern XSLCatalogue* catalogue;
 
 XSLApply::XSLApply(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus) : XSLElement(type, atts, elementsInclus) {}
 
+XSLApply::~XSLApply() 
+{
+}
+
 void XSLApply::afficherElements(ContentItem * elementXML)
 {
 	if(atts)
@@ -20,10 +24,9 @@ void XSLApply::afficherElements(ContentItem * elementXML)
 			{
 				//cout << (*it1)->getNom() << endl;
 				for(list<XSLTemplate *>::iterator it2 = (catalogue->getTemplates())->begin(); it2 != (catalogue->getTemplates())->end(); it2++){
-					XSLTemplate templateCourant = **it2;
-					if(templateCourant.getPremierAttribut() == (*it1)->getNom())
+					if((**it2).getPremierAttribut() == (*it1)->getNom())
 					{
-						templateCourant.afficherHTML(*it1);
+						(**it2).afficherHTML(*it1);
 						//cout << (*it1)->getNom() << endl;
 					}
 				}
@@ -38,10 +41,9 @@ void XSLApply::afficherElements(ContentItem * elementXML)
 			{
 				//cout << (*it1)->getNom() << endl;
 				for(list<XSLTemplate *>::iterator it2 = (catalogue->getTemplates())->begin(); it2 != (catalogue->getTemplates())->end(); it2++){
-					XSLTemplate templateCourant = **it2;
-					if(templateCourant.getPremierAttribut() == (*it1)->getNom())
+					if((**it2).getPremierAttribut() == (*it1)->getNom())
 					{
-						templateCourant.afficherHTML(*it1);
+						(**it2).afficherHTML(*it1);
 						//cout << (*it1)->getNom() << endl;
 					}
 				}
@@ -50,6 +52,5 @@ void XSLApply::afficherElements(ContentItem * elementXML)
 	}
 	else
 	{
-		cout <<"EmptyElement"<< endl;
 	}
 }

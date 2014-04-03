@@ -135,29 +135,18 @@ element
 			if(strcmp($2,$8)){
 				cout << $2 << "," << $8 <<" : le tag de debut ne correspond pas au tag de fin" << endl;}
 			$$ = new XSLElementHTML($2, $3, $5);
+			free($2);
+			free($8);
 				}
  | INF NOM attributes SLASH SUP		{ 
 					$$ = new XSLElementHTML($2,$3,NULL);
+					free($2);
 					}
  | DONNEES         {
 			$$ = new XSLContent($1,NULL,NULL);
+			free($1);
 			}
  ;
-
-//content
-// : content element	{
-//			$$->push_back($2);}
-// | content cdsect	{
-//			$$->push_back($2);}
-// | content misc		{
-//			$$->push_back($2);}   
-// | content DONNEES	{
-//			$$->push_back(new XSLDonnees($2));}
-// | /* vide */     	{
-//			$$ = new list<XSLContentItem *>();}         
-// ;
-
-//////////////////////////////////////
 
 attributes
  : attributes attribute {
@@ -169,53 +158,18 @@ attributes
 
 attribute
  : NOM EGAL VALEUR {
-			$$ = new XSLAttribut($1, $3);}
+			$$ = new XSLAttribut($1, $3);
+			free($1);
+			free($3);}
  | NOM COLON NOM EGAL VALEUR {
-			$$ = new XSLAttribut($3, $5);}
+			$$ = new XSLAttribut($3, $5);
+			free($1);
+			free($3);
+			free($5);}
  ;
-
-//doctypedecl
-// : DOCTYPE NOM NOM SUP {
-//			$$ = new XSLDocTypeDecl($2, $3);}
-// | DOCTYPE NOM SUP {
-//			$$ = new XSLDocTypeDecl($2, " ");}
-// ;
-
-//prolog
-// : xmldecl miscs doctypedecl miscs	{
-//				$$ = new XSLProlog($1, $3, $2, $4);}
-// | miscs doctypedecl miscs  /** Ces lignes sont commentées parce qu'elles créent un conflit décalage/réduction avec la règle 0 : ".document" à la lecture du symbole INFSPECIAL (voir xml.output)
-// | xmldecl miscs	{
-//				$$ = new XSLProlog($1, NULL, $2, NULL);}	
-// | miscs
-// ;
 
 xsldecl
  : INFSPECIAL NOM attributes SUPSPECIAL	{
-			$$ = new XSLDeclaration($3);}
+			$$ = new XSLDeclaration($3);
+			free($2);}
  ;
-
-//miscs
-// : miscs misc {
-//$$ = $1;
-//$$->push_back($2);}
-// | /*vide*/ {
-//$$ = new list<XSLMisc *>();}
-// ;
-
-//misc
-// : COMMENT {
-//$$ = new XSLComment($1);}
-// | pi {
-//$$ = $1;}
-// ;
-
-//pi
-// : INFSPECIAL NOM attributes SUPSPECIAL {
-//$$ = new XSLPI($2, $3);}
-// ;
-
-//cdsect
-// : CDATABEGIN CDATAEND {
-//$$ = new XSLCDSect($2);}
-// ;

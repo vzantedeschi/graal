@@ -2,6 +2,10 @@
 
 XSLElementHTML::XSLElementHTML(string type, list<XSLAttribut *>* atts, list<XSLElement *>* elementsInclus) : XSLElement(type, atts, elementsInclus) {}
 
+XSLElementHTML::~XSLElementHTML()
+{
+}
+
 void XSLElementHTML::afficherElements(ContentItem* elementXML)
 {
 	if (elementsInclus)

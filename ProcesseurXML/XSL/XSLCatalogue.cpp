@@ -3,13 +3,23 @@
 //class XSLCatalogue
 XSLCatalogue::XSLCatalogue(list<XSLAttribut *>* atts,list<XSLTemplate *>* templates): atts(atts), templates(templates) {}
 
+XSLCatalogue::~XSLCatalogue(){
+	for(XSLAttribut * att : *atts){
+		delete att;
+	}
+	delete atts;
+	for(XSLTemplate * temp : *templates){
+		delete temp;
+	}
+	delete templates;
+}
+
 void XSLCatalogue::afficherHTML(Element* elementXML)
 {
 	for(list<XSLTemplate *>::iterator it = this->templates->begin(); it != this->templates->end(); it++){
-		XSLTemplate templateCourant = **it;
-		if (templateCourant.getPremierAttribut() == "/")
+		if ((**it).getPremierAttribut() == "/")
 		{
-			templateCourant.afficherHTML(elementXML);
+			(**it).afficherHTML(elementXML);
 		}
 	}
 }
