@@ -15,20 +15,10 @@ string ReferenceXSDElement::expr(list<XSDElement*>* elems){
     XSDElement* leBon;
     for (XSDElement* elem : *elems)
     {
-        // pour le moment ne regarde que les elements au premier niveau du schema
-        if ( nom.compare(elem->getNom()) == 0)
+        leBon = elem->reference(nom);
+        if (leBon != nullptr)
         {
             trouve = true;
-            leBon = elem;
-            break;
-        }
-        if (typeid(elem) == typeid(ComplexXSDElement))
-        {
-            //TODO rechercher dans les sous elements de manière recursive pour trouver la reference
-            //TODO creer une methode recursive de recherche de l element
-        }
-        if (trouve)
-        {
             break;
         }
     }
