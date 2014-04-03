@@ -23,3 +23,7 @@ list<ContentItem *>* ContentItem::getContent()
 void ContentItem::printDonnees()
 {
 }
+
+void ContentItem::matchPath(list<ContentItem *>* liste, string path)
+{
+}

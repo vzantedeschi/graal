@@ -31,3 +31,6 @@ EmptyElement::~EmptyElement()
 void EmptyElement::printDonnees(){
 }
 
+void EmptyElement::matchPath(list<ContentItem*>* liste,string path){
+}
+

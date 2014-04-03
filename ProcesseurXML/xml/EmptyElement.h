@@ -16,6 +16,7 @@ class EmptyElement : public Element {
 
         string printElem();
 		void printDonnees();
+        void matchPath(list<ContentItem*>* liste,string path);
 };
 
 #endif

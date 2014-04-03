@@ -21,6 +21,11 @@ list<ContentItem *>* Element::getContent()
 	return NULL;
 }
 
+void Element::matchPath(list<ContentItem *>* liste,string path)
+{
+	cout << "get content element" << endl;
+}
+
 void Element::printDonnees()
 {
 }
