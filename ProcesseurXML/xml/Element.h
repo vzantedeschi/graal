@@ -17,6 +17,7 @@ class Element : public ContentItem {
 		
 		string getNom();
 		virtual list<ContentItem *>* getContent();
+        virtual void matchPath(list<ContentItem *>* liste,string path);
 		virtual void printDonnees();
 	protected:
 		string nom;

@@ -4,6 +4,23 @@
 NonEmptyElement::NonEmptyElement(string nom, list<Attribut *>* atts, list<ContentItem *>* content) : 
     Element(nom, atts), content(content) {}
 
+void NonEmptyElement::matchPath(list<ContentItem*>* liste,string path)
+{
+    string t = path.substr(0, path.find('/'));
+    if (t != "")
+    {
+        for(list<ContentItem *>::iterator it = this->content->begin(); it != this->content->end(); it++){
+            if((*it)->getNom() == t)
+            {
+                path = path.substr(path.find('/')+1);
+                return (*it)->matchPath(liste,path);
+            }
+        }
+    }
+    liste->push_back(this);
+}
+
+
 //ostream& operator << (ostream& os, const NonEmptyElement& NE){
 void NonEmptyElement::print(ostream& os) const {
     os << "<" << this->nom;
@@ -56,6 +73,11 @@ NonEmptyElement::~NonEmptyElement()
 list<ContentItem *>* NonEmptyElement::getContent()
 {
     return content;
+}
+
+string NonEmptyElement::getNom()
+{
+    return nom;
 }
 
 void NonEmptyElement::printDonnees()

@@ -15,6 +15,7 @@ class ContentItem {
 		virtual string getNom();
 		virtual list<ContentItem *>* getContent();
 		virtual void printDonnees();
+        virtual void matchPath(list<ContentItem *>* liste, string path);
 };
 
 #endif
